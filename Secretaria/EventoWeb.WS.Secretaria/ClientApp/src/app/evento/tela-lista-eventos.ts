@@ -15,7 +15,7 @@ import { CaixaMensagemResposta } from '../componentes/alertas-dlg/caixa-mensagem
 })
 export class TelaListaEventos implements OnInit {
 
-  eventos: DTOEventoMinimo[];
+  eventos!: DTOEventoMinimo[];
 
   constructor(public wsEventos: WebServiceEventos,
     public alertas: Alertas,

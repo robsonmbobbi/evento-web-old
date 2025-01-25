@@ -9,11 +9,11 @@ var contexto = new Contexto(sessionFactory.OpenSession());
 contexto.IniciarTransacao();
 try
 {
-    var confEmail = contexto.RepositorioConfiguracoesEmail.Obter(11);
-    var inscricoes = contexto.RepositorioInscricoes.ListarTodasPorEventoESituacao(11, EventoWeb.Nucleo.Negocio.Entidades.EnumSituacaoInscricao.Aceita);
+    var confEmail = contexto.RepositorioConfiguracoesEmail.Obter(13);
+    var inscricoes = contexto.RepositorioInscricoes.ListarTodasPorEventoESituacao(13, EventoWeb.Nucleo.Negocio.Entidades.EnumSituacaoInscricao.Aceita);
 
-    var bytes = File.ReadAllBytes("D:\\Mensagens Mediúnicas CEOMG 2023.pdf");
-    var base64 = Convert.ToBase64String(bytes);
+    var base64Cardapio = Convert.ToBase64String(File.ReadAllBytes("D:\\Cardapio.pdf"));
+    var base64Cronograma = Convert.ToBase64String(File.ReadAllBytes("D:\\Cronograma.pdf"));
 
     var servicoEmail = new ServicoEmail()
     {
@@ -26,10 +26,14 @@ try
         servicoEmail.Enviar(
             new Email()
             {
-                Assunto = "41º CEOMG - Avaliação CEOMG",
-                Conteudo = "<p>Ol&aacute; querida(o) amiga(o)!!!</p>\r\n\r\n<p>Enviamos esta mensagem com <strong>tr&ecirc;s finalidades</strong>: <em>divulgar as mensagens medi&uacute;nicas recebidas</em> durante a <strong>41&ordm; CEOMG</strong>, <em>pedir que voc&ecirc;, dentro do poss&iacute;vel, possa nos responder um question&aacute;rio online com o prop&oacute;sito de avaliar o encontro e nos permitir melhor&aacute;-lo,</em> e o <em>link do drive com as fotos do evento</em> para voc&ecirc; poder matar saudades desses momentos.</p>\r\n\r\n<p>Para isso, <strong>em anexo, esta uma arquivo com as mensagens medi&uacute;nicas</strong> e abaixo segue os links para avalia&ccedil;&atilde;o e do drive de fotos.</p>\r\n\r\n<p><strong>Link da avalia&ccedil;&atilde;o do encontro: <a href=\"https://forms.gle/6gQpbykBcvGA3naQ8\">https://forms.gle/6gQpbykBcvGA3naQ8</a></strong></p>\r\n\r\n<p><strong>Link do drive de fotos: <a href=\"https://drive.google.com/drive/folders/1SiRXUbL7DlTX5ZJYebDMgWQD7Cl3gRaU?usp=sharing\">https://drive.google.com/drive/folders/1SiRXUbL7DlTX5ZJYebDMgWQD7Cl3gRaU?usp=sharing</a></strong></p>\r\n\r\n<p>Um grande abra&ccedil;o fraterno!!</p>\r\n\r\n<p><em><strong>Equipe CEOMG</strong></em></p>\r\n",
+                Assunto = "42º CEOMG - Encontro chegando...",
+                Conteudo = "<p>Olá! Minhas companheiras e companheiros de vida💓🌻</p>\r\n<p>Nossa deliciosa 42º CEOMG está chegando! Que delícia e que saudades!</p>\r\n<p>Para você passar o encontro com mais tranquilidade vamos deixar aqui alguns lembretes importantes!!!!</p>\r\n<p>Leve na sua mala!</p>\r\n<p>💓 Afeto<br>▶️ Repelente<br>▶️ Desodorante<br>▶️ Escova de Dentes<br>▶️ Sabonete<br>▶️ Colchão<br>▶️ Roupa de cama<br>▶️ Travesseiro<br>▶️ Se seu colchão for de ar, um pano para colocar embaixo ( isso evita furos)<br>▶️ Se você sente frio, leve uma \"brusinha\" meio termo.<br>▶️ Garrafinha de água (para ir enchendo pelos bebedouros da universidade)<br>😁Bom humor</p>\r\n<p>🗺️ &nbsp;Endereço da UNIFOR: Rua Doutor Arnaldo Sena, 328, bairro Del Rey.<br>🚙 Os veículos poderão estacionar no próprio pátio de estacionamento da universidade, na entrada principal.</p>\r\n<p>🗓️ Segue anexo o cronograma do encontro, bem como o cardápio da alimentação que será oferecida. Caso você tenha necessidade de algum alimento especial, que não está contemplado dentro da alimentação oferecida, sugerimos que você leve o que precisa.</p>\r\n<p>Que tenhamos um excelente encontro, que será temperado pela vibração do teu coração, que o Cristo permaneça vivo a nos iluminar e até breve!💓💓💓🌻</p>\r\n<p>Abraços quentinhos, coordenação e equipe de secretaria CEOMG!</p>",
                 Endereco = inscrito.Pessoa.Email,
-                Anexos = new List<AnexoEmail>() { new AnexoEmail("Mensagens Mediúnicas CEOMG 2023.pdf", base64)  }
+                Anexos = new List<AnexoEmail>() 
+                { 
+                    new("Cardapio.pdf", base64Cardapio),
+                    new("Cronograma.pdf", base64Cronograma)
+                }
             }
         );
 

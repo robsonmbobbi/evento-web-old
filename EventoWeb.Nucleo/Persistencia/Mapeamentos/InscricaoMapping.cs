@@ -71,12 +71,6 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
                 m.NotNullable(true);
                 m.Cascade(Cascade.All | Cascade.DeleteOrphans);
             });
-            Property(x => x.PrimeiroEncontro, m =>
-            {
-                m.Access(Accessor.Property);
-                m.Column("PRIMEIRO_ENCONTRO");
-                m.NotNullable(true);
-            });
             Property(x => x.Situacao, m =>
             {
                 m.Access(Accessor.NoSetter);
@@ -176,40 +170,6 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
             {
                 m.Access(Accessor.Property);
                 m.Column("INSTITUICOES_ESPIRITAS_FREQ");
-                m.NotNullable(false);
-            });
-            Property(x => x.NomeResponsavelCentro, m =>
-            {
-                m.Access(Accessor.Property);
-                m.Column("NOME_RESP_CENTRO");
-                m.Length(150);
-                m.NotNullable(false);
-            });
-            Property(x => x.NomeResponsavelLegal, m =>
-            {
-                m.Access(Accessor.Property);
-                m.Column("NOME_RESP_LEGAL");
-                m.Length(150);
-                m.NotNullable(false);
-            });            
-            Property(x => x.TelefoneResponsavelCentro, m =>
-            {
-                m.Access(Accessor.Property);
-                m.Column("TELEFONE_RESP_CENTRO");
-                m.Length(15);
-                m.NotNullable(false);
-            });
-            Property(x => x.TelefoneResponsavelLegal, m =>
-            {
-                m.Access(Accessor.Property);
-                m.Column("TELEFONE_RESP_LEGAL");
-                m.NotNullable(false);
-                m.Length(15);
-            });
-            Property(x => x.TempoEspirita, m =>
-            {
-                m.Access(Accessor.Property);
-                m.Column("TEMPO_ESPIRITA");
                 m.NotNullable(false);
             });
         }

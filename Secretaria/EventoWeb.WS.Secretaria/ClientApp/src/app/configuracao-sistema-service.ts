@@ -1,7 +1,7 @@
 
 export class Configuracao {
-    dominio: string;
-    urlBaseWs: string;
+    dominio?: string;
+    urlBaseWs?: string;
 }
 
 export class ConfiguracaoSistemaService {

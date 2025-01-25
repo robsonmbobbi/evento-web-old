@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Injectable } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material";
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { Alertas } from "../componentes/alertas-dlg/alertas";
 import { Observable } from 'rxjs';
 import { DTODepartamento } from './objetos';
@@ -12,16 +12,16 @@ import { WebServiceDepartamentos } from '../webservices/webservice-departamentos
 })
 export class DlgFormDepartamento implements OnInit {    
 
-  departamento: DTODepartamento;
-  idDepartamento: number;
-  idEvento: number;
-  titulo: string;
+  departamento!: DTODepartamento;
+  idDepartamento: number | null;
+  idEvento!: number;
+  titulo!: string;
 
   constructor(public dialogRef: MatDialogRef<DlgFormDepartamento>, private alertas: Alertas,
     private wsDepartamentos: WebServiceDepartamentos, @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.idDepartamento = null;
-    this.idEvento = null;
+    this.idEvento = 0;
 
     if (data != null) {
       this.idDepartamento = data.idDepartamento || null;
@@ -67,7 +67,7 @@ export class DlgFormDepartamento implements OnInit {
 
       servico
         .subscribe(
-          retorno => {            
+            (retorno: any) => {            
             dlg.close();
 
             if (this.idDepartamento == null)
@@ -75,7 +75,7 @@ export class DlgFormDepartamento implements OnInit {
 
             this.dialogRef.close(this.departamento || null);
           },
-          erro => {
+          (erro: any) => {
             dlg.close();
             this.alertas.alertarErro(erro);
           }

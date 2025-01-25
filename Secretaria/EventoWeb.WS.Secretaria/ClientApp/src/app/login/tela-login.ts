@@ -14,12 +14,12 @@ import { DxValidationGroupComponent } from 'devextreme-angular/ui/validation-gro
 
 export class TelaLogin implements OnInit {
 
-  paraOndeRedirecionar: string;
-  nomeUsuario: string;
-  senha: string;
+  paraOndeRedirecionar!: string;
+  nomeUsuario!: string;
+  senha!: string;
 
   @ViewChild("grupoValidacao", { static: true })
-  grupoValidacao: DxValidationGroupComponent;
+  grupoValidacao!: DxValidationGroupComponent;
 
   constructor(public gestaoAutenticacao: GestaoAutenticacao,
     public router: Router,

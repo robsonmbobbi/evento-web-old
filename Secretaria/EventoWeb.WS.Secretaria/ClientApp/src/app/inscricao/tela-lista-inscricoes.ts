@@ -16,9 +16,9 @@ export class TelaListagemInscricoes implements OnInit {
 
   public filtros: string[] = ["Incompleta", "Pendente", "Aceita", "Rejeitada"];
   public inscricoes: DTOBasicoInscricao[] = [];
-  public evento: DTOEventoCompleto;
-  private m_FiltroEscolhido: string = null;
-  private m_IdEvento: number = null;
+  public evento!: DTOEventoCompleto;
+  private m_FiltroEscolhido: string = "Pendente";
+  private m_IdEvento!: number;
 
   constructor(private wsInscricoes: WebServiceInscricoes,
     private wsEventos: WebServiceEventos,
@@ -54,7 +54,7 @@ export class TelaListagemInscricoes implements OnInit {
 
   ngOnInit(): void {
 
-    this.roteador.parent.params.subscribe(parametros => {
+    this.roteador.parent!.params.subscribe(parametros => {
       this.m_IdEvento = +parametros["id"];
       this.filtroEscolhido = this.filtros[1];
 
@@ -76,6 +76,8 @@ export class TelaListagemInscricoes implements OnInit {
         return "Pendente";
       case EnumSituacaoInscricao.Rejeitada:
         return "Rejeitada";
+      default:
+        return "";
     }
   }
 

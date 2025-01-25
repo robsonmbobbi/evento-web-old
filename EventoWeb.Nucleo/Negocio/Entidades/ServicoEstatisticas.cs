@@ -89,8 +89,6 @@ namespace EventoWeb.Nucleo.Negocio.Entidades
         public EstatisticaAdocante UsamAdocante { get; set; }
         public EstatisticaDiabeticos Diabeticos { get; set; }
         public EstatisticaEvangelizacao Evangelizacao { get; set; }
-        public IEnumerable<String> CarnesNaoCome { get; set; }
-        public IEnumerable<String> Medicamentos { get; set; }
         public IEnumerable<String> Alergias { get; set; }
         public IEnumerable<EstatisticaCidades> InscritosCidade { get; set; }
     }
@@ -121,8 +119,6 @@ namespace EventoWeb.Nucleo.Negocio.Entidades
             estatistica.Vegetarianos = GerarEstatisticasVegetarianos(inscricoes);
             estatistica.UsamAdocante = GerarEstatisticasUsamAdocante(inscricoes);
             estatistica.Diabeticos = GerarEstatisticasDiabeticos(inscricoes);
-            estatistica.CarnesNaoCome = GerarEstatisticasCarnesNaoCome(inscricoes);
-            estatistica.Medicamentos = GerarEstatisticasMedicamentos(inscricoes);
             estatistica.Alergias = GerarEstatisticasAlergias(inscricoes);
             estatistica.Evangelizacao = GerarEstatisticasEvangelizacao(inscricoes);
             estatistica.InscritosCidade = GerarEstatisticasInscritosCidade(inscricoes);
@@ -238,24 +234,6 @@ namespace EventoWeb.Nucleo.Negocio.Entidades
             }
 
             return estatistica;
-        }
-
-        private IEnumerable<string> GerarEstatisticasCarnesNaoCome(IList<Inscricao> inscricoes)
-        {
-            return inscricoes
-                .Where(x => !String.IsNullOrWhiteSpace(x.Pessoa.TiposCarneNaoCome))
-                .GroupBy(x=>x.Pessoa.TiposCarneNaoCome.ToUpper())
-                .Select(x => x.Key)
-                .OrderBy(x => x);
-        }
-
-        private IEnumerable<string> GerarEstatisticasMedicamentos(IList<Inscricao> inscricoes)
-        {
-            return inscricoes
-                .Where(x => !String.IsNullOrWhiteSpace(x.Pessoa.MedicamentosUsados))
-                .GroupBy(x => x.Pessoa.MedicamentosUsados.ToUpper())
-                .Select(x => x.Key)
-                .OrderBy(x => x);
         }
 
         private IEnumerable<string> GerarEstatisticasAlergias(IList<Inscricao> inscricoes)

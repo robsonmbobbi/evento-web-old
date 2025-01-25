@@ -12,8 +12,8 @@ import { WebServiceConfiguracaoEmail } from '../webservices/webservice-configura
 })
 export class TelaConfiguracaoEmail implements OnInit {
 
-  private evento: DTOEventoCompleto = null;
-  configuracao: DTOConfiguracaoEmail;
+  private evento!: DTOEventoCompleto;
+  configuracao!: DTOConfiguracaoEmail;
   tiposSeguranca: string[] = ["SSL", "Nenhuma"];
 
   constructor(private wsConfiguracaoEmail: WebServiceConfiguracaoEmail, private mensageria: Alertas,
@@ -70,7 +70,7 @@ export class TelaConfiguracaoEmail implements OnInit {
     }
   }
 
-  get tipoSegurancaEscolhida(): string {
+  get tipoSegurancaEscolhida(): string | null {
     return (this.configuracao.TipoSeguranca != null ? this.tiposSeguranca[this.configuracao.TipoSeguranca] : null);
   }
 

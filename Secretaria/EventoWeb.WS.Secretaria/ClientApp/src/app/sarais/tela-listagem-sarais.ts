@@ -19,7 +19,7 @@ export class TelaListagemSarais implements OnInit {
  
   sarais: DTOSarau[] = [];
 
-  private m_Evento: DTOEventoCompleto;
+  private m_Evento!: DTOEventoCompleto;
 
   constructor(private wsSarais: WebServiceSarais, private mensageria: Alertas, private roteador: ActivatedRoute,
     private dialogosSarau: DialogosSarau, private srvEventoSelecionado: ServicoEventoSelecionado,

@@ -22,7 +22,7 @@ export class MenuUsuario {
 
   get ehAdmin() {
     return this.gestaoAutenticacao.autenticado &&
-      this.gestaoAutenticacao.dadosAutenticacao.Usuario.EhAdministrador;
+      this.gestaoAutenticacao.dadosAutenticacao?.Usuario?.EhAdministrador;
   }
 
   clicarCadastroUsuarios(): void {

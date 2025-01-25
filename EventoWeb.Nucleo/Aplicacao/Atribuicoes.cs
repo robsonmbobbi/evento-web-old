@@ -12,11 +12,6 @@ namespace EventoWeb.Nucleo.Aplicacao
             inscParticipante.AtribuirDadosComum(dtoInscricao);
 
             inscParticipante.InstituicoesEspiritasFrequenta = dtoInscricao.CentroEspirita;
-            inscParticipante.NomeResponsavelCentro = dtoInscricao.NomeResponsavelCentro;
-            inscParticipante.NomeResponsavelLegal = dtoInscricao.NomeResponsavelLegal;
-            inscParticipante.TelefoneResponsavelCentro = dtoInscricao.TelefoneResponsavelCentro;
-            inscParticipante.TelefoneResponsavelLegal = dtoInscricao.TelefoneResponsavelLegal;
-            inscParticipante.TempoEspirita = dtoInscricao.TempoEspirita;
             inscParticipante.Tipo = dtoInscricao.TipoInscricao;
         }
 
@@ -30,11 +25,8 @@ namespace EventoWeb.Nucleo.Aplicacao
             pessoa.Email = dadosPessoais.Email;
             pessoa.Endereco.Cidade = dadosPessoais.Cidade;
             pessoa.Endereco.UF = dadosPessoais.Uf;
-            pessoa.MedicamentosUsados = dadosPessoais.MedicamentosUsa;
             pessoa.Nome = dadosPessoais.Nome;
             pessoa.Sexo = dadosPessoais.Sexo;
-            pessoa.TelefoneFixo = dadosPessoais.TelefoneFixo;
-            pessoa.TiposCarneNaoCome = dadosPessoais.CarnesNaoCome;
             pessoa.UsaAdocanteDiariamente = dadosPessoais.UsaAdocanteDiariamente;
         }
 
@@ -143,7 +135,6 @@ namespace EventoWeb.Nucleo.Aplicacao
             inscricao.Pessoa.AtribuirDados(dtoInscricao.DadosPessoais);
             inscricao.NomeCracha = dtoInscricao.NomeCracha;
             inscricao.Observacoes = dtoInscricao.Observacoes;
-            inscricao.PrimeiroEncontro = dtoInscricao.PrimeiroEncontro;
             inscricao.DormeEvento = dtoInscricao.DormeEvento;
 
             inscricao.Pagamento.AtribuirFormaPagamento(dtoInscricao.Pagamento.Forma.Value,

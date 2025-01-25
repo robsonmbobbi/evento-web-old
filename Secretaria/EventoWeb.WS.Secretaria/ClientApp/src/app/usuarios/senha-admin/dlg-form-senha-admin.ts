@@ -1,5 +1,5 @@
 import { Component, Inject, Injectable, ViewChild } from "@angular/core";
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from "@angular/material";
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Alertas } from "../../componentes/alertas-dlg/alertas";
 import { Observable } from 'rxjs';
 import { DxValidationGroupComponent } from "devextreme-angular/ui/validation-group";
@@ -13,13 +13,13 @@ import { WebServiceUsuariosAdm } from "../../webservices/webservice-usuarios-adm
 })
 export class DlgAlteracaoSenhaAdmin {    
 
-  novaSenha: string
-  repeticaoNovaSenha: string;
+  novaSenha: string = "";
+  repeticaoNovaSenha: string = "";
 
   @ViewChild("grupoValidacao", { static: true })
-  grupoValidacao: DxValidationGroupComponent;
+  grupoValidacao!: DxValidationGroupComponent;
 
-  private login: string;
+  private login!: string;
 
   constructor(
     public dialogRef: MatDialogRef<DlgAlteracaoSenhaAdmin>,
@@ -69,11 +69,11 @@ export class DlgAlteracaoSenhaAdmin {
 })
 export class DlgFormSenhaAdmin {
 
-  novaSenha: string
-  repeticaoNovaSenha: string;
+  novaSenha: string = "";
+  repeticaoNovaSenha: string = "";
 
   @ViewChild("grupoValidacao", { static: true })
-  grupoValidacao: DxValidationGroupComponent;
+  grupoValidacao!: DxValidationGroupComponent;
 
   constructor(
     public dialogRef: MatDialogRef<DlgFormSenhaAdmin>) {

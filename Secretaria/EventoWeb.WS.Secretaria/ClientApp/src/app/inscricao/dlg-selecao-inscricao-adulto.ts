@@ -57,6 +57,8 @@ export class DlgSelecaoInscricaoAdulto {
         return "Pendente";
       case EnumSituacaoInscricao.Rejeitada:
         return "Rejeitada";
+      default:
+        return "";
     }
   }
 

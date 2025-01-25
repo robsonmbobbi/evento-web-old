@@ -12,8 +12,8 @@ import { WebServiceContratosInscricao } from '../webservices/webservice-contrato
 })
 export class TelaContratosInscricao implements OnInit {
 
-  private evento: DTOEventoCompleto = null;
-  contrato: DTOContratoInscricao;
+  private evento!: DTOEventoCompleto;
+  contrato!: DTOContratoInscricao;
 
   constructor(private wsContratos: WebServiceContratosInscricao, private mensageria: Alertas,
     private srvEventoSelecionado: ServicoEventoSelecionado) { }

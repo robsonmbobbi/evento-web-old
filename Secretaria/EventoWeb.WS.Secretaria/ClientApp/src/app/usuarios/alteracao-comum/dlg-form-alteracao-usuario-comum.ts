@@ -1,5 +1,5 @@
 import { Component, Injectable, ViewChild, OnInit } from "@angular/core";
-import { MatDialogRef, MatDialog } from "@angular/material";
+import { MatDialogRef, MatDialog } from "@angular/material/dialog";
 import { Alertas } from "../../componentes/alertas-dlg/alertas";
 import { Observable } from 'rxjs';
 import { DxValidationGroupComponent } from "devextreme-angular/ui/validation-group";
@@ -13,10 +13,10 @@ import { WebServiceUsuariosComum } from "../../webservices/webservice-usuarios-c
 })
 export class DlgFormAlteracaoUsuarioComum implements OnInit {    
 
-  usuario: DTOUsuario;
+  usuario!: DTOUsuario;
 
   @ViewChild("grupoValidacao", { static: true })
-  grupoValidacao: DxValidationGroupComponent;
+  grupoValidacao?: DxValidationGroupComponent;
 
   constructor(
     public dialogRef: MatDialogRef<DlgFormAlteracaoUsuarioComum>,
@@ -49,10 +49,10 @@ export class DlgFormAlteracaoUsuarioComum implements OnInit {
   }
 
   clicarSalvar(): void {
-    if (this.grupoValidacao.instance.validate().isValid) {
+    if (this.grupoValidacao?.instance.validate().isValid) {
       let dlg = this.alertas.alertarProcessamento("Alterando usuário, aguarde...");
 
-      this.wsUsuarios.atualizar(this.usuario)
+      this.wsUsuarios.atualizar(this.usuario!)
         .subscribe(
           () => {            
             dlg.close();

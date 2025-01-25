@@ -1,0 +1,115 @@
+<layout-geral [ngSwitch]="estado">
+  <mat-toolbar layout-geral-cabecalho color="primary">
+    <a mat-icon-button style="margin-right:5px" matTooltip="Volta para a gestão do evento" routerLink="../">
+      <span class="fas fa-arrow-left"></span>
+    </a>
+    <span class="fas fa-file-contract" style="margin-right:10px"></span>
+    <span class="cursor-pointer">Confirmação de Inscrição</span>
+    <span style="flex: 1 1 auto;"></span>
+  </mat-toolbar>
+
+  <div fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="start center" *ngSwitchCase="0">
+    <div fxFlex="80">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="txtNome">Nome:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtNome" ng-model="dadosTela.Nome" ng-disabled="situacaoApresentacao != 'inicio'" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="20">
+      <button class="btn btn-primary" ng-click="procurar()">{{textoBotaoProcurar}}</button>
+    </div>
+  </div>
+  <div class="container-fluid text-center" ng-show="situacaoApresentacao == 'inicio'">
+    <div class="alert alert-info" role="alert">
+      <img src="imagens/imgVazio128.png" />
+      <p class="lead">Sem inscrições aqui. Faça uma pesquisa!!!</p>
+    </div>
+  </div>
+  <div class="container-fluid" ng-show="situacaoApresentacao == 'pesquisa'">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Inscrito</th>
+          <th>Cidade</th>
+          <th>Idade</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="inscricao in inscricoes">
+          <td>{{inscricao.TipoInscricao}}</td>
+          <td>{{inscricao.Nome}}</td>
+          <td>{{inscricao.Cidade}}</td>
+          <td>{{apresentarIdade(inscricao)}}</td>
+          <td>
+            <button class="btn btn-block btn-success" ng-click="abrir(inscricao)">
+              Abrir
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container-fluid" ng-show="situacaoApresentacao == 'confirmacao'">
+    <h3>{{inscricaoSelecionada.Nome + (detalhesInscricao.ConfirmadaPresenca ? ' - CONFIRMADA' : ' - Não Confirmada')}}</h3>
+    <p>{{inscricaoSelecionada.TipoInscricao}}</p>
+    <p>{{inscricaoSelecionada.Cidade}}</p>
+    <p>{{apresentarIdade(inscricaoSelecionada)}}</p>
+    <p>Quarto: {{detalhesInscricao.Quarto}}</p>
+    <p>Sala Estudo: {{detalhesInscricao.Sala}}</p>
+    <p>Afrac: {{detalhesInscricao.Afrac}}</p>
+    <hr />
+    <h3>Financeiro</h3>
+    <div class="row">
+      <div class="col-sm-6">
+        <p>Situação: {{obterDescricaoSituacaoFinanceiro(detalhesInscricao.SituacaoFinanceiro.Situacao)}}</p>
+        <p>Valor Inscrição: {{detalhesInscricao.SituacaoFinanceiro.Valor | currency}}</p>
+        <p>Data Pag./Isenção: {{detalhesInscricao.SituacaoFinanceiro.DataPagamentoIsencao | date}}</p>
+      </div>
+      <div class="col-sm-6" ng-show="!detalhesInscricao.ConfirmadaPresenca">
+        <div class="form-horizontal" ng-show="detalhesInscricao.SituacaoFinanceiro.Situacao == 1">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Forma:</label>
+            <label class="col-sm-2 control-label">
+              <input type="radio" ng-value="0" ng-model="dadosTela.tipoPagamento">
+              Isento
+            </label>
+            <label class="col-sm-2 control-label">
+              <input type="radio" ng-value="1" ng-model="dadosTela.tipoPagamento">
+              Pago
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="txtConta">Conta:</label>
+            <div class="col-sm-6">
+              <select ng-options="conta as conta.Descricao for conta in contas"
+                      class="form-control input-sm" id="txtConta" ng-model="dadosTela.conta"
+                      ng-disabled="dadosTela.tipoPagamento != 1">
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr ng-show="detalhesInscricao.SituacaoFinanceiro.Situacao == 1" />
+    <div class="row">
+      <div class="col-sm-6">
+        <button class="btn btn-block btn-danger" ng-click="cancelar()">
+          Cancelar
+        </button>
+      </div>
+      <div class="col-sm-6">
+        <button class="btn btn-block btn-success" ng-click="confirmar()" ng-disabled="detalhesInscricao.ConfirmadaPresenca">
+          Confirmar
+        </button>
+      </div>
+    </div>
+
+
+</layout-geral>

@@ -1,15 +1,15 @@
 export enum TipoSegurancaEmail { SSL, Nenhuma }
 
 export class DTOConfiguracaoEmail {
-  public EnderecoEmail: String;
+  public EnderecoEmail: string = "";
 
-  public UsuarioEmail: String;
+  public UsuarioEmail: string = ""
 
-  public SenhaEmail: String;
+  public SenhaEmail: string = ""
 
-  public ServidorEmail: String;
+  public ServidorEmail: string = ""
 
-  public PortaServidor: number;
+  public PortaServidor: number = 0
 
-  public TipoSeguranca: TipoSegurancaEmail;
+  public TipoSeguranca: TipoSegurancaEmail | null = null;
 }

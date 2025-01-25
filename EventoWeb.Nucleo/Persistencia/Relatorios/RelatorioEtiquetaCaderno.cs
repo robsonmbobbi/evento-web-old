@@ -91,33 +91,33 @@ namespace EventoWeb.Nucleo.Persistencia.Relatorios
                 if (!String.IsNullOrEmpty(inscricao.Quarto))
                 {
                     paragrafoInformacoes
-                        .Add(new Text("Quarto: ").SetBold());
+                        .Add(new Text("Quarto: ").SetFont(fonteNormal).SimulateBold());
                     paragrafoInformacoes
-                        .Add(new Text(inscricao.Quarto + " ").SetItalic());
+                        .Add(new Text(inscricao.Quarto + " ").SimulateItalic());
                 }
 
                 if (!String.IsNullOrEmpty(inscricao.SalaEstudo))
                 {
                     paragrafoInformacoes
-                        .Add(new Text("Sala: ").SetBold());
+                        .Add(new Text("Sala: ").SimulateBold());
                     paragrafoInformacoes
-                        .Add(new Text(inscricao.SalaEstudo + " ").SetItalic());
+                        .Add(new Text(inscricao.SalaEstudo + " ").SimulateItalic());
                 }
 
                 if (!String.IsNullOrEmpty(inscricao.Afrac))
                 {
                     paragrafoInformacoes
-                        .Add(new Text("Oficina: ").SetBold());
+                        .Add(new Text("Oficina: ").SimulateBold());
                     paragrafoInformacoes
-                        .Add(new Text(inscricao.Afrac + " ").SetItalic());
+                        .Add(new Text(inscricao.Afrac + " ").SimulateItalic());
                 }
 
                 if (!String.IsNullOrEmpty(inscricao.Departamento))
                 {
                     paragrafoInformacoes
-                        .Add(new Text("Departamento: ").SetBold());
+                        .Add(new Text("Departamento: ").SimulateBold());
                     paragrafoInformacoes
-                        .Add(new Text(inscricao.Departamento + " ").SetItalic());
+                        .Add(new Text(inscricao.Departamento + " ").SimulateItalic());
                 }
 
                 canvas.Add(paragrafoNome);

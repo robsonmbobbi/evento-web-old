@@ -13,10 +13,10 @@ import { WebServiceEventos } from '../webservices/webservice-eventos';
 export class TelaEtiquetaCaderno extends TelaEtiquetaBase {
 
   constructor(
-    protected wsEventos: WebServiceEventos,
-    protected wsEtiquetas: WebServiceEtiquetas,
-    protected alertas: Alertas,
-    protected roteador: ActivatedRoute)    
+    protected override wsEventos: WebServiceEventos,
+    protected override wsEtiquetas: WebServiceEtiquetas,
+    protected override alertas: Alertas,
+    protected override roteador: ActivatedRoute)    
   {
     super("Geração de Etiquetas dos Cadernos", "fas fa-tag", wsEventos, wsEtiquetas, alertas, roteador);
   }

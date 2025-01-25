@@ -2,12 +2,12 @@ import { WebServiceBase } from "./webservice-base";
 import { Injectable } from "@angular/core";
 import { GestaoAutenticacao } from "../seguranca/gestao-autenticacao";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class WebServiceRelatorios extends WebServiceBase {
 
-  constructor(http: HttpClient, public gestorAutenticacao: GestaoAutenticacao) {
+  constructor(http: HttpClient, public override gestorAutenticacao: GestaoAutenticacao) {
     super(http, gestorAutenticacao, "relatorios/");
   }
 

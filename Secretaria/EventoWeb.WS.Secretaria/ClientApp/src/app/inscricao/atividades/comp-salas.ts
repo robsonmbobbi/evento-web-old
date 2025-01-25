@@ -71,16 +71,19 @@ export class ComponenteSalas {
 
     private mParticipante: DTOSalaEstudo[];
 
-    set participante(valor: DTOSalaEstudo[]) {
-        this.mParticipante = valor;
-        if (valor == null)
-            this.escolhidoChange.emit(null);
-        else
-            this.escolhidoChange.emit({
-                Coordenador: null,
-                EscolhidasParticipante: valor
-            });
+  set participante(valor: DTOSalaEstudo[]) {
+
+    if (!(valor == null && this.mParticipante == null)) {
+      this.mParticipante = valor;
+      if (valor == null)
+        this.escolhidoChange.emit(null);
+      else
+        this.escolhidoChange.emit({
+          Coordenador: null,
+          EscolhidasParticipante: valor
+        });
     }
+  }
 
     get participante(): DTOSalaEstudo[] {
         return this.mParticipante;

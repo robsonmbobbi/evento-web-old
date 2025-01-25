@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Directive } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   DTOInscricaoCompleta, DTOPagamento, DTOInscricaoAtualizacao, DTOInscricaoDadosPessoais
@@ -10,12 +10,13 @@ import { CaixaMensagemResposta } from '../componentes/alertas-dlg/caixa-mensagem
 import { CompFormInscricao, ResultadoAtualizacaoInscricao } from './comp-form-inscricao';
 import { WebServiceEventos } from '../webservices/webservice-eventos';
 
+@Directive()
 export abstract class ATelaInscricao {
   inscricao: DTOInscricaoAtualizacao;
   evento: DTOEventoCompletoInscricao;
   naoEhIncompleta: boolean = false;
 
-  @ViewChild("formInscricao", { static:false })
+  @ViewChild("formInscricao")
   formInscricao: CompFormInscricao;
 
   constructor(protected navegadorUrl: Router) { }
@@ -40,7 +41,7 @@ export class TelaInscricao extends ATelaInscricao implements OnInit {
   inscricaoCompleta: DTOInscricaoCompleta;
   NaoEhIncompleta: boolean = false;
 
-  constructor(private mensageria: Alertas, private rotaAtual: ActivatedRoute, protected navegadorUrl: Router, private wsInscricoes: WebServiceInscricoes) {
+  constructor(private mensageria: Alertas, private rotaAtual: ActivatedRoute, protected override navegadorUrl: Router, private wsInscricoes: WebServiceInscricoes) {
     super(navegadorUrl);
   }
 
@@ -156,7 +157,7 @@ export class TelaInscricao extends ATelaInscricao implements OnInit {
 })
 export class TelaInscricaoInclusao extends ATelaInscricao implements OnInit {
 
-  constructor(private mensageria: Alertas, private rotaAtual: ActivatedRoute, protected navegadorUrl: Router,
+  constructor(private mensageria: Alertas, private rotaAtual: ActivatedRoute, protected override navegadorUrl: Router,
     private wsInscricoes: WebServiceInscricoes, private wsEventos: WebServiceEventos) {
     super(navegadorUrl);
   }

@@ -16,10 +16,10 @@ import { DialogosDepartamentos } from './dlg-form-departamento';
 })
 export class TelaListagemDepartamentos implements OnInit {
 
-  departamentoSelecionado: DTODepartamento = null;
+  departamentoSelecionado: DTODepartamento | null = null;
   departamentos: DTODepartamento[] = [];
 
-  private m_Evento: DTOEventoCompleto;
+  private m_Evento!: DTOEventoCompleto;
 
   constructor(private wsDepartamentos: WebServiceDepartamentos, private mensageria: Alertas, private roteador: ActivatedRoute,
     private dlgsDepartamentos: DialogosDepartamentos, private srvEventoSelecionado: ServicoEventoSelecionado) { }

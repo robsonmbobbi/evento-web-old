@@ -18,7 +18,7 @@ export class TelaListagemOficinas implements OnInit {
  
   oficinas: DTOOficina[] = [];
 
-  private m_Evento: DTOEventoCompleto;
+  private m_Evento!: DTOEventoCompleto;
 
   constructor(private wsoficinas: WebServiceOficinas, private mensageria: Alertas, private roteador: ActivatedRoute,
     private dialogosOficina: DialogosOficina, private srvEventoSelecionado: ServicoEventoSelecionado) { }

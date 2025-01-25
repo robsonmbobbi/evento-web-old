@@ -1,21 +1,21 @@
 export class DTOUsuario {
-  Login: string;
-  Nome: string;
-  EhAdministrador: boolean;
+  Login: string | undefined | null;
+  Nome: string | undefined | null;
+  EhAdministrador: boolean | undefined | null;
 }
 
 export class DTOUsuarioInclusao extends DTOUsuario
 {
-  Senha: string;
-  RepeticaoSenha: string;
+  Senha: string | undefined | null;
+  RepeticaoSenha: string | undefined | null;
 }
 
 export class DTOAlteracaoSenhaWS {
-  NovaSenha: string;
-  NovaSenhaRepetida: string;
+  NovaSenha: string | undefined | null;
+  NovaSenhaRepetida: string | undefined | null;
 }
 
 export class DTOAlteracaoSenhaComumWS extends DTOAlteracaoSenhaWS
 {
-  SenhaAtual: string;
+  SenhaAtual: string | undefined | null;
 }

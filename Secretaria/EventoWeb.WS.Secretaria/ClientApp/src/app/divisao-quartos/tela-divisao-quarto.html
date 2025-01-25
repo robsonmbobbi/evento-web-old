@@ -77,7 +77,7 @@
       <div layout-geral-cabecalho class="borda-arredondada margem-total-2px padding-padrao" fxLayout="row">
         <div fxLayout="column">
           <h2><strong>Quarto:&nbsp;{{divisaoSelecionada?.Nome || 'Nenhum Quarto foi selecionado'}}</strong></h2>
-          <div>Pessoas: {{divisaoSelecionada == null ? ' -' : ' ' + (divisaoSelecionada?.Participantes?.length + divisaoSelecionada?.Coordenadores?.length)}}</div>
+          <div>Pessoas: {{divisaoSelecionada == null ? ' -' : ' ' + (divisaoSelecionada?.Participantes.length + divisaoSelecionada.Coordenadores.length)}}</div>
           <div>Capacidade: {{divisaoSelecionada == null ? ' -' : ' ' + divisaoSelecionada?.Capacidade}}</div>
           <div>Sexo: {{divisaoSelecionada == null ? ' -' : ' ' + sexos[divisaoSelecionada?.Sexo]}}</div>
         </div>

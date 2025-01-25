@@ -30,11 +30,6 @@ namespace EventoWeb.Nucleo.Aplicacao.ConversoresDTO
             dto.ConverterDTOCompleta(inscricao);
 
             dto.CentroEspirita = inscricao.InstituicoesEspiritasFrequenta;
-            dto.NomeResponsavelCentro = inscricao.NomeResponsavelCentro;
-            dto.NomeResponsavelLegal = inscricao.NomeResponsavelLegal;
-            dto.TelefoneResponsavelCentro = inscricao.TelefoneResponsavelCentro;
-            dto.TelefoneResponsavelLegal = inscricao.TelefoneResponsavelLegal;
-            dto.TempoEspirita = inscricao.TempoEspirita;
             dto.TipoInscricao = inscricao.Tipo;
 
             dto.Departamento = ((AtividadeInscricaoDepartamento)inscricao.Atividades.FirstOrDefault(x => x is AtividadeInscricaoDepartamento))?.Converter();
@@ -62,23 +57,19 @@ namespace EventoWeb.Nucleo.Aplicacao.ConversoresDTO
             dto.DadosPessoais = new DTOInscricaoDadosPessoais
             {
                 AlimentosAlergia = inscricao.Pessoa.AlergiaAlimentos,
-                CarnesNaoCome = inscricao.Pessoa.TiposCarneNaoCome,
                 Cidade = inscricao.Pessoa.Endereco.Cidade,
                 DataNascimento = inscricao.Pessoa.DataNascimento,
                 EhDiabetico = inscricao.Pessoa.EhDiabetico,
                 EhVegetariano = inscricao.Pessoa.EhVegetariano,
                 Email = inscricao.Pessoa.Email,
-                MedicamentosUsa = inscricao.Pessoa.MedicamentosUsados,
                 Nome = inscricao.Pessoa.Nome,
                 Sexo = inscricao.Pessoa.Sexo,
                 Uf = inscricao.Pessoa.Endereco.UF,
                 UsaAdocanteDiariamente = inscricao.Pessoa.UsaAdocanteDiariamente,
                 Celular = inscricao.Pessoa.Celular,
-                TelefoneFixo = inscricao.Pessoa.TelefoneFixo,
             };
             dto.NomeCracha = inscricao.NomeCracha;
             dto.Observacoes = inscricao.Observacoes;
-            dto.PrimeiroEncontro = inscricao.PrimeiroEncontro;
             dto.DormeEvento = inscricao.DormeEvento;
 
            if (inscricao.Pagamento != null)

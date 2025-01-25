@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Directive } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
     DTOPagamento, DTOInscricaoDadosPessoais, DTOInscricaoAtualizacaoInfantil, DTOInscricaoCompletaInfantil
@@ -10,12 +10,13 @@ import { CaixaMensagemResposta } from '../componentes/alertas-dlg/caixa-mensagem
 import { WebServiceEventos } from '../webservices/webservice-eventos';
 import { ResultadoAtualizacaoInscricaoInfantil, CompFormInscricaoInfantil } from './comp-form-inscricao-infantil';
 
+@Directive()
 export abstract class ATelaInscricaoInfantil {
   inscricao: DTOInscricaoAtualizacaoInfantil;
   evento: DTOEventoCompletoInscricao;
   naoEhIncompleta: boolean = false;
 
-  @ViewChild("formInscricao", { static:false })
+  @ViewChild("formInscricao")
   formInscricao: CompFormInscricaoInfantil;
 
   constructor(protected navegadorUrl: Router) { }
@@ -40,7 +41,7 @@ export class TelaInscricaoInfantil extends ATelaInscricaoInfantil implements OnI
   inscricaoCompleta: DTOInscricaoCompletaInfantil;
   NaoEhIncompleta: boolean = false;
 
-  constructor(private mensageria: Alertas, private rotaAtual: ActivatedRoute, protected navegadorUrl: Router, private wsInscricoes: WebServiceInscricoes) {
+  constructor(private mensageria: Alertas, private rotaAtual: ActivatedRoute, protected override navegadorUrl: Router, private wsInscricoes: WebServiceInscricoes) {
     super(navegadorUrl);
   }
 
@@ -156,7 +157,7 @@ export class TelaInscricaoInfantil extends ATelaInscricaoInfantil implements OnI
 })
 export class TelaInscricaoInfantilInclusao extends ATelaInscricaoInfantil implements OnInit {
 
-  constructor(private mensageria: Alertas, private rotaAtual: ActivatedRoute, protected navegadorUrl: Router,
+  constructor(private mensageria: Alertas, private rotaAtual: ActivatedRoute, protected override navegadorUrl: Router,
     private wsInscricoes: WebServiceInscricoes, private wsEventos: WebServiceEventos) {
     super(navegadorUrl);
   }

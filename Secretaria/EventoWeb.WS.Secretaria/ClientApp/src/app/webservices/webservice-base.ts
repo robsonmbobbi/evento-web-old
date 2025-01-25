@@ -1,16 +1,11 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'; 
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/switchMap';
-
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { GestaoAutenticacao } from '../seguranca/gestao-autenticacao';
-
 import { ConfiguracaoSistemaService } from '../configuracao-sistema-service'
+
 export abstract class WebServiceBase {
-  
-  protected get webserviceURL(): string { return ConfiguracaoSistemaService.configuracao.urlBaseWs; }
+
+  protected get webserviceURL(): string | undefined { return ConfiguracaoSistemaService.configuracao.urlBaseWs; }
 
   constructor(public http: HttpClient, public gestorAutenticacao: GestaoAutenticacao,
     public nomeWebService: string) { }
@@ -21,7 +16,7 @@ export abstract class WebServiceBase {
     return this.http
       .get<T>(this.webserviceURL + this.nomeWebService +
           this.gerarParametros(parametros), { headers: opRequisicao })
-      .catch(this.ProcessarErro);
+      .pipe(catchError(this.ProcessarErro));
   }
 
   protected executarPost(parametros: string, dados: any): any {
@@ -31,7 +26,7 @@ export abstract class WebServiceBase {
       .post(this.webserviceURL + this.nomeWebService +
         this.gerarParametros(parametros),
       dados, { headers: opRequisicao })
-      .catch(this.ProcessarErro);
+      .pipe(catchError(this.ProcessarErro));
   }   
 
   protected executarPut(parametros: string, dados: any, retornoEhBinario: boolean = false): any {
@@ -40,7 +35,7 @@ export abstract class WebServiceBase {
     return this.http
       .put(this.webserviceURL + this.nomeWebService + this.gerarParametros(parametros),
         dados, { headers: opRequisicao })
-      .catch(this.ProcessarErro);
+      .pipe(catchError(this.ProcessarErro));
   }
 
   protected executarPutBlob(parametros: string, dados: any): any {
@@ -50,7 +45,7 @@ export abstract class WebServiceBase {
       .put(this.webserviceURL + this.nomeWebService + this.gerarParametros(parametros),
         dados,
         { headers: opRequisicao, responseType: 'blob' })
-      .catch(this.ProcessarErro);
+      .pipe(catchError(this.ProcessarErro));
   }
 
   protected executarDelete(parametros: string): any {
@@ -60,7 +55,7 @@ export abstract class WebServiceBase {
       .delete(this.webserviceURL + this.nomeWebService + this.gerarParametros(parametros),
         { headers: opRequisicao })
       //.map(this.ExtrairDados)
-      .catch(this.ProcessarErro);
+      .pipe(catchError(this.ProcessarErro));
   } 
 
   public gerarParametros(parametros: string): string {
@@ -74,7 +69,7 @@ export abstract class WebServiceBase {
     opRequisicao = opRequisicao.append('Accept', 'application/json');
     
     if (this.gestorAutenticacao.autenticado)
-      opRequisicao = opRequisicao.append('Authorization', 'Bearer ' + this.gestorAutenticacao.dadosAutenticacao.TokenAutenticacao);
+      opRequisicao = opRequisicao.append('Authorization', 'Bearer ' + this.gestorAutenticacao.dadosAutenticacao?.TokenAutenticacao);
 
     /*if (ehBinario)
       opRequisicao.responseType = ResponseContentType.Blob;*/
@@ -97,14 +92,14 @@ export abstract class WebServiceBase {
       });
 
       return blobComoTextoNotificacao
-        .switchMap(errMsgJsonComoTexto => {
-          return Observable.throw(JSON.parse(errMsgJsonComoTexto));
-        });
+        .pipe(switchMap(errMsgJsonComoTexto => {
+          return throwError(JSON.parse(errMsgJsonComoTexto));
+        }));
     }
     else if (erro.error != null && !(erro.error instanceof Blob)) {
-      return Observable.throw(erro.error);
+      return throwError(erro.error);
     }
     else
-      return Observable.throw(erro.message || "Erro no Servidor");
+      return throwError(erro.message || "Erro no Servidor");
   }
 }

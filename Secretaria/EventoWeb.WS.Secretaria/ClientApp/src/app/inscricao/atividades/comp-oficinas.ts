@@ -72,16 +72,19 @@ export class ComponenteOficinas {
 
     private mParticipante: DTOOficina[];
 
-    set participante(valor: DTOOficina[]) {
-        this.mParticipante = valor;
-        if (valor == null)
-            this.escolhidoChange.emit(null);
-        else
-            this.escolhidoChange.emit({
-                Coordenador: null,
-                EscolhidasParticipante: valor
-            });
+  set participante(valor: DTOOficina[]) {
+
+    if (!(valor == null && this.mParticipante == null)) {
+      this.mParticipante = valor;
+      if (valor == null)
+        this.escolhidoChange.emit(null);
+      else
+        this.escolhidoChange.emit({
+          Coordenador: null,
+          EscolhidasParticipante: valor
+        });
     }
+  }
 
     get participante(): DTOOficina[] {
         return this.mParticipante;

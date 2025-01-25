@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Injectable } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material";
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { Alertas } from "../componentes/alertas-dlg/alertas";
 import { Observable } from 'rxjs';
 import { DTOQuarto, EnumSexoQuarto } from './objetos';
@@ -12,10 +12,10 @@ import { WebServiceQuartos } from '../webservices/webservice-quartos';
 })
 export class DlgFormQuarto implements OnInit {    
 
-  quarto: DTOQuarto;
-  idQuarto: number;
+  quarto!: DTOQuarto;
+  idQuarto: number | null;
   idEvento: number;
-  titulo: string;
+  titulo!: string;
 
   sexos: string[] = ["Masculino", "Feminino", "Misto"];
 
@@ -36,7 +36,7 @@ export class DlgFormQuarto implements OnInit {
     private wsQuartos: WebServiceQuartos, @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.idQuarto = null;
-    this.idEvento = null;
+    this.idEvento = 0;
 
     if (data != null) {
       this.idQuarto = data.idQuarto || null;
@@ -84,7 +84,7 @@ export class DlgFormQuarto implements OnInit {
 
       servico
         .subscribe(
-          retorno => {            
+          (retorno: any) => {            
             dlg.close();
 
             if (this.idQuarto == null)
@@ -92,7 +92,7 @@ export class DlgFormQuarto implements OnInit {
 
             this.dialogRef.close(this.quarto || null);
           },
-          erro => {
+          (erro: any) => {
             dlg.close();
             this.alertas.alertarErro(erro);
           }

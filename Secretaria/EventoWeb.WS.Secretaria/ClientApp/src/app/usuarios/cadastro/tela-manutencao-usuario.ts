@@ -15,11 +15,11 @@ enum EnumSituacaoTelaUsuario { Inclusao, Alteracao, NaoEncontrado }
 })
 export class TelaManutencaoUsuario implements OnInit {
 
-  usuario: DTOUsuario;
+  usuario!: DTOUsuario;
   situacao: EnumSituacaoTelaUsuario = EnumSituacaoTelaUsuario.Inclusao;
 
   @ViewChild("formUsuario", { static: true })
-  formUsuario: FormUsuario;
+  formUsuario!: FormUsuario;
 
   constructor(private wsUsuarios: WebServiceUsuariosAdm,
     private mensageria: Alertas,
@@ -119,8 +119,6 @@ export class TelaManutencaoUsuario implements OnInit {
                     }
                   );
               }
-              else
-                dlg.close();
             }
           );
       }

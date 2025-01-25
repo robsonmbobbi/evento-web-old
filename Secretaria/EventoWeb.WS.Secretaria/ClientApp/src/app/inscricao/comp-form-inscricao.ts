@@ -24,10 +24,10 @@ export class CompFormInscricao {
   private mEvento: DTOEventoCompletoInscricao;
   private mInscricao: DTOInscricaoAtualizacao;
 
-  @ViewChild("grupoValidacaoEssencial", { static: false })
+  @ViewChild("grupoValidacaoEssencial")
   grupoValidacaoEssencial: DxValidationGroupComponent;
 
-  @ViewChild("grupoValidacaoEspirita", { static: false })
+  @ViewChild("grupoValidacaoEspirita")
   grupoValidacaoEspirita: DxValidationGroupComponent;
 
   constructor(private mensageria: Alertas) { }
@@ -64,6 +64,7 @@ export class CompFormInscricao {
     this.dadosTela.dormiraEvento = this.mInscricao.DormeEvento;
 
     this.dadosTela.oficinasEscolhidas = this.mInscricao.Oficina;
+
     this.dadosTela.salasEscolhidas = this.mInscricao.SalasEstudo;
     this.dadosTela.departamentoEscolhido = this.mInscricao.Departamento;
     this.dadosTela.sarais = this.mInscricao.Sarais;
@@ -210,7 +211,7 @@ export class CompFormInscricao {
   }
 }
 
-class DadosTela {
+export class DadosTela {
 
   Sexos: string[] = ["Masculino", "Feminino"];
   EstadosFederacao: string[] = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
@@ -252,6 +253,8 @@ class DadosTela {
   sarais: DTOSarau[];
   inscricaoSimples: DTOInscricaoSimplificada;
   dormiraEvento: boolean;
+
+  ox: DTOInscricaoOficina;
 
   pagamento: DTOPagamento;
 

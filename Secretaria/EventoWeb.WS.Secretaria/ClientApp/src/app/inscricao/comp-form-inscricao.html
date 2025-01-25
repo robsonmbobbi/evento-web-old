@@ -5,7 +5,7 @@
     <ng-template [ngTemplateOutlet]="dadosPessoais"></ng-template>
   </div>
   <div class="cartao margem-5px" fxLayout="column" fxFlex="48" fxFlex.sm="90" fxFlex.xs="100"
-       *ngIf="evento.TemOficinas || evento.ConfiguracaoSalaEstudo != null || evento.TemDepartamentalizacao || evento.ConfiguracaoTempoSarauMin != null">
+       *ngIf="evento.ConfiguracaoOficinas != null || evento.ConfiguracaoSalaEstudo != null || evento.TemDepartamentalizacao || evento.ConfiguracaoTempoSarauMin != null">
     <mat-card-title>Participação em Atividades</mat-card-title>
     <mat-divider></mat-divider>
     <ng-template [ngTemplateOutlet]="participacaoAtividades"></ng-template>

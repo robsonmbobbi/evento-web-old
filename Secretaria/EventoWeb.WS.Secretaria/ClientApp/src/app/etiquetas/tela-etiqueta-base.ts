@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 import { Alertas } from '../componentes/alertas-dlg/alertas';
 import { ActivatedRoute } from '@angular/router';
 import { CaixaMensagemResposta } from '../componentes/alertas-dlg/caixa-mensagem-dlg';
@@ -7,12 +7,13 @@ import { WebServiceEtiquetas } from '../webservices/webservice-etiquetas';
 import { WebServiceEventos } from '../webservices/webservice-eventos';
 import { DTOEventoCompleto } from '../evento/objetos';
 
+@Directive()
 export abstract class TelaEtiquetaBase implements OnInit {
 
   public inscricoes: CrachaInscrito[] = [];
   public inscricoesSelecionadas: number[] = [];
-  public evento: DTOEventoCompleto;
-  private m_IdEvento: number = null;
+  public evento!: DTOEventoCompleto;
+  private m_IdEvento!: number;
 
   constructor(
     public tituloTela: string,
@@ -24,7 +25,7 @@ export abstract class TelaEtiquetaBase implements OnInit {
 
   ngOnInit(): void {
 
-    this.roteador.parent.params.subscribe(parametros => {
+    this.roteador.parent!.params.subscribe(parametros => {
       this.m_IdEvento = +parametros["id"];
 
       this.wsEventos.obterId(+parametros["id"])

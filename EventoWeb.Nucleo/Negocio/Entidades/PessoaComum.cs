@@ -31,8 +31,6 @@ namespace EventoWeb.Nucleo.Negocio.Entidades
             }
         }
 
-        public virtual string TelefoneFixo { get; set; }
-
         public virtual string Celular { get; set; }
 
         public virtual string Email { get; set; }

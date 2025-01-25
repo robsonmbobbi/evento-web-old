@@ -14,7 +14,6 @@ export class CaixaMensagemDlg {
   message: string;
   information: string;
   button: number;
-  allow_outside_click: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<CaixaMensagemDlg>,
@@ -55,7 +54,7 @@ export class CaixaMensagemDlg {
 }
 
 export class CaixaMensagem {
-  static apresentar(dialog: MatDialog, message, title = "Alerta",
+  static apresentar(dialog: MatDialog, message: string, title = "Alerta",
     information = "", button = 0, allow_outside_click = false,
     style = 0, width = "200px") {
     const dialogRef = dialog.open(CaixaMensagemDlg, {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { WebServiceBase } from './webservice-base';
 import { GestaoAutenticacao } from '../seguranca/gestao-autenticacao';
@@ -9,7 +9,7 @@ import { DTOEventoMinimo, DTOEventoCompleto, DTOEvento, DTOId, DTOEventoCompleto
 @Injectable()
 export class WebServiceEventos extends WebServiceBase {
   
-  constructor(http: HttpClient, public gestorAutenticacao: GestaoAutenticacao) {
+  constructor(http: HttpClient, public override gestorAutenticacao: GestaoAutenticacao) {
     super(http, gestorAutenticacao, "eventos/");
   }
 

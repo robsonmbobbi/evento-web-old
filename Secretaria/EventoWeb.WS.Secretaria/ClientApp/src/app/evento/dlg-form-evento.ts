@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
 
 export abstract class ADlgFormEvento {
 
-  titulo: string;
+  titulo!: string;
 
   modelosDivisaoSala: string[] = ["Por Idade e Cidade", "Por Ordem de Escolha definida na Inscrição"];
   publicosEvangelizacao: string[] = ["Todos", "Apenas para Trabalhadores e Participantes/Trabalhadores"];
   modelosDivisaoOficina: string[] = ["Por Ordem de Escolha definida na Inscrição", "Por Idade e Cidade"];
 
-  evento: DTOEventoCompleto;
+  evento!: DTOEventoCompleto;
 
   constructor(protected alertas: Alertas) { }
 
@@ -38,7 +38,7 @@ export abstract class ADlgFormEvento {
       this.evento.ConfiguracaoSalaEstudo = null;
   }
 
-  public get modeloDivisaoSalaEstudo(): string {
+  public get modeloDivisaoSalaEstudo(): string | null {
     return (this.evento.ConfiguracaoSalaEstudo != null ? this.modelosDivisaoSala[this.evento.ConfiguracaoSalaEstudo] : null);
   }
 
@@ -61,7 +61,7 @@ export abstract class ADlgFormEvento {
       this.evento.ConfiguracaoEvangelizacao = null;
   }
 
-  public get publicoEvangelizacao(): string {
+  public get publicoEvangelizacao(): string | null {
     return (this.evento.ConfiguracaoEvangelizacao != null ? this.publicosEvangelizacao[this.evento.ConfiguracaoEvangelizacao] : null);
   }
 
@@ -95,7 +95,7 @@ export abstract class ADlgFormEvento {
       this.evento.ConfiguracaoOficinas = null;
   }
 
-  public get modeloDivisaoOficina(): string {
+  public get modeloDivisaoOficina(): string | null {
     return (this.evento.ConfiguracaoOficinas != null ? this.modelosDivisaoOficina[this.evento.ConfiguracaoOficinas] : null);
   }
 
@@ -168,7 +168,7 @@ export abstract class ADlgFormEvento {
 export class DlgFormEventoInclusao extends ADlgFormEvento implements OnInit {
 
   constructor(
-    private dialogRef: MatDialogRef<DlgFormEventoInclusao>, protected alertas: Alertas,
+    private dialogRef: MatDialogRef<DlgFormEventoInclusao>, protected override alertas: Alertas,
     private wsEventos: WebServiceEventos) {
     super(alertas);
   }
@@ -215,7 +215,7 @@ export class DlgFormEventoAlteracao extends ADlgFormEvento implements OnInit {
   private idEvento: any;
 
   constructor(
-    private dialogRef: MatDialogRef<DlgFormEventoAlteracao>, protected alertas: Alertas,
+    private dialogRef: MatDialogRef<DlgFormEventoAlteracao>, protected override alertas: Alertas,
     private wsEventos: WebServiceEventos, @Inject(MAT_DIALOG_DATA) public data: any) {
 
     super(alertas);

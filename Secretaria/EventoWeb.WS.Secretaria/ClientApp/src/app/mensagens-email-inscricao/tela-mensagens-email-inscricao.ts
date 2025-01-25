@@ -12,8 +12,8 @@ import { DTOMensagemEmailInscricao, DTOModeloMensagem } from './objetos';
 })
 export class TelaMensagensEmailInscricao implements OnInit {
 
-  private evento: DTOEventoCompleto = null;
-  mensagens: DTOMensagemEmailInscricao;
+  private evento!: DTOEventoCompleto;
+  mensagens!: DTOMensagemEmailInscricao;
 
   constructor(private wsMensagens: WebServiceMensagensInscricao, private mensageria: Alertas,
     private srvEventoSelecionado: ServicoEventoSelecionado) { }

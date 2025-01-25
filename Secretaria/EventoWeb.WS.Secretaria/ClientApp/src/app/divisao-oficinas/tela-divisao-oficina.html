@@ -72,7 +72,7 @@
       <div layout-geral-cabecalho class="borda-arredondada margem-total-2px padding-padrao" fxLayout="row">
         <div fxLayout="column">
           <h2><strong>Oficina:&nbsp;{{divisaoSelecionada?.Nome || 'Nenhuma oficina foi selecionada'}}</strong></h2>
-          <div>Participantes: {{divisaoSelecionada == null ? ' -' : ' ' + divisaoSelecionada?.Participantes?.length}}</div>
+          <div>Participantes: {{divisaoSelecionada == null ? ' -' : ' ' + divisaoSelecionada!.Participantes!.length}}</div>
         </div>
         <span style="flex: 1 1 auto;"></span>
         <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Permite selecionar uma oficina para visualizar e editar a divisão realizada">

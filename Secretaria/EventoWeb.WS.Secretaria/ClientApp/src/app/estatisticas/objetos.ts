@@ -1,107 +1,107 @@
 export class DTOEstatisticaTipoInscricao {
 
-  public Criancas: number;
+  public Criancas: number = 0;
 
-  public Participantes: number;
+  public Participantes: number = 0;
 
-  public ParticipantesTrabalhadores: number;
+  public ParticipantesTrabalhadores: number = 0;
 
-  public Trabalhadores: number;
+  public Trabalhadores: number = 0;
 
-  public CriancasPresentes: number;
+  public CriancasPresentes: number = 0;
 
-  public ParticipantesPresentes: number;
+  public ParticipantesPresentes: number = 0;
 
-  public ParticipantesTrabalhadoresPresentes: number;
+  public ParticipantesTrabalhadoresPresentes: number = 0;
 
-  public TrabalhadoresPresentes: number;
+  public TrabalhadoresPresentes: number = 0;
 }
 
 export class DTOEstatisticaSexo {
 
-  public Homens: number;
-  public Mulheres: number;
-  public HomensPresentes: number;
-  public MulheresPresentes: number;
+  public Homens: number = 0;
+  public Mulheres: number = 0;
+  public HomensPresentes: number = 0;
+  public MulheresPresentes: number = 0;
 }
 
 export class DTOEstatisticaVegetariano {
 
-  public Sao: number;
+  public Sao: number = 0;
 
-  public NaoSao: number;
+  public NaoSao: number = 0;
 
-  public SaoPresentes: number;
+  public SaoPresentes: number = 0;
 
-  public NaoSaoPresentes: number;
+  public NaoSaoPresentes: number = 0;
 }
 
 export class DTOEstatisticaAdocante {
 
-  public Usam: number;
-  public NaoUsam: number;
-  public UsamPresentes: number;
-  public NaoUsamPresentes: number;
+  public Usam: number = 0;
+  public NaoUsam: number = 0;
+  public UsamPresentes: number = 0;
+  public NaoUsamPresentes: number = 0;
 }
 
 export class DTOEstatisticaDiabeticos {
 
-  public Sao: number;
-  public NaoSao: number;
-  public SaoPresentes: number;
-  public NaoSaoPresentes: number;
+  public Sao: number = 0;
+  public NaoSao: number = 0;
+  public SaoPresentes: number = 0;
+  public NaoSaoPresentes: number = 0;
 }
 
 export class DTOEstatisticaEvangelizacao {
 
-  public NumeroMeninas: number;
-  public NumeroMeninos: number;
-  public NumeroCriancas0a3Anos: number;
-  public NumeroCriancas4a6Anos: number;
-  public NumeroCriancas7a9Anos: number;
-  public NumeroCriancas10a12Anos: number;
-  public NumeroMeninasPresentes: number;
-  public NumeroMeninosPresentes: number;
-  public NumeroCriancas0a3AnosPresentes: number;
-  public NumeroCriancas4a6AnosPresentes: number;
-  public NumeroCriancas7a9AnosPresentes: number;
-  public NumeroCriancas10a12AnosPresentes: number;
+  public NumeroMeninas: number = 0;
+  public NumeroMeninos: number = 0;
+  public NumeroCriancas0a3Anos: number = 0;
+  public NumeroCriancas4a6Anos: number = 0;
+  public NumeroCriancas7a9Anos: number = 0;
+  public NumeroCriancas10a12Anos: number = 0;
+  public NumeroMeninasPresentes: number = 0;
+  public NumeroMeninosPresentes: number = 0;
+  public NumeroCriancas0a3AnosPresentes: number = 0;
+  public NumeroCriancas4a6AnosPresentes: number = 0;
+  public NumeroCriancas7a9AnosPresentes: number = 0;
+  public NumeroCriancas10a12AnosPresentes: number = 0;
 }
 
 export class DTOEstatisticaCidades {
 
-  public Cidade: String;
+  public Cidade: String = "";
 
-  public NumeroInscricoes: number;
+  public NumeroInscricoes: number = 0;
 }
 
 export class DTOEstatisticaGeral {
 
-  public TotalInscricoes: number;
+  public TotalInscricoes: number = 0;
 
-  public TotalInscricoesPresentes: number;
+  public TotalInscricoesPresentes: number = 0;
 
-  public TotalInscricoesNaoDormem: number;
+  public TotalInscricoesNaoDormem: number = 0;
 
-  public TotalInscricoesNaoDormemPresentes: number;
+  public TotalInscricoesNaoDormemPresentes: number = 0;
 
-  public TiposInscricao: DTOEstatisticaTipoInscricao;
+  public TiposInscricao!: DTOEstatisticaTipoInscricao;
 
-  public Sexo: DTOEstatisticaSexo;
+  public Sexo!: DTOEstatisticaSexo;
 
-  public Vegetarianos: DTOEstatisticaVegetariano;
+  public Vegetarianos!: DTOEstatisticaVegetariano;
 
-  public UsamAdocante: DTOEstatisticaAdocante;
+  public UsamAdocante!: DTOEstatisticaAdocante;
 
-  public Diabeticos: DTOEstatisticaDiabeticos;
+  public Diabeticos!: DTOEstatisticaDiabeticos;
 
-  public Evangelizacao: DTOEstatisticaEvangelizacao;
+  public Evangelizacao!: DTOEstatisticaEvangelizacao;
 
-  public CarnesNaoCome: string[];
+  public CarnesNaoCome: string[] = [];
 
-  public Medicamentos: string[];
+  public Medicamentos: string[] = [];
 
-  public Alergias: string[];
+  public Alergias: string[] = [];
 
-  public InscritosCidade: DTOEstatisticaCidades[];
+  public InscritosCidade: DTOEstatisticaCidades[] = [];
 }

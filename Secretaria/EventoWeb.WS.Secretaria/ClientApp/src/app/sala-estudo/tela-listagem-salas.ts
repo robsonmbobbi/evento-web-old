@@ -16,10 +16,10 @@ import { DTOEventoCompleto, EnumModeloDivisaoSalasEstudo } from '../evento/objet
 })
 export class TelaListagemSalas implements OnInit {
 
-  salaSelecionada: DTOSalaEstudo = null;
+  salaSelecionada: DTOSalaEstudo | null = null;
   salas: DTOSalaEstudo[] = [];
 
-  private m_Evento: DTOEventoCompleto;
+  private m_Evento!: DTOEventoCompleto;
 
   constructor(private wsSalas: WebServiceSalas, private mensageria: Alertas, private roteador: ActivatedRoute,
     private dlgsSala: DialogosSala, private srvEventoSelecionado: ServicoEventoSelecionado) { }

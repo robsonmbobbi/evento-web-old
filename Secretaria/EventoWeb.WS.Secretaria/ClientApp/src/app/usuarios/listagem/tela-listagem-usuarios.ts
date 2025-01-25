@@ -13,7 +13,7 @@ import { DialogoSenhaAdmin } from "../senha-admin/dlg-form-senha-admin";
 })
 export class TelaListagemUsuarios implements OnInit {
 
-  usuarioSelecionado: DTOUsuario = null;
+  usuarioSelecionado: DTOUsuario | null = null;
   usuarios: DTOUsuario[] = [];
 
   constructor(private wsUsuarios: WebServiceUsuariosAdm,
@@ -51,7 +51,7 @@ export class TelaListagemUsuarios implements OnInit {
         (resposta) => {
           if (resposta == CaixaMensagemResposta.Sim) {
             let dlg = this.mensageria.alertarProcessamento("Processando exclusão de usuário...");
-            this.wsUsuarios.excluir(usuario.Login)
+            this.wsUsuarios.excluir(usuario.Login!)
               .subscribe(
                 () => {
                   this.usuarios = this.usuarios.filter(x => x.Login != usuario.Login);
@@ -67,6 +67,6 @@ export class TelaListagemUsuarios implements OnInit {
   }
 
   clicarAlterarSenha(usuario: DTOUsuario): void {
-    this.dlgAlteracaoSenha.apresentarDlgAlteracao(usuario.Login);
+    this.dlgAlteracaoSenha.apresentarDlgAlteracao(usuario.Login!);
   }
 }

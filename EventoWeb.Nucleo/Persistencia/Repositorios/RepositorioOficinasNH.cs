@@ -60,25 +60,51 @@ namespace EventoWeb.Nucleo.Persistencia
         public override IList<InscricaoParticipante> ListarParticipantesSemOficinaNoEvento(Evento evento)
         {
             InscricaoParticipante aliasParticipante = null;
-            AtividadeInscricaoOficinaSemEscolha aliasAtividade = null;
 
-            var subQueryParticipantes = QueryOver.Of<Oficina>()
-                .JoinQueryOver<InscricaoParticipante>(x => x.Participantes, () => aliasParticipante)
-                .Where(x => x.Id == aliasAtividade.Inscrito.Id && x.Situacao == EnumSituacaoInscricao.Aceita)
-                .SelectList(x => x.Select(() => aliasParticipante.Id));
+            if (evento.ConfiguracaoOficinas == EnumModeloDivisaoOficinas.PorOrdemEscolhaInscricao)
+            {
+                AtividadeInscricaoOficinas aliasAtividade = null;
 
-            var subQueryCoordenadores = QueryOver.Of<AtividadeInscricaoOficinasCoordenacao>()
-                .Where(x => x.Inscrito.Id == aliasAtividade.Id)
-                .Select(x => x.Inscrito.Id);
+                var subQueryParticipantes = QueryOver.Of<Oficina>()
+                    .JoinQueryOver<InscricaoParticipante>(x => x.Participantes, () => aliasParticipante)
+                    .Where(x => x.Id == aliasAtividade.Inscrito.Id && x.Situacao == EnumSituacaoInscricao.Aceita)
+                    .SelectList(x => x.Select(() => aliasParticipante.Id));
 
-            return mSessao.QueryOver<AtividadeInscricaoOficinaSemEscolha>(()=> aliasAtividade)
-                .JoinQueryOver(x=>x.Inscrito)
-                    .Where(x => x.Situacao == EnumSituacaoInscricao.Aceita)
-                    .JoinQueryOver(y=>y.Evento)
-                        .Where(y=>y.Id == evento.Id)
-                .WithSubquery.WhereNotExists(subQueryParticipantes)
-                .Select(x => x.Inscrito)
-                .List<InscricaoParticipante>();
+                var subQueryCoordenadores = QueryOver.Of<AtividadeInscricaoOficinasCoordenacao>()
+                    .Where(x => x.Inscrito.Id == aliasAtividade.Id)
+                    .Select(x => x.Inscrito.Id);
+
+                return mSessao.QueryOver<AtividadeInscricaoOficinas>(() => aliasAtividade)
+                    .JoinQueryOver(x => x.Inscrito)
+                        .Where(x => x.Situacao == EnumSituacaoInscricao.Aceita)
+                        .JoinQueryOver(y => y.Evento)
+                            .Where(y => y.Id == evento.Id)
+                    .WithSubquery.WhereNotExists(subQueryParticipantes)
+                    .Select(x => x.Inscrito)
+                    .List<InscricaoParticipante>();
+            }
+            else
+            {
+                AtividadeInscricaoOficinaSemEscolha aliasAtividadeSemEscolha = null;
+
+                var subQueryParticipantes = QueryOver.Of<Oficina>()
+                    .JoinQueryOver<InscricaoParticipante>(x => x.Participantes, () => aliasParticipante)
+                    .Where(x => x.Id == aliasAtividadeSemEscolha.Inscrito.Id && x.Situacao == EnumSituacaoInscricao.Aceita)
+                    .SelectList(x => x.Select(() => aliasParticipante.Id));
+
+                var subQueryCoordenadores = QueryOver.Of<AtividadeInscricaoOficinasCoordenacao>()
+                    .Where(x => x.Inscrito.Id == aliasAtividadeSemEscolha.Id)
+                    .Select(x => x.Inscrito.Id);
+
+                return mSessao.QueryOver<AtividadeInscricaoOficinaSemEscolha>(() => aliasAtividadeSemEscolha)
+                    .JoinQueryOver(x => x.Inscrito)
+                        .Where(x => x.Situacao == EnumSituacaoInscricao.Aceita)
+                        .JoinQueryOver(y => y.Evento)
+                            .Where(y => y.Id == evento.Id)
+                    .WithSubquery.WhereNotExists(subQueryParticipantes)
+                    .Select(x => x.Inscrito)
+                    .List<InscricaoParticipante>();
+            }
         }
 
         public override bool HaAOficinasSemResponsavelDefinidoDoEvento(Evento evento)

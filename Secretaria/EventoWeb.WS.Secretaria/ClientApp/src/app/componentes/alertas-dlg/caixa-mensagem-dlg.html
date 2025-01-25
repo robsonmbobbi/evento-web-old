@@ -1,30 +1,33 @@
-<div mat-dialog-container>
-  <mat-toolbar *ngIf="style==1" color="primary" class="mat-elevation-z2">
-    <mat-card-header>{{title}}</mat-card-header>
+<layout-geral>
+  <mat-toolbar *ngIf="style==1" color="primary" class="mat-elevation-z2" layout-geral-cabecalho>
+    {{title}}
   </mat-toolbar>
-  <div class="message">
-    <p>
-      {{message}}
-    </p>
-  </div>
-  <div class="info" *ngIf="information!==''">
-    <p>{{information}}</p>
-  </div>
-  <div style="padding: 5px;float:right">
-    <div *ngIf="button==0">
-      <button mat-button color="accent" (click)="onOk()" tabindex="-1">OK</button>
-    </div>
-    <div *ngIf="button==1">
-      <button mat-button color="accent" (click)="onOk()" tabindex="-1">OK</button>
-      <button mat-button color="accent" (click)="onCancel()" tabindex="-1">CANCELAR</button>
-    </div>
-    <div *ngIf="button==2">
-      <button mat-button color="accent" (click)="onYes()" tabindex="-1">SIM</button>
-      <button mat-button color="accent" (click)="onNo()" tabindex="-1">NÃO</button>
-    </div>
-    <div *ngIf="button==3">
-      <button mat-button color="accent" (click)="onAccept()" tabindex="-1">ACEITAR</button>
-      <button mat-button color="accent" (click)="onReject()" tabindex="-1">REJEITAR</button>
+  <div fxLayout="row" fxLayoutGap="5px" layout-conteudo>
+    <div>
+      <div class="message">
+        <p [innerHTML]="message">
+        </p>
+      </div>
+      <div class="info" *ngIf="information!==''">
+        <p>{{information}}</p>
+      </div>
     </div>
   </div>
-</div>
+  <div style="padding: 5px; display: flex; justify-content: flex-end" layout-geral-rodape>
+    <div *ngIf="button==0" fxLayout="row" fxLayoutGap="5px">
+      <button mat-stroked-button (click)="onOk()" cdkFocusInitial>OK</button>
+    </div>
+    <div *ngIf="button==1" fxLayout="row" fxLayoutGap="5px">
+      <button mat-stroked-button (click)="onOk()" cdkFocusInitial>OK</button>
+      <button mat-stroked-button (click)="onCancel()">CANCELAR</button>
+    </div>
+    <div *ngIf="button==2" fxLayout="row" fxLayoutGap="5px">
+      <button mat-stroked-button (click)="onYes()" cdkFocusInitial>SIM</button>
+      <button mat-stroked-button (click)="onNo()">NÃO</button>
+    </div>
+    <div *ngIf="button==3" fxLayout="row" fxLayoutGap="5px">
+      <button mat-stroked-button (click)="onAccept()" cdkFocusInitial>ACEITAR</button>
+      <button mat-stroked-button (click)="onReject()">REJEITAR</button>
+    </div>
+  </div>
+</layout-geral>

@@ -1,9 +1,7 @@
 import { Component, Inject, OnInit, Injectable } from "@angular/core";
 import { WebServiceSalas } from "../webservices/webservice-salas";
 import { DTOSalaEstudo } from "./objetos";
-
-import createNumberMask from 'text-mask-addons/dist/createNumberMask';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material";
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { Alertas } from "../componentes/alertas-dlg/alertas";
 import { Observable } from 'rxjs';
 
@@ -14,19 +12,19 @@ import { Observable } from 'rxjs';
 })
 export class DlgFormSala implements OnInit {    
 
-  sala: DTOSalaEstudo;
-  idSala: number;
+  sala!: DTOSalaEstudo;
+  idSala: number | null;
   idEvento: number;
-  usaFaixaEtaria: boolean;
+  usaFaixaEtaria!: boolean;
   podeUsarFaixaEtaria: boolean;
-  titulo: string;
+  titulo!: string;
 
   constructor(public dialogRef: MatDialogRef<DlgFormSala>, private alertas: Alertas,
     private wsSalas: WebServiceSalas, @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.podeUsarFaixaEtaria = false;
     this.idSala = null;
-    this.idEvento = null;
+    this.idEvento = 0;
 
     if (data != null) {
       this.idSala = data.idSala || null;
@@ -80,7 +78,7 @@ export class DlgFormSala implements OnInit {
 
       servico
         .subscribe(
-          retorno => {            
+          (retorno: any) => {            
             dlg.close();
 
             if (this.idSala == null)
@@ -88,7 +86,7 @@ export class DlgFormSala implements OnInit {
 
             this.dialogRef.close(this.sala || null);
           },
-          erro => {
+          (erro: any) => {
             dlg.close();
             this.alertas.alertarErro(erro);
           }

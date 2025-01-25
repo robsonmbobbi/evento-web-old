@@ -22,10 +22,10 @@ export class CompFormInscricaoInfantil {
   private mEvento: DTOEventoCompletoInscricao;
   private mInscricao: DTOInscricaoAtualizacaoInfantil;
 
-  @ViewChild("grupoValidacaoEssencial", { static: false })
+  @ViewChild("grupoValidacaoEssencial")
   grupoValidacaoEssencial: DxValidationGroupComponent;
 
-  @ViewChild("grupoValidacaoEspirita", { static: false })
+  @ViewChild("grupoValidacaoEspirita")
   grupoValidacaoEspirita: DxValidationGroupComponent;
 
   constructor(private mensageria: Alertas, private dlgsInscricao: DialogosInscricao) { }

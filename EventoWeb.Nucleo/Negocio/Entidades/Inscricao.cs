@@ -58,7 +58,6 @@ namespace EventoWeb.Nucleo.Negocio.Entidades
 
         public virtual EnumSituacaoInscricao Situacao { get => m_Situacao; }
         public virtual String NomeCracha { get; set; }
-        public virtual bool PrimeiroEncontro { get; set; }
         public virtual string Observacoes { get; set; }
         public virtual Pagamento Pagamento { get => m_Pagamento; }
 

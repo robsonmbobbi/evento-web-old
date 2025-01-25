@@ -16,12 +16,12 @@ import { EnumSexoQuarto } from '../quartos/objetos';
 })
 export class TelaDivisaoQuarto implements OnInit {
 
-  private evento: DTOEventoCompleto = null;
+  private evento!: DTOEventoCompleto;
   divisoesQuartos: DTODivisaoQuarto[] = [];
-  inscricoesNaoDistribuidas: DTODivisaoQuarto = null;
+  inscricoesNaoDistribuidas!: DTODivisaoQuarto;
   sexos: string[] = ["Masculino", "Feminino", "Misto"];
 
-  divisaoSelecionada: DTODivisaoQuarto = null;
+  divisaoSelecionada: DTODivisaoQuarto | null = null;
 
   constructor(private wsDivisao: WebServiceDivisaoQuartos, private mensageria: Alertas,
     private srvEventoSelecionado: ServicoEventoSelecionado, private wsRelatorios: WebServiceRelatorios) {
@@ -107,7 +107,7 @@ export class TelaDivisaoQuarto implements OnInit {
 
   private processarRetornoDivisao(divisoes: DTODivisaoQuarto[]) {
 
-    this.inscricoesNaoDistribuidas = divisoes.find(x => x.Id == 0);
+    this.inscricoesNaoDistribuidas = divisoes.find(x => x.Id == 0) ?? new DTODivisaoQuarto();
 
     this.divisoesQuartos = divisoes.filter(x => x.Id != 0);   
   }
@@ -160,7 +160,7 @@ export class TelaDivisaoQuarto implements OnInit {
           if (botaoEscolhido == CaixaMensagemResposta.Sim) {
             let dlg = this.mensageria.alertarProcessamento("Movendo participante...");
 
-            this.wsDivisao.moverInscricaoQuarto(this.evento.Id, this.divisaoSelecionada.Id, ev.quarto.Id, ev.inscricao.IdInscricao)
+            this.wsDivisao.moverInscricaoQuarto(this.evento.Id, this.divisaoSelecionada!.Id, ev.quarto.Id, ev.inscricao.IdInscricao)
               .subscribe(
                 divisoes => {
                   this.processarRetornoDivisao(divisoes);
@@ -206,7 +206,7 @@ export class TelaDivisaoQuarto implements OnInit {
           if (botaoEscolhido == CaixaMensagemResposta.Sim) {
             let dlg = this.mensageria.alertarProcessamento("Removendo participante...");
 
-            this.wsDivisao.removerInscricaoQuarto(this.evento.Id, this.divisaoSelecionada.Id, inscricao.IdInscricao)
+            this.wsDivisao.removerInscricaoQuarto(this.evento.Id, this.divisaoSelecionada!.Id, inscricao.IdInscricao)
               .subscribe(
                 divisoes => {
                   this.processarRetornoDivisao(divisoes);
@@ -229,7 +229,7 @@ export class TelaDivisaoQuarto implements OnInit {
           if (botaoEscolhido == CaixaMensagemResposta.Sim) {
             let dlg = this.mensageria.alertarProcessamento("Alterando participante...");
 
-            this.wsDivisao.definirSeEhCoordenador(this.evento.Id, this.divisaoSelecionada.Id, inscricao.IdInscricao, true)
+            this.wsDivisao.definirSeEhCoordenador(this.evento.Id, this.divisaoSelecionada!.Id, inscricao.IdInscricao, true)
               .subscribe(
                 divisoes => {
                   this.processarRetornoDivisao(divisoes);
@@ -252,7 +252,7 @@ export class TelaDivisaoQuarto implements OnInit {
           if (botaoEscolhido == CaixaMensagemResposta.Sim) {
             let dlg = this.mensageria.alertarProcessamento("Alterando participante...");
 
-            this.wsDivisao.definirSeEhCoordenador(this.evento.Id, this.divisaoSelecionada.Id, inscricao.IdInscricao, false)
+            this.wsDivisao.definirSeEhCoordenador(this.evento.Id, this.divisaoSelecionada!.Id, inscricao.IdInscricao, false)
               .subscribe(
                 divisoes => {
                   this.processarRetornoDivisao(divisoes);
@@ -272,7 +272,7 @@ export class TelaDivisaoQuarto implements OnInit {
     if (this.divisaoSelecionada != null) {
       let id = this.divisaoSelecionada.Id;
       this.divisaoSelecionada = null;
-      this.divisaoSelecionada = this.divisoesQuartos.find(x => x.Id == id);
+      this.divisaoSelecionada = this.divisoesQuartos.find(x => x.Id == id) ?? new DTODivisaoQuarto();
 
       if (this.divisaoSelecionada == null)
         this.selecionarPrimeiraDivisao();

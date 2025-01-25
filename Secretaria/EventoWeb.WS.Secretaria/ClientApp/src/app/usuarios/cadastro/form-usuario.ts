@@ -23,10 +23,10 @@ export class FormUsuario {
   desabilitarEhAdministrador: boolean = false;
 
   @ViewChild("grupoValidacao", { static: true })
-  grupoValidacao: DxValidationGroupComponent;
+  grupoValidacao!: DxValidationGroupComponent;
 
   @Output()
   get dadosEstaoValidos(): boolean {
-    return this.grupoValidacao.instance.validate().isValid;
+    return this.grupoValidacao.instance.validate().isValid ?? false;
   }
 }

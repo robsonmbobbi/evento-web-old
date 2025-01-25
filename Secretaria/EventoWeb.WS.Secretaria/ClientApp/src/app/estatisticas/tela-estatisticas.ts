@@ -13,10 +13,10 @@ import { DTOEventoCompleto } from '../evento/objetos';
 })
 export class TelaEstatisticas implements OnInit {
 
-  estatistica: DTOEstatisticaGeral = null;
+  estatistica!: DTOEstatisticaGeral;
   opcoes: string[] = ["Geral","Evangelização","Por Cidade","Carnes não comem","Medicamentos","Alergias"];
 
-  private m_Evento: DTOEventoCompleto;
+  private m_Evento!: DTOEventoCompleto;
   private m_OpcaoEscolhida: string = this.opcoes[0];
 
   constructor(private wsEstatistica: WebServiceEstatisticas, private mensageria: Alertas, private roteador: ActivatedRoute,

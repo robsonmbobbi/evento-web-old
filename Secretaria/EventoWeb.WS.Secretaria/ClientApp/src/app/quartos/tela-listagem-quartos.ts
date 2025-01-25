@@ -19,7 +19,7 @@ export class TelaListagemQuartos implements OnInit {
   quartos: DTOQuarto[] = [];
   sexos: string[] = ["Masculino", "Feminino", "Misto"];
 
-  private m_Evento: DTOEventoCompleto;
+  private m_Evento!: DTOEventoCompleto;
 
   constructor(private wsQuartos: WebServiceQuartos, private mensageria: Alertas, private roteador: ActivatedRoute,
     private dialogosQuarto: DialogosQuarto, private srvEventoSelecionado: ServicoEventoSelecionado) { }

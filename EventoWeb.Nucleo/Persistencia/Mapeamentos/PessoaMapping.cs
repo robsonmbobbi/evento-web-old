@@ -53,13 +53,6 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
                 m.Length(100);
                 m.NotNullable(false);
             });
-            this.Property(x => x.TelefoneFixo, m =>
-            {
-                m.Access(Accessor.Property);
-                m.Column("TELEFONE_FIXO");
-                m.Length(15);
-                m.NotNullable(false);
-            });
         }
     }
 
@@ -113,26 +106,12 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
                     n.NotNullable(false);
                 });
             });
-            this.Property(x => x.MedicamentosUsados, m =>
-            {
-                m.Access(Accessor.Property);
-                m.Column("MEDICAMENTOS_USADOS");
-                m.Length(150);
-                m.NotNullable(false);
-            });
             this.Property(x => x.Sexo, m =>
             {
                 m.Access(Accessor.Property);
                 m.Column("SEXO");
                 m.NotNullable(false);
                 m.Type<EnumGeneric<SexoPessoa>>();
-            });
-            this.Property(x => x.TiposCarneNaoCome, m =>
-            {
-                m.Access(Accessor.Property);
-                m.Column("TIPOS_CARNE_NAO_COME");
-                m.Length(150);
-                m.NotNullable(false);
             });
             this.Property(x => x.UsaAdocanteDiariamente, m =>
             {

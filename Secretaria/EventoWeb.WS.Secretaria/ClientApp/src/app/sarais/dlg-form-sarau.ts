@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Injectable } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material";
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { Alertas } from "../componentes/alertas-dlg/alertas";
 import { Observable } from 'rxjs';
 import { DTOSarau } from './objetos';
@@ -15,16 +15,16 @@ import { DialogosInscricao } from '../inscricao/dlg-selecao-inscricao-adulto';
 })
 export class DlgFormSarau implements OnInit {    
 
-  sarau: DTOSarau;
-  idSarau: number;
+  sarau!: DTOSarau;
+  idSarau: number | null;
   idEvento: number;
-  titulo: string;
+  titulo!: string;
 
   constructor(public dialogRef: MatDialogRef<DlgFormSarau>, private alertas: Alertas, private dlgsInscricao: DialogosInscricao,
     private wsSarais: WebServiceSarais, @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.idSarau = null;
-    this.idEvento = null;
+    this.idEvento = 0;
 
     if (data != null) {
       this.idSarau = data.idSarau || null;
@@ -75,7 +75,7 @@ export class DlgFormSarau implements OnInit {
 
       servico
         .subscribe(
-          retorno => {            
+          (retorno: any) => {            
             dlg.close();
 
             if (this.idSarau == null)
@@ -83,7 +83,7 @@ export class DlgFormSarau implements OnInit {
 
             this.dialogRef.close(this.sarau || null);
           },
-          erro => {
+          (erro: any) => {
             dlg.close();
             this.alertas.alertarErro(erro);
           }

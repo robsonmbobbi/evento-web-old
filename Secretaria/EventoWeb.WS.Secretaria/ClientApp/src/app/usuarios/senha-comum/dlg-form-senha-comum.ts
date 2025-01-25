@@ -1,5 +1,5 @@
 import { Component, Injectable, ViewChild } from "@angular/core";
-import { MatDialogRef, MatDialog } from "@angular/material";
+import { MatDialogRef, MatDialog } from "@angular/material/dialog";
 import { Alertas } from "../../componentes/alertas-dlg/alertas";
 import { Observable } from 'rxjs';
 import { WebServiceUsuariosComum } from "../../webservices/webservice-usuarios-comum";
@@ -14,11 +14,11 @@ import { DTOAlteracaoSenhaComumWS } from "../objetos";
 export class DlgFormSenhaComum {    
 
   senhaAtual: string = "";
-  novaSenha: string
-  repeticaoNovaSenha: string;
+  novaSenha: string = "";
+  repeticaoNovaSenha: string = "";
 
   @ViewChild("grupoValidacao", { static: true })
-  grupoValidacao: DxValidationGroupComponent;
+  grupoValidacao!: DxValidationGroupComponent;
 
   constructor(
     public dialogRef: MatDialogRef<DlgFormSenhaComum>,

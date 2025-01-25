@@ -6,19 +6,17 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 
-import {
-  MatIconModule, 
-  MatMenuModule,
-  MatButtonModule,
-  MatDialogModule,
-  MatToolbarModule,
-  MatButtonToggleModule,
-  MatSidenavModule,
-  MatTabsModule,
-  MatCardModule,
-  MatDividerModule,
-  MAT_DATE_LOCALE
-} from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 
@@ -120,12 +118,12 @@ import { TelaManutencaoUsuario } from './usuarios/cadastro/tela-manutencao-usuar
 import { FormUsuario } from './usuarios/cadastro/form-usuario';
 import { TelaRoteamentoUsuario } from './usuarios/roteamento/tela-roteamento-usuario';
 
-declare function require(url: string);
+declare function require(url: string): any;
 
 registerLocaleData(localePt);
 
-let ptMessages = require("devextreme/localization/messages/pt.json");
-loadMessages(ptMessages);
+//let ptMessages = require("devextreme/localization/messages/pt.json");
+//loadMessages(ptMessages);
 locale('pt');
 
 @Injectable()
@@ -177,7 +175,7 @@ export function init_app(appLoadService: AppLoadService) {
     TelaMensagensEmailInscricao, TelaConfiguracaoEmail,
     TelaEtiquetaCaderno, TelaEtiquetaCracha,
     DlgFormSenhaComum, DlgAlteracaoSenhaAdmin, DlgFormSenhaAdmin, DlgFormAlteracaoUsuarioComum,
-    TelaRoteamentoUsuario, TelaListagemUsuarios, TelaManutencaoUsuario, FormUsuario 
+    TelaRoteamentoUsuario, TelaListagemUsuarios, TelaManutencaoUsuario, FormUsuario
   ],
   imports: [
     BrowserModule,
@@ -249,13 +247,13 @@ export function init_app(appLoadService: AppLoadService) {
       { path: '** ', redirectTo: '' }
     ], { enableTracing: false })
   ],
-  entryComponents: [CaixaMensagemDlg, DlgEmProcessamento, MenuUsuario, LayoutGeral,
+  /*entryComponents: [CaixaMensagemDlg, DlgEmProcessamento, MenuUsuario, LayoutGeral,
     TelaListaEventos, DlgFormEventoInclusao, DlgFormEventoAlteracao, TelaRoteamentoEvento,
     TelaListagemSalas, DlgFormSala, DlgFormOficina, DlgFormQuarto,
     DlgSarauCodigo, DlgSarauFormulario, DlgSelecaoInscricaoAdulto, DlgFormDepartamento, DlgFormSarau,
     DlgFormSenhaComum, DlgAlteracaoSenhaAdmin, DlgFormAlteracaoUsuarioComum, DlgFormSenhaAdmin,
-    TelaListagemUsuarios, TelaManutencaoUsuario, FormUsuario, TelaRoteamentoUsuario
-  ],
+    TelaListagemUsuarios, TelaManutencaoUsuario, FormUsuario, TelaRoteamentoUsuario,
+  ],*/
   providers: [
     AppLoadService,
     { provide: LOCALE_ID, useValue: 'pt' },

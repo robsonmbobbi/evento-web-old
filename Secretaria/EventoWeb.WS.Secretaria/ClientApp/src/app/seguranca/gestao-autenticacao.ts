@@ -5,7 +5,7 @@ import { DTWAutenticacao } from './objetos';
 export class GestaoAutenticacao {
 
   public NOME_STORANGE: string = "eventoweb-autenticacao";
-  public mAutenticacao: DTWAutenticacao = null;
+  public mAutenticacao: DTWAutenticacao | null;
 
   constructor() {
     let jsonString = localStorage.getItem(this.NOME_STORANGE);
@@ -37,7 +37,7 @@ export class GestaoAutenticacao {
     return this.mAutenticacao != null;
   }
 
-  get dadosAutenticacao(): DTWAutenticacao {
+  get dadosAutenticacao(): DTWAutenticacao | null {
 
     if (this.autenticado) {
       return this.mAutenticacao;

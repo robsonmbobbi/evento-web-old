@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 export class TelaRoteamentoEvento implements OnInit, OnDestroy {
 
   evento: DTOEventoCompleto = new DTOEventoCompleto();
-  parametrosPag: Subscription;
+  parametrosPag!: Subscription;
 
   constructor(private wsEventos: WebServiceEventos, private mensageria: Alertas,
     private roteador: ActivatedRoute, private srvEventoSelecionado: ServicoEventoSelecionado) { }
@@ -41,7 +41,7 @@ export class TelaRoteamentoEvento implements OnInit, OnDestroy {
 
 @Injectable()
 export class ServicoEventoSelecionado {
-  private m_Evento: DTOEventoCompleto = null
+  private m_Evento!: DTOEventoCompleto;
 
   get EventoSelecionado(): DTOEventoCompleto {
     return this.m_Evento;

@@ -57,10 +57,6 @@ namespace EventoWeb.Nucleo.Negocio.Entidades
 
         public virtual String AlergiaAlimentos { get; set; }
 
-        public virtual String TiposCarneNaoCome { get; set; }
-
-        public virtual String MedicamentosUsados { get; set; }
-
         public virtual SexoPessoa Sexo { get; set; }              
 
         public virtual int CalcularIdadeEmAnos(DateTime dataAtual)

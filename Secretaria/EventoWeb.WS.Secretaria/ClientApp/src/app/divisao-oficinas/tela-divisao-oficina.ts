@@ -15,11 +15,11 @@ import { WebServiceDivisaoOficinas } from '../webservices/webservice-divisao-ofi
 })
 export class TelaDivisaoOficina implements OnInit {
 
-  private evento: DTOEventoCompleto = null;
+  private evento!: DTOEventoCompleto;
   divisoesOficinas: DTODivisaoOficina[] = [];
-  inscricoesNaoDistribuidas: DTODivisaoOficina = null;
+  inscricoesNaoDistribuidas: DTODivisaoOficina | null = null;
 
-  divisaoSelecionada: DTODivisaoOficina = null;
+  divisaoSelecionada: DTODivisaoOficina | null = null;
 
   constructor(private wsDivisao: WebServiceDivisaoOficinas, private mensageria: Alertas,
     private srvEventoSelecionado: ServicoEventoSelecionado, private wsRelatorios: WebServiceRelatorios) {
@@ -102,7 +102,7 @@ export class TelaDivisaoOficina implements OnInit {
 
   private processarRetornoDivisao(divisoes: DTODivisaoOficina[]) {
 
-    this.inscricoesNaoDistribuidas = divisoes.find(x => x.Id == 0);
+    this.inscricoesNaoDistribuidas = divisoes.find(x => x.Id == 0) ?? null;
 
     this.divisoesOficinas = divisoes.filter(x => x.Id != 0);   
   }
@@ -155,7 +155,7 @@ export class TelaDivisaoOficina implements OnInit {
           if (botaoEscolhido == CaixaMensagemResposta.Sim) {
             let dlg = this.mensageria.alertarProcessamento("Movendo participante...");
 
-            this.wsDivisao.moverInscricaoOficinas(this.evento.Id, this.divisaoSelecionada.Id, ev.oficina.Id, ev.inscricao.IdInscricao)
+            this.wsDivisao.moverInscricaoOficinas(this.evento.Id, this.divisaoSelecionada!.Id, ev.oficina.Id, ev.inscricao.IdInscricao)
               .subscribe(
                 divisoes => {
                   this.processarRetornoDivisao(divisoes);
@@ -201,7 +201,7 @@ export class TelaDivisaoOficina implements OnInit {
           if (botaoEscolhido == CaixaMensagemResposta.Sim) {
             let dlg = this.mensageria.alertarProcessamento("Removendo participante...");
 
-            this.wsDivisao.removerInscricaoOficina(this.evento.Id, this.divisaoSelecionada.Id, inscricao.IdInscricao)
+            this.wsDivisao.removerInscricaoOficina(this.evento.Id, this.divisaoSelecionada!.Id, inscricao.IdInscricao)
               .subscribe(
                 divisoes => {
                   this.processarRetornoDivisao(divisoes);
@@ -221,7 +221,7 @@ export class TelaDivisaoOficina implements OnInit {
     if (this.divisaoSelecionada != null) {
       let id = this.divisaoSelecionada.Id;
       this.divisaoSelecionada = null;
-      this.divisaoSelecionada = this.divisoesOficinas.find(x => x.Id == id);
+      this.divisaoSelecionada = this.divisoesOficinas.find(x => x.Id == id) ?? null;
 
       if (this.divisaoSelecionada == null)
         this.selecionarPrimeiraDivisao();
