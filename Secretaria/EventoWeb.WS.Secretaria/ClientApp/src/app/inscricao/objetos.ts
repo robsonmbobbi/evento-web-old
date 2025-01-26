@@ -37,11 +37,8 @@ export class DTOInscricaoDadosPessoais {
   EhVegetariano: boolean;
   UsaAdocanteDiariamente: boolean;
   EhDiabetico: boolean;
-  CarnesNaoCome: string;
   AlimentosAlergia: string;
-  MedicamentosUsa: string;
   Celular: string;
-  TelefoneFixo: string;
 }
 
 export class DTOInscricaoAtualizacao {
@@ -49,12 +46,6 @@ export class DTOInscricaoAtualizacao {
   TipoInscricao: EnumTipoInscricao;
   NomeCracha: string;
   CentroEspirita: string;
-  TempoEspirita: string;
-  NomeResponsavelCentro: string;
-  TelefoneResponsavelCentro: string;
-  NomeResponsavelLegal: string;
-  TelefoneResponsavelLegal: string;
-  PrimeiroEncontro: boolean;
   Observacoes: string;
   DormeEvento: boolean;
 
@@ -98,7 +89,6 @@ export class DTOInscricaoSimplificada {
 export class DTOInscricaoAtualizacaoInfantil {
   DadosPessoais: DTOInscricaoDadosPessoais;
   NomeCracha: string;
-  PrimeiroEncontro: boolean;
   Observacoes: string;
   DormeEvento: boolean;
 

@@ -14,7 +14,7 @@ import { DTOSarau } from '../sarais/objetos';
   templateUrl: './comp-form-inscricao.html',
   styleUrls: ['./comp-form-inscricao.scss']
 })
-export class CompFormInscricao {  
+export class CompFormInscricao {
 
   @Input()
   naoEhIncompleta: boolean = false;
@@ -48,17 +48,8 @@ export class CompFormInscricao {
     this.dadosTela.ehVegetariano = this.mInscricao.DadosPessoais.EhVegetariano;
     this.dadosTela.usaAdocanteDiariamente = this.mInscricao.DadosPessoais.UsaAdocanteDiariamente;
     this.dadosTela.ehDiabetico = this.mInscricao.DadosPessoais.EhDiabetico;
-    this.dadosTela.carnesNaoCome = this.mInscricao.DadosPessoais.CarnesNaoCome;
     this.dadosTela.alimentosAlergia = this.mInscricao.DadosPessoais.AlimentosAlergia;
-    this.dadosTela.medicamentosUsa = this.mInscricao.DadosPessoais.MedicamentosUsa;
     this.dadosTela.centroEspirita = this.mInscricao.CentroEspirita;
-    this.dadosTela.tempoEspirita = this.mInscricao.TempoEspirita;
-    this.dadosTela.primeiroEncontro = this.mInscricao.PrimeiroEncontro;
-    this.dadosTela.nomeResponsavelCentro = this.mInscricao.NomeResponsavelCentro;
-    this.dadosTela.telefoneResponsavelCentro = this.mInscricao.TelefoneResponsavelCentro;
-    this.dadosTela.nomeResponsavelLegal = this.mInscricao.NomeResponsavelLegal;
-    this.dadosTela.telefoneResponsavelLegal = this.mInscricao.TelefoneResponsavelLegal;
-    this.dadosTela.telefoneFixo = this.mInscricao.DadosPessoais.TelefoneFixo;
     this.dadosTela.celular = this.mInscricao.DadosPessoais.Celular;
     this.dadosTela.nomeCracha = this.mInscricao.NomeCracha;
     this.dadosTela.dormiraEvento = this.mInscricao.DormeEvento;
@@ -168,24 +159,15 @@ export class CompFormInscricao {
       atualizacao.DadosPessoais.Nome = this.dadosTela.nome;
       atualizacao.DadosPessoais.Sexo = (this.dadosTela.sexoEscolhido == this.dadosTela.Sexos[0] ? EnumSexo.Masculino : EnumSexo.Feminino);
       atualizacao.DadosPessoais.AlimentosAlergia = this.dadosTela.alimentosAlergia;
-      atualizacao.DadosPessoais.CarnesNaoCome = this.dadosTela.carnesNaoCome;
       atualizacao.DadosPessoais.Cidade = this.dadosTela.cidade;
       atualizacao.DadosPessoais.EhDiabetico = this.dadosTela.ehDiabetico;
       atualizacao.DadosPessoais.EhVegetariano = this.dadosTela.ehVegetariano;
-      atualizacao.DadosPessoais.MedicamentosUsa = this.dadosTela.medicamentosUsa;
-      atualizacao.DadosPessoais.TelefoneFixo = this.dadosTela.telefoneFixo;
       atualizacao.DadosPessoais.Celular = this.dadosTela.celular;
-      atualizacao.PrimeiroEncontro = this.dadosTela.primeiroEncontro;
       atualizacao.TipoInscricao = this.dadosTela.TiposInscricao.indexOf(this.dadosTela.tipoInscricao);
       atualizacao.DadosPessoais.Uf = this.dadosTela.uf;
       atualizacao.DadosPessoais.UsaAdocanteDiariamente = this.dadosTela.usaAdocanteDiariamente;
       atualizacao.NomeCracha = this.dadosTela.nomeCracha;
       atualizacao.CentroEspirita = this.dadosTela.centroEspirita;
-      atualizacao.NomeResponsavelCentro = this.dadosTela.nomeResponsavelCentro;
-      atualizacao.NomeResponsavelLegal = this.dadosTela.nomeResponsavelLegal;
-      atualizacao.TelefoneResponsavelCentro = this.dadosTela.telefoneResponsavelCentro;
-      atualizacao.TelefoneResponsavelLegal = this.dadosTela.telefoneResponsavelLegal;
-      atualizacao.TempoEspirita = this.dadosTela.tempoEspirita;
       atualizacao.DormeEvento = this.dadosTela.dormiraEvento;
 
       if (atualizacao.TipoInscricao != EnumTipoInscricao.Trabalhador) {
@@ -230,20 +212,11 @@ export class DadosTela {
   ehVegetariano: boolean;
   usaAdocanteDiariamente: boolean;
   ehDiabetico: boolean;
-  carnesNaoCome: string;
   alimentosAlergia: string;
-  medicamentosUsa: string;
   centroEspirita: string;
-  tempoEspirita: string;
-  primeiroEncontro: boolean;
-  nomeResponsavelCentro: string;
-  telefoneResponsavelCentro: string;
-  nomeResponsavelLegal: string;
-  telefoneResponsavelLegal: string;
   dataInicioEvento: Date;
   observacoes: string;
   celular: string;
-  telefoneFixo: string;
   nomeCracha: string;
 
   formaEscolha: EnumApresentacaoAtividades;

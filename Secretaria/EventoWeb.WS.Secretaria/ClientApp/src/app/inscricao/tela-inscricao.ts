@@ -68,7 +68,7 @@ export class TelaInscricao extends ATelaInscricao implements OnInit {
                       if (dadosInscricao != null) {
                         this.inscricao = dadosInscricao;
                         this.inscricaoCompleta = dadosInscricao;
-                        this.evento = dadosInscricao.Evento;                        
+                        this.evento = dadosInscricao.Evento;
 
                         this.NaoEhIncompleta = false;
                       }
@@ -171,7 +171,6 @@ export class TelaInscricaoInclusao extends ATelaInscricao implements OnInit {
     this.inscricao.DadosPessoais.UsaAdocanteDiariamente = false;
     this.inscricao.Pagamento = new DTOPagamento();
     this.inscricao.Sarais = [];
-    this.inscricao.PrimeiroEncontro = false;
     this.inscricao.DormeEvento = true;
 
     this.evento = new DTOEventoCompletoInscricao();
@@ -190,7 +189,7 @@ export class TelaInscricaoInclusao extends ATelaInscricao implements OnInit {
           this.wsEventos.obterParaInscricao(idEvento)
             .subscribe(
               (evento) => {
-                dlg.close(); 
+                dlg.close();
                 if (evento == null)
                   this.clicarVoltar();
                 else {

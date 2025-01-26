@@ -80,7 +80,7 @@ export class ComponentePagamento {
     set comprovantes(param: any[]) {
 
         if (param != null) {
-            let arquivosValidos = param.filter(x => x.type == "image/jpeg" || x.type == "image/jpg");
+            let arquivosValidos = param.filter(x => x.type == "image/jpeg" || x.type == "image/jpg" || x.type == "image/pdf");
             if (arquivosValidos.length != this.mArquivosBin.length) {
                 if (arquivosValidos.length == 0) {
                     this.mValor.ComprovantesBase64 = [];
@@ -92,7 +92,7 @@ export class ComponentePagamento {
 
                     this.mArquivosBin = arquivosValidos;
                     this.mValor.ComprovantesBase64 = [];
-        
+
                     let observadores: Observable<string>[] = [];
                     for (let arquivo of arquivosValidos) {
                         observadores.push(this.readFileAsDataURL(arquivo));
@@ -111,7 +111,7 @@ export class ComponentePagamento {
         }
     }
 
-    private readFileAsDataURL(file): Observable<string> {        
+    private readFileAsDataURL(file): Observable<string> {
 
         let result_base64 = new Observable<string>((resolve) => {
             let fileReader = new FileReader();

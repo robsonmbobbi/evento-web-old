@@ -118,7 +118,6 @@ export class TelaInscricaoInclusao extends ATelaInscricao implements OnInit {
     this.inscricao.DadosPessoais.UsaAdocanteDiariamente = false;
     this.inscricao.Pagamento = new DTOPagamento();
     this.inscricao.Sarais = [];
-    this.inscricao.PrimeiroEncontro = false;
     this.inscricao.DormeEvento = true;
 
     this.evento = new DTOEventoCompleto();
@@ -148,7 +147,7 @@ export class TelaInscricaoInclusao extends ATelaInscricao implements OnInit {
                 this.coordenacao.ProcessamentoErro.processar(erro);
               }
             );
-          
+
         }
       );
   }
@@ -165,13 +164,13 @@ export class TelaInscricaoInclusao extends ATelaInscricao implements OnInit {
           dlgEnvioCodigo.close();
           this.dlgValidacaoEmail.apresentarDlg(inscricao.DadosPessoais.Email, inscricao.DadosPessoais.Nome, identificacao)
             .subscribe(
-              (validou) => {                
+              (validou) => {
                 if (validou) {
                   let dlg = this.coordenacao.Alertas.alertarProcessamento("Incluindo inscrição...");
 
                   this.wsInscricoes.criar(this.evento.Id, inscricao)
                     .subscribe(
-                      (retorno) => {                        
+                      (retorno) => {
                         dlg.close();
                         this.coordenacao.Alertas.alertarInformacao("Inscrição incluída com sucesso!!",
                           "Agora é aguardar a análise da secretaria do evento para que a sua inscrição seja efetivada!");

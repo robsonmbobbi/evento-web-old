@@ -14,7 +14,7 @@ import { DialogosInscricao } from './dlg-inscricao-adulto-codigo';
   templateUrl: './comp-form-inscricao-infantil.html',
   styleUrls: ['./comp-form-inscricao-infantil.scss']
 })
-export class CompFormInscricaoInfantil {  
+export class CompFormInscricaoInfantil {
 
   @Input()
   naoEhIncompleta: boolean = false;
@@ -47,11 +47,7 @@ export class CompFormInscricaoInfantil {
     this.dadosTela.ehVegetariano = this.mInscricao.DadosPessoais.EhVegetariano;
     this.dadosTela.usaAdocanteDiariamente = this.mInscricao.DadosPessoais.UsaAdocanteDiariamente;
     this.dadosTela.ehDiabetico = this.mInscricao.DadosPessoais.EhDiabetico;
-    this.dadosTela.carnesNaoCome = this.mInscricao.DadosPessoais.CarnesNaoCome;
     this.dadosTela.alimentosAlergia = this.mInscricao.DadosPessoais.AlimentosAlergia;
-    this.dadosTela.medicamentosUsa = this.mInscricao.DadosPessoais.MedicamentosUsa;
-    this.dadosTela.primeiroEncontro = this.mInscricao.PrimeiroEncontro;
-    this.dadosTela.telefoneFixo = this.mInscricao.DadosPessoais.TelefoneFixo;
     this.dadosTela.celular = this.mInscricao.DadosPessoais.Celular;
     this.dadosTela.nomeCracha = this.mInscricao.NomeCracha;
     this.dadosTela.responsavel1 = this.mInscricao.Responsavel1;
@@ -117,14 +113,10 @@ export class CompFormInscricaoInfantil {
       atualizacao.DadosPessoais.Nome = this.dadosTela.nome;
       atualizacao.DadosPessoais.Sexo = (this.dadosTela.sexoEscolhido == this.coordenacao.Sexos[0] ? EnumSexo.Masculino : EnumSexo.Feminino);
       atualizacao.DadosPessoais.AlimentosAlergia = this.dadosTela.alimentosAlergia;
-      atualizacao.DadosPessoais.CarnesNaoCome = this.dadosTela.carnesNaoCome;
       atualizacao.DadosPessoais.Cidade = this.dadosTela.cidade;
       atualizacao.DadosPessoais.EhDiabetico = this.dadosTela.ehDiabetico;
       atualizacao.DadosPessoais.EhVegetariano = this.dadosTela.ehVegetariano;
-      atualizacao.DadosPessoais.MedicamentosUsa = this.dadosTela.medicamentosUsa;
-      atualizacao.DadosPessoais.TelefoneFixo = this.dadosTela.telefoneFixo;
       atualizacao.DadosPessoais.Celular = this.dadosTela.celular;
-      atualizacao.PrimeiroEncontro = this.dadosTela.primeiroEncontro;
       atualizacao.DadosPessoais.Uf = this.dadosTela.uf;
       atualizacao.DadosPessoais.UsaAdocanteDiariamente = this.dadosTela.usaAdocanteDiariamente;
       atualizacao.NomeCracha = this.dadosTela.nomeCracha;
@@ -223,14 +215,10 @@ class DadosTela {
   ehVegetariano: boolean;
   usaAdocanteDiariamente: boolean;
   ehDiabetico: boolean;
-  carnesNaoCome: string;
   alimentosAlergia: string;
-  medicamentosUsa: string;
-  primeiroEncontro: boolean;
   dataInicioEvento: Date;
   observacoes: string;
   celular: string;
-  telefoneFixo: string;
   nomeCracha: string;
   dormiraEvento: boolean;
 

@@ -33,13 +33,13 @@
     </div>
   </div>
   <div *ngIf="opcaoEscolhida == opcoes[0]" fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-    <label class="label_campos" fxFlex="106px">Comprovante (.jpg, .jpeg):</label>
+    <label class="label_campos" fxFlex="106px">Comprovante (.jpg, .jpeg, .pdf):</label>
     <dx-file-uploader [multiple]="true"
                       labelText="Arraste o arquivo para cá"
                       selectButtonText="Selecione o arquivo"
                       uploadFailedMessage=""
                       uploadedMessage=""
-                      [allowedFileExtensions]="['.jpg', '.jpeg']"
+                      [allowedFileExtensions]="['.jpg', '.jpeg', '.pdf']"
                       [(value)]="comprovantes"
                       [disabled]="desabilitar">
     </dx-file-uploader>

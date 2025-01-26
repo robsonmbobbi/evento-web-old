@@ -68,7 +68,7 @@ export class TelaInscricaoInfantil extends ATelaInscricaoInfantil implements OnI
                       if (dadosInscricao != null) {
                         this.inscricao = dadosInscricao;
                         this.inscricaoCompleta = dadosInscricao;
-                        this.evento = dadosInscricao.Evento;                        
+                        this.evento = dadosInscricao.Evento;
 
                         this.NaoEhIncompleta = false;
                       }
@@ -126,7 +126,7 @@ export class TelaInscricaoInfantil extends ATelaInscricaoInfantil implements OnI
         );
     }
   }
-  
+
   public clicarRejeitar(): void {
 
     this.mensageria.alertarConfirmacao("Deseja rejeitar esta Inscrição?", "")
@@ -171,7 +171,6 @@ export class TelaInscricaoInfantilInclusao extends ATelaInscricaoInfantil implem
     this.inscricao.DadosPessoais.UsaAdocanteDiariamente = false;
     this.inscricao.Pagamento = new DTOPagamento();
     this.inscricao.Sarais = [];
-    this.inscricao.PrimeiroEncontro = false;
     this.inscricao.DormeEvento = true;
 
     this.evento = new DTOEventoCompletoInscricao();
