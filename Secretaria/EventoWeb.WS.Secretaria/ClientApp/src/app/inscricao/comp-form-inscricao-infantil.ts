@@ -56,8 +56,8 @@ export class CompFormInscricaoInfantil {
     this.dadosTela.observacoes = this.mInscricao.Observacoes;
     this.dadosTela.dormiraEvento = this.mInscricao.DormeEvento;
 
-    if (this.dadosTela.pagamento.ComprovantesBase64 != null)
-      this.dadosTela.pagamento.ComprovantesBase64 = this.dadosTela.pagamento.ComprovantesBase64.map(x => 'data:image/jpeg;base64,' + x);
+    //if (this.dadosTela.pagamento.Comprovantes != null)
+    //  this.dadosTela.pagamento.Comprovantes = this.dadosTela.pagamento.Comprovantes.map(x => 'data:image/jpeg;base64,' + x);
 
     this.atribuirInscricaoSimples();
   }
@@ -107,7 +107,7 @@ export class CompFormInscricaoInfantil {
     else if (this.dadosTela.pagamento == null || this.dadosTela.pagamento.Forma == null)
       this.mensageria.alertarAtencao("Você precisa informar o Pagamento.", "Sem essa informação não é possível enviar a inscrição.");
     else if (this.dadosTela.pagamento != null && this.dadosTela.pagamento.Forma == EnumPagamento.Comprovante &&
-      (this.dadosTela.pagamento.ComprovantesBase64 == null || this.dadosTela.pagamento.ComprovantesBase64.length == 0))
+      (this.dadosTela.pagamento.Comprovantes == null || this.dadosTela.pagamento.Comprovantes.length == 0))
       this.mensageria.alertarAtencao("Você precisa informar o(s) comprovante(s) de pagamento.", "Sem essa informação não é possível enviar a inscrição.");
     else {
       let atualizacao = new DTOInscricaoAtualizacaoInfantil();
@@ -134,8 +134,9 @@ export class CompFormInscricaoInfantil {
       atualizacao.Pagamento = new DTOPagamento();
       atualizacao.Pagamento.Forma = this.dadosTela.pagamento.Forma;
       atualizacao.Pagamento.Observacao = this.dadosTela.pagamento.Observacao;
-      if (this.dadosTela.pagamento.ComprovantesBase64 != null)
-        atualizacao.Pagamento.ComprovantesBase64 = this.dadosTela.pagamento.ComprovantesBase64.map(x => x.substring(x.indexOf(",") + 1));
+      if (this.dadosTela.pagamento.Comprovantes != null)
+        atualizacao.Pagamento.Comprovantes = this.dadosTela.pagamento.Comprovantes.map(x =>
+          ({ Base64: x.Base64, TipoArquivo: x.TipoArquivo }))
 
       resultado.valido = true;
       resultado.inscricaoAtualizar = atualizacao;

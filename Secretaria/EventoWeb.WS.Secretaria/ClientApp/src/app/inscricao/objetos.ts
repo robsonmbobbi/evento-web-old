@@ -107,9 +107,16 @@ export class DTOInscricaoCompletaInfantil extends DTOInscricaoAtualizacaoInfanti
 
 export enum EnumPagamento { Comprovante, ComprovanteOutraInscricao, Outro }
 
+export enum EnumTipoArquivoBinario { PDF, ImagemPNG, ImagemJPEG }
+
+export class DTOComprovantePagamento {
+  Base64: string;
+  TipoArquivo: EnumTipoArquivoBinario;
+}
+
 export class DTOPagamento {
 
   Forma: EnumPagamento;
-  ComprovantesBase64: string[];
+  Comprovantes: DTOComprovantePagamento[];
   Observacao: string;
 }

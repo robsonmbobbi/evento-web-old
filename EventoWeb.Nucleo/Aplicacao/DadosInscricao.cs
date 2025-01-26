@@ -185,10 +185,16 @@ namespace EventoWeb.Nucleo.Aplicacao
         public string Codigo { get; set; }
     }
 
+    public class DTOComprovantePagamento
+    {
+        public string Base64 { get; set; }
+        public EnumTipoArquivoBinario TipoArquivo { get; set; }
+    }
+
     public class DTOPagamento
     {
         public EnumPagamento? Forma { get; set; }
-        public IList<string> ComprovantesBase64 { get; set; }
+        public IList<DTOComprovantePagamento> Comprovantes { get; set; }
         public string Observacao { get; set; }
     }
 }

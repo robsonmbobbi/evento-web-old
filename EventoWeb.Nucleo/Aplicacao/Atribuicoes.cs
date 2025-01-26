@@ -138,8 +138,8 @@ namespace EventoWeb.Nucleo.Aplicacao
             inscricao.DormeEvento = dtoInscricao.DormeEvento;
 
             inscricao.Pagamento.AtribuirFormaPagamento(dtoInscricao.Pagamento.Forma.Value,
-                dtoInscricao.Pagamento.ComprovantesBase64
-                        .Select(x => new ArquivoBinario(Convert.FromBase64String(x), EnumTipoArquivoBinario.ImagemJPEG)));
+                dtoInscricao.Pagamento.Comprovantes
+                        .Select(x => new ArquivoBinario(Convert.FromBase64String(x.Base64), x.TipoArquivo)));
             inscricao.Pagamento.Observacao = dtoInscricao.Pagamento.Observacao;
 
             inscricao.Pessoa.AtribuirDados(dtoInscricao.DadosPessoais);

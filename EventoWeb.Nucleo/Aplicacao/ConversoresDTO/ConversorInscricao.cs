@@ -76,7 +76,11 @@ namespace EventoWeb.Nucleo.Aplicacao.ConversoresDTO
             {
                 dto.Pagamento = new DTOPagamento
                 {
-                    ComprovantesBase64 = inscricao.Pagamento.Comprovantes?.Select(x => Convert.ToBase64String(x.ArquivoComprovante.Arquivo)).ToList(),
+                    Comprovantes = inscricao.Pagamento.Comprovantes?.Select(x => new DTOComprovantePagamento
+                    {
+                        Base64 = Convert.ToBase64String(x.ArquivoComprovante.Arquivo),
+                        TipoArquivo = x.ArquivoComprovante.Tipo
+                    }).ToList(),
                     Forma = inscricao.Pagamento.Forma,
                     Observacao = inscricao.Pagamento.Observacao
                 };
