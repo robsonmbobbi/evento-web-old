@@ -34,21 +34,17 @@
   </div>
   <div *ngIf="opcaoEscolhida == opcoes[0]" fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
     <label class="label_campos" fxFlex="106px">Comprovante (.jpg, .jpeg, .png, .pdf):</label>
-    <dx-file-uploader [multiple]="true"
-                      labelText="Arraste o arquivo para cá"
-                      selectButtonText="Selecione o arquivo"
-                      uploadFailedMessage=""
-                      uploadedMessage=""
-                      [allowedFileExtensions]="['.jpg', '.jpeg', '.png', '.pdf']"
-                      [(value)]="arquivosComprovantes"
-                      [disabled]="desabilitar">
-    </dx-file-uploader>
+    <input type="file"
+           (change)="onFileSelected($event)"
+           [accept]="[image/jpg, image/jpeg, image/png, application/pdf]"
+           [disabled]="desabilitar"
+           multiple />
   </div>
   <div *ngIf="opcaoEscolhida == opcoes[0]" fxLayout="row wrap" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="center center">
-    <div *ngFor="let comprovante of comprovantes; let i = index">
+    <div *ngFor="let comprovante of arquivosComprovantes; let i = index">
       <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start center">
         <i class="fas fa-tag fa-5x"></i>
-        <a (click)="abrirComprovante(i)" target="_blank">Comprovante {{i + 1}}</a>
+        <a (click)="abrirComprovante(comprovante.Arquivo)" target="_blank">Comprovante {{i + 1}}</a>
       </div>
     </div>
   </div>

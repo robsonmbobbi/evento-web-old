@@ -9,7 +9,7 @@ import { Observable, forkJoin } from 'rxjs';
 export class ComponentePagamento {
 
     private mValor: DTOPagamento;
-    private mArquivosBin: File[] = [];
+    private mArquivosBin: ComprovanteComArquivo[] = [];
     private mExtensaoArquivo: DadosExtensaoArquivo[] = [
       { Tipo: ".PDF", Mime: "application/pdf" },
       { Tipo: ".PNG", Mime: "image/png" },
@@ -31,11 +31,17 @@ export class ComponentePagamento {
                     let indice = 1;
                     for (let comprovante of this.mValor.Comprovantes) {
                         this.mArquivosBin.push(
-                          new File(
-                            [this.dataURItoBlob(comprovante.Base64.substring(comprovante.Base64.indexOf(",") + 1))],
-                            indice.toString() + this.mExtensaoArquivo[comprovante.TipoArquivo].Tipo,
-                            { type: this.mExtensaoArquivo[comprovante.TipoArquivo].Mime }
-                          )
+                            {
+                                Comprovante: comprovante,
+                                Arquivo: new File(
+                                  [this.dataURItoBlob(
+                                      comprovante.Base64.substring(comprovante.Base64.indexOf(",") + 1),
+                                      this.mExtensaoArquivo[comprovante.TipoArquivo].Mime
+                                    )],
+                                  indice.toString() + '.' + this.mExtensaoArquivo[comprovante.TipoArquivo].Tipo,
+                                  { type: this.mExtensaoArquivo[comprovante.TipoArquivo].Mime }
+                                )
+                            }
                         );
                         indice++;
                     }
@@ -88,72 +94,9 @@ export class ComponentePagamento {
         }
     }
 
-    set arquivosComprovantes(param: any[]) {
-
-        if (param != null) {
-            let arquivosValidos = param.filter(x => x.type == "image/jpeg" || x.type == "image/jpg" || x.type == "image/pdf");
-            if (arquivosValidos.length != this.mArquivosBin.length) {
-                if (arquivosValidos.length == 0) {
-                    this.mValor.Comprovantes = [];
-                    this.mArquivosBin = [];
-
-                    this.valorChange.emit(this.mValor);
-                }
-                else {
-
-                    this.mArquivosBin = arquivosValidos;
-                    this.mValor.Comprovantes = [];
-
-                    let observadores: Observable<string>[] = [];
-                    for (let arquivo of arquivosValidos) {
-                        observadores.push(this.readFileAsDataURL(arquivo));
-                    }
-
-                    forkJoin(observadores)
-                        .subscribe(x => this.valorChange.emit(this.mValor));
-                }
-            }
-        }
-        else if (param == null && this.mArquivosBin.length != 0) {
-            this.mValor.Comprovantes = [];
-            this.mArquivosBin = [];
-
-            this.valorChange.emit(this.mValor);
-        }
-    }
-
-    private readFileAsDataURL(file): Observable<string> {
-
-        let result_base64 = new Observable<string>((resolve) => {
-            let fileReader = new FileReader();
-            fileReader.onload = (e: any) => {
-                let comprovante = new DTOComprovantePagamento();
-                comprovante.Base64 = e.target.result;
-                if (file.type == "image/jpeg" || file.type == "image/jpg") {
-                    comprovante.TipoArquivo = EnumTipoArquivoBinario.ImagemJPEG;
-                } else if (file.type == "application/pdf") {
-                    comprovante.TipoArquivo = EnumTipoArquivoBinario.PDF;
-                } else {
-                    comprovante.TipoArquivo = EnumTipoArquivoBinario.ImagemPNG; // Default or other type
-                }
-                this.mValor.Comprovantes.push(comprovante);
-                resolve.next(<string>e.target.result);
-                resolve.complete();
-            };
-
-            fileReader.readAsDataURL(file);
-        });
-
-        return result_base64;
-    }
-
-    get arquivosComprovantes(): any[] {
+    get arquivosComprovantes(): ComprovanteComArquivo[] {
 
         return this.mArquivosBin;
-    }
-
-    get comprovantes(): DTOComprovantePagamento[] {
-      return this.mValor.Comprovantes;
     }
 
     set observacoes(param: string) {
@@ -172,32 +115,102 @@ export class ComponentePagamento {
         return this.mValor.Observacao;
     }
 
-    private dataURItoBlob(dataURI: string): Blob {
+    onFileSelected(event: any) {
+
+      if (event.target.files.length > 0) {
+          let arquivosValidos = event.target.files;
+          if (arquivosValidos.length > 0) {
+            this.mValor.Comprovantes = [];
+
+            let observadores: Observable<string>[] = [];
+            for (let arquivo of arquivosValidos) {
+                observadores.push(this.readFileAsDataURL(arquivo));
+            }
+
+            forkJoin(observadores)
+                .subscribe(x => this.valorChange.emit(this.mValor));
+          }
+
+          if (arquivosValidos.length != this.mArquivosBin.length) {
+              if (arquivosValidos.length == 0) {
+                  this.mValor.Comprovantes = [];
+                  this.mArquivosBin = [];
+
+                  this.valorChange.emit(this.mValor);
+              }
+              else {
+
+                  //this.mArquivosBin = arquivosValidos;
+                  this.mValor.Comprovantes = [];
+
+                  let observadores: Observable<string>[] = [];
+                  for (let arquivo of arquivosValidos) {
+                      observadores.push(this.readFileAsDataURL(arquivo));
+                  }
+
+                  forkJoin(observadores)
+                      .subscribe(x => this.valorChange.emit(this.mValor));
+              }
+          }
+      }
+      else if (event == null && this.mArquivosBin.length != 0) {
+          this.mValor.Comprovantes = [];
+          this.mArquivosBin = [];
+
+          this.valorChange.emit(this.mValor);
+      }
+  }
+
+  private readFileAsDataURL(file): Observable<string> {
+
+      let result_base64 = new Observable<string>((resolve) => {
+          let fileReader = new FileReader();
+          fileReader.onload = (e: any) => {
+              let comprovante = new DTOComprovantePagamento();
+              comprovante.Base64 = e.target.result;
+              if (file.type == "image/jpeg" || file.type == "image/jpg") {
+                  comprovante.TipoArquivo = EnumTipoArquivoBinario.ImagemJPEG;
+              } else if (file.type == "application/pdf") {
+                  comprovante.TipoArquivo = EnumTipoArquivoBinario.PDF;
+              } else {
+                  comprovante.TipoArquivo = EnumTipoArquivoBinario.ImagemPNG; // Default or other type
+              }
+              this.mValor.Comprovantes.push(comprovante);
+              this.mArquivosBin.push({ Comprovante: comprovante, Arquivo: file });
+
+              resolve.next(<string>e.target.result);
+              resolve.complete();
+          };
+
+          fileReader.readAsDataURL(file);
+      });
+
+      return result_base64;
+  }
+
+    private dataURItoBlob(dataURI: string, mimeType: string): Blob {
         const byteString = window.atob(dataURI);
         const arrayBuffer = new ArrayBuffer(byteString.length);
         const int8Array = new Uint8Array(arrayBuffer);
         for (let i = 0; i < byteString.length; i++) {
             int8Array[i] = byteString.charCodeAt(i);
         }
-        const blob = new Blob([int8Array], { type: 'image/jpeg' });
+        const blob = new Blob([int8Array], { type: mimeType });
         return blob;
     }
 
-    public abrirComprovante(indice:number): void {
-        let url = URL.createObjectURL(this.mArquivosBin[indice]);
+    public abrirComprovante(arquivo: File): void {
+        let url = URL.createObjectURL(arquivo);
         window.open(url, '_blank');
     }
-
-    /*public obterImgComprovantes(): string[] {
-        if (this.mValor != null && this.mValor.Comprovantes != null) {
-            return this.mValor.Comprovantes;
-        }
-        else
-            return [];
-    }*/
 }
 
 export class DadosExtensaoArquivo {
     Tipo: string;
     Mime: string;
+}
+
+export class ComprovanteComArquivo {
+    Comprovante: DTOComprovantePagamento;
+    Arquivo: File;
 }
