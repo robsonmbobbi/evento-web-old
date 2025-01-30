@@ -36,15 +36,29 @@
     <label class="label_campos" fxFlex="106px">Comprovante (.jpg, .jpeg, .png, .pdf):</label>
     <input type="file"
            (change)="onFileSelected($event)"
-           [accept]="[image/jpg, image/jpeg, image/png, application/pdf]"
+           accept="image/jpg, image/jpeg, image/png, application/pdf"
            [disabled]="desabilitar"
            multiple />
   </div>
   <div *ngIf="opcaoEscolhida == opcoes[0]" fxLayout="row wrap" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="center center">
     <div *ngFor="let comprovante of arquivosComprovantes; let i = index">
-      <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start center">
+      <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start center" style="padding: 5px;">
         <i class="fas fa-tag fa-5x"></i>
-        <a (click)="abrirComprovante(comprovante.Arquivo)" target="_blank">Comprovante {{i + 1}}</a>
+        <span>Comprovante {{i + 1}}</span>
+        <button type="button"
+                mat-raised-button
+                color="primary"
+                (click)="abrirComprovante(comprovante.Arquivo)"
+                [disabled]="desabilitar">
+          Visualizar
+        </button>
+        <button type="button"
+                mat-raised-button
+                color="warn"
+                (click)="clicarExcluirComprovante(comprovante)"
+                [disabled]="desabilitar">
+          Excluir
+        </button>
       </div>
     </div>
   </div>

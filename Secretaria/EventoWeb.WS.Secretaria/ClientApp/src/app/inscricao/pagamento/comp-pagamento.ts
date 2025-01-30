@@ -115,53 +115,23 @@ export class ComponentePagamento {
         return this.mValor.Observacao;
     }
 
-    onFileSelected(event: any) {
+    public onFileSelected(event: any) {
 
       if (event.target.files.length > 0) {
           let arquivosValidos = event.target.files;
-          if (arquivosValidos.length > 0) {
-            this.mValor.Comprovantes = [];
 
-            let observadores: Observable<string>[] = [];
-            for (let arquivo of arquivosValidos) {
-                observadores.push(this.readFileAsDataURL(arquivo));
-            }
+          let observadores: Observable<string>[] = [];
 
-            forkJoin(observadores)
-                .subscribe(x => this.valorChange.emit(this.mValor));
+          for (let arquivo of arquivosValidos) {
+              observadores.push(this.readFileAsDataURL(arquivo));
           }
 
-          if (arquivosValidos.length != this.mArquivosBin.length) {
-              if (arquivosValidos.length == 0) {
-                  this.mValor.Comprovantes = [];
-                  this.mArquivosBin = [];
-
-                  this.valorChange.emit(this.mValor);
-              }
-              else {
-
-                  //this.mArquivosBin = arquivosValidos;
-                  this.mValor.Comprovantes = [];
-
-                  let observadores: Observable<string>[] = [];
-                  for (let arquivo of arquivosValidos) {
-                      observadores.push(this.readFileAsDataURL(arquivo));
-                  }
-
-                  forkJoin(observadores)
-                      .subscribe(x => this.valorChange.emit(this.mValor));
-              }
-          }
+          forkJoin(observadores)
+              .subscribe(x => this.valorChange.emit(this.mValor));
       }
-      else if (event == null && this.mArquivosBin.length != 0) {
-          this.mValor.Comprovantes = [];
-          this.mArquivosBin = [];
+    }
 
-          this.valorChange.emit(this.mValor);
-      }
-  }
-
-  private readFileAsDataURL(file): Observable<string> {
+    private readFileAsDataURL(file): Observable<string> {
 
       let result_base64 = new Observable<string>((resolve) => {
           let fileReader = new FileReader();
@@ -186,7 +156,7 @@ export class ComponentePagamento {
       });
 
       return result_base64;
-  }
+    }
 
     private dataURItoBlob(dataURI: string, mimeType: string): Blob {
         const byteString = window.atob(dataURI);
@@ -202,6 +172,13 @@ export class ComponentePagamento {
     public abrirComprovante(arquivo: File): void {
         let url = URL.createObjectURL(arquivo);
         window.open(url, '_blank');
+    }
+
+    public clicarExcluirComprovante(comprovante: ComprovanteComArquivo): void {
+        let indice = this.mArquivosBin.indexOf(comprovante);
+        this.mArquivosBin.splice(indice, 1);
+        this.mValor.Comprovantes.splice(indice, 1);
+        this.valorChange.emit(this.mValor);
     }
 }
 

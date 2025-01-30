@@ -62,9 +62,6 @@ export class CompFormInscricao {
     this.dadosTela.pagamento = this.mInscricao.Pagamento;
     this.dadosTela.observacoes = this.mInscricao.Observacoes;
 
-    if (this.dadosTela.pagamento.ComprovantesBase64 != null)
-      this.dadosTela.pagamento.ComprovantesBase64 = this.dadosTela.pagamento.ComprovantesBase64.map(x => 'data:image/jpeg;base64,' + x);
-
     this.atribuirInscricaoSimples();
   }
 
@@ -143,7 +140,7 @@ export class CompFormInscricao {
     else if (this.dadosTela.pagamento == null || this.dadosTela.pagamento.Forma == null)
       this.coordenacao.Alertas.alertarAtencao("Você precisa informar o Pagamento.", "Sem essa informação não é possível enviar a inscrição.");
     else if (this.dadosTela.pagamento != null && this.dadosTela.pagamento.Forma == EnumPagamento.Comprovante &&
-      (this.dadosTela.pagamento.ComprovantesBase64 == null || this.dadosTela.pagamento.ComprovantesBase64.length == 0))
+      (this.dadosTela.pagamento.Comprovantes == null || this.dadosTela.pagamento.Comprovantes.length == 0))
       this.coordenacao.Alertas.alertarAtencao("Você precisa informar o(s) comprovante(s) de pagamento.", "Sem essa informação não é possível enviar a inscrição.");
     else {
       let atualizacao = new DTOInscricaoAtualizacao();
@@ -176,8 +173,9 @@ export class CompFormInscricao {
       atualizacao.Pagamento = new DTOPagamento();
       atualizacao.Pagamento.Forma = this.dadosTela.pagamento.Forma;
       atualizacao.Pagamento.Observacao = this.dadosTela.pagamento.Observacao;
-      if (this.dadosTela.pagamento.ComprovantesBase64 != null)
-        atualizacao.Pagamento.ComprovantesBase64 = this.dadosTela.pagamento.ComprovantesBase64.map(x => x.substring(x.indexOf(",") + 1));
+      if (this.dadosTela.pagamento.Comprovantes != null)
+        atualizacao.Pagamento.Comprovantes = this.dadosTela.pagamento.Comprovantes.map(x =>
+          ({ Base64: x.Base64.substring(x.Base64.indexOf(",") + 1), TipoArquivo: x.TipoArquivo }));
 
       resultado.valido = true;
       resultado.inscricaoAtualizar = atualizacao;

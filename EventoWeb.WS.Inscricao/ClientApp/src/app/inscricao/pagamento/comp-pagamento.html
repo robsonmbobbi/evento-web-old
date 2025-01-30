@@ -28,28 +28,27 @@
       <strong>Outros</strong> é para dizer a secretaria que você pagará mais tarde, fez ou precisa de isenção, ou qualquer outra situação que não se enquadre nas duas primeiras formas.
     </div>
   </div>
-  <div *ngIf="opcaoEscolhida == opcoes[0]" fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-    <label class="label_campos" fxFlex="106px">Comprovante (.jpg, .jpeg):</label>
-    <dx-file-uploader [multiple]="true"
-                      labelText="Arraste o arquivo para cá"
-                      selectButtonText="Selecione o arquivo"
-                      uploadFailedMessage=""
-                      uploadedMessage=""
-                      [allowedFileExtensions]="['.jpg', '.jpeg']"
-                      [(value)]="comprovantes"
-                      [disabled]="desabilitar">
-    </dx-file-uploader>
-  </div>
-  <div *ngIf="opcaoEscolhida == opcoes[0]" fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="center center">
-    <dx-gallery [dataSource]="obterImgComprovantes()"
-                [height]="200"
-                [width]="300"
-                [loop]="false"
-                [showNavButtons]="true"
-                [showIndicator]="true"
-                [stretchImages]="true"
+  <div *ngIf="opcaoEscolhida == opcoes[0]" fxLayout="row wrap" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="center center">
+    <div *ngFor="let comprovante of arquivosComprovantes; let i = index">
+      <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start center" style="padding: 5px;">
+        <i class="fas fa-tag fa-5x"></i>
+        <span>Comprovante {{i + 1}}</span>
+        <button type="button"
+                mat-raised-button
+                color="primary"
+                (click)="abrirComprovante(comprovante.Arquivo)"
                 [disabled]="desabilitar">
-    </dx-gallery>
+          Visualizar
+        </button>
+        <button type="button"
+                mat-raised-button
+                color="warn"
+                (click)="clicarExcluirComprovante(comprovante)"
+                [disabled]="desabilitar">
+          Excluir
+        </button>
+      </div>
+    </div>
   </div>
   <div *ngIf="opcaoEscolhida != null">
     <p *ngIf="opcaoEscolhida == opcoes[0]">

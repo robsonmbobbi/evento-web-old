@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DTOPagamento, EnumPagamento } from '../objetos';
+import { DTOComprovantePagamento, DTOPagamento, EnumPagamento, EnumTipoArquivoBinario } from '../objetos';
 import { Observable, forkJoin } from 'rxjs';
 import { DialogoContrato } from '../../contrato/dlg-contrato';
 
@@ -10,7 +10,12 @@ import { DialogoContrato } from '../../contrato/dlg-contrato';
 export class ComponentePagamento {
 
   private mValor: DTOPagamento;
-  private mArquivosBin: File[] = [];
+  private mArquivosBin: ComprovanteComArquivo[] = [];
+  private mExtensaoArquivo: DadosExtensaoArquivo[] = [
+    { Tipo: ".PDF", Mime: "application/pdf" },
+    { Tipo: ".PNG", Mime: "image/png" },
+    { Tipo: ".JPG", Mime: "image/jpg" },
+  ];
 
   @Input()
   desabilitar: boolean;
@@ -26,11 +31,23 @@ export class ComponentePagamento {
         this.mValor = param;
         this.mArquivosBin = [];
 
-        if (this.mValor.ComprovantesBase64 != null && this.mValor.ComprovantesBase64.length > 0) {
+        if (this.mValor.Comprovantes != null && this.mValor.Comprovantes.length > 0) {
           let indice = 1;
-          for (let arquivo64 of this.mValor.ComprovantesBase64) {
-            this.mArquivosBin.push(new File([this.dataURItoBlob(arquivo64.substring(arquivo64.indexOf(",") + 1))], indice.toString() + ".jpeg", { type: 'image/jpeg' }));
-            indice++;
+          for (let comprovante of this.mValor.Comprovantes) {
+              this.mArquivosBin.push(
+                  {
+                      Comprovante: comprovante,
+                      Arquivo: new File(
+                        [this.dataURItoBlob(
+                            comprovante.Base64.substring(comprovante.Base64.indexOf(",") + 1),
+                            this.mExtensaoArquivo[comprovante.TipoArquivo].Mime
+                          )],
+                        indice.toString() + '.' + this.mExtensaoArquivo[comprovante.TipoArquivo].Tipo,
+                        { type: this.mExtensaoArquivo[comprovante.TipoArquivo].Mime }
+                      )
+                  }
+              );
+              indice++;
           }
         }
       }
@@ -38,7 +55,7 @@ export class ComponentePagamento {
     else {
       this.mValor = new DTOPagamento();
       this.mValor.Forma = EnumPagamento.Comprovante;
-      this.mValor.ComprovantesBase64 = [];
+      this.mValor.Comprovantes = [];
       this.mArquivosBin = [];
     }
   }
@@ -70,64 +87,14 @@ export class ComponentePagamento {
       else if (valor == this.opcoes[2])
         this.mValor.Forma = EnumPagamento.Outro;
 
-      this.mValor.ComprovantesBase64 = [];
+      this.mValor.Comprovantes = [];
       this.mArquivosBin = [];
 
       this.valorChange.emit(this.mValor);
     }
   }
 
-  set comprovantes(param: any[]) {
-
-    if (param != null) {
-      let arquivosValidos = param.filter(x => x.type == "image/jpeg" || x.type == "image/jpg");
-      if (arquivosValidos.length != this.mArquivosBin.length) {
-        if (arquivosValidos.length == 0) {
-          this.mValor.ComprovantesBase64 = [];
-          this.mArquivosBin = [];
-
-          this.valorChange.emit(this.mValor);
-        }
-        else {
-
-          this.mArquivosBin = arquivosValidos;
-          this.mValor.ComprovantesBase64 = [];
-
-          let observadores: Observable<string>[] = [];
-          for (let arquivo of arquivosValidos) {
-            observadores.push(this.readFileAsDataURL(arquivo));
-          }
-
-          forkJoin(observadores)
-            .subscribe(x => this.valorChange.emit(this.mValor));
-        }
-      }
-    }
-    else if (param == null && this.mArquivosBin.length != 0) {
-      this.mValor.ComprovantesBase64 = [];
-      this.mArquivosBin = [];
-
-      this.valorChange.emit(this.mValor);
-    }
-  }
-
-  private readFileAsDataURL(file): Observable<string> {
-
-    let result_base64 = new Observable<string>((resolve) => {
-      let fileReader = new FileReader();
-      fileReader.onload = (e: any) => {
-        this.mValor.ComprovantesBase64.push(<string>e.target.result);
-        resolve.next(<string>e.target.result);
-        resolve.complete();
-      };
-
-      fileReader.readAsDataURL(file);
-    });
-
-    return result_base64;
-  }
-
-  get comprovantes(): any[] {
+  get arquivosComprovantes(): ComprovanteComArquivo[] {
 
     return this.mArquivosBin;
   }
@@ -148,26 +115,83 @@ export class ComponentePagamento {
     return this.mValor.Observacao;
   }
 
-  private dataURItoBlob(dataURI: string): Blob {
+  public onFileSelected(event: any) {
+
+    if (event.target.files.length > 0) {
+        let arquivosValidos = event.target.files;
+
+        let observadores: Observable<string>[] = [];
+
+        for (let arquivo of arquivosValidos) {
+            observadores.push(this.readFileAsDataURL(arquivo));
+        }
+
+        forkJoin(observadores)
+            .subscribe(x => this.valorChange.emit(this.mValor));
+    }
+  }
+
+  private readFileAsDataURL(file): Observable<string> {
+
+    let result_base64 = new Observable<string>((resolve) => {
+        let fileReader = new FileReader();
+        fileReader.onload = (e: any) => {
+            let comprovante = new DTOComprovantePagamento();
+            comprovante.Base64 = e.target.result;
+            if (file.type == "image/jpeg" || file.type == "image/jpg") {
+                comprovante.TipoArquivo = EnumTipoArquivoBinario.ImagemJPEG;
+            } else if (file.type == "application/pdf") {
+                comprovante.TipoArquivo = EnumTipoArquivoBinario.PDF;
+            } else {
+                comprovante.TipoArquivo = EnumTipoArquivoBinario.ImagemPNG; // Default or other type
+            }
+            this.mValor.Comprovantes.push(comprovante);
+            this.mArquivosBin.push({ Comprovante: comprovante, Arquivo: file });
+
+            resolve.next(<string>e.target.result);
+            resolve.complete();
+        };
+
+        fileReader.readAsDataURL(file);
+    });
+
+    return result_base64;
+  }
+
+  private dataURItoBlob(dataURI: string, mimeType: string): Blob {
     const byteString = window.atob(dataURI);
     const arrayBuffer = new ArrayBuffer(byteString.length);
     const int8Array = new Uint8Array(arrayBuffer);
     for (let i = 0; i < byteString.length; i++) {
-      int8Array[i] = byteString.charCodeAt(i);
+        int8Array[i] = byteString.charCodeAt(i);
     }
-    const blob = new Blob([int8Array], { type: 'image/jpeg' });
+    const blob = new Blob([int8Array], { type: mimeType });
     return blob;
+}
+
+  public abrirComprovante(arquivo: File): void {
+    let url = URL.createObjectURL(arquivo);
+    window.open(url, '_blank');
   }
 
-  public obterImgComprovantes(): string[] {
-    if (this.mValor != null && this.mValor.ComprovantesBase64 != null) {
-      return this.mValor.ComprovantesBase64;
-    }
-    else
-      return [];
+  public clicarExcluirComprovante(comprovante: ComprovanteComArquivo): void {
+      let indice = this.mArquivosBin.indexOf(comprovante);
+      this.mArquivosBin.splice(indice, 1);
+      this.mValor.Comprovantes.splice(indice, 1);
+      this.valorChange.emit(this.mValor);
   }
 
   public clicarAbrirRegulamento(): void {
     this.dlgContrato.apresentarDlgFormDialogoInclusao(this.idEvento);
   }
+}
+
+export class DadosExtensaoArquivo {
+  Tipo: string;
+  Mime: string;
+}
+
+export class ComprovanteComArquivo {
+  Comprovante: DTOComprovantePagamento;
+  Arquivo: File;
 }

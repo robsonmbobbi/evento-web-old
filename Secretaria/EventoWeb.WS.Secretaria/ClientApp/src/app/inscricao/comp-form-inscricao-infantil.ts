@@ -56,9 +56,6 @@ export class CompFormInscricaoInfantil {
     this.dadosTela.observacoes = this.mInscricao.Observacoes;
     this.dadosTela.dormiraEvento = this.mInscricao.DormeEvento;
 
-    //if (this.dadosTela.pagamento.Comprovantes != null)
-    //  this.dadosTela.pagamento.Comprovantes = this.dadosTela.pagamento.Comprovantes.map(x => 'data:image/jpeg;base64,' + x);
-
     this.atribuirInscricaoSimples();
   }
 
@@ -136,7 +133,7 @@ export class CompFormInscricaoInfantil {
       atualizacao.Pagamento.Observacao = this.dadosTela.pagamento.Observacao;
       if (this.dadosTela.pagamento.Comprovantes != null)
         atualizacao.Pagamento.Comprovantes = this.dadosTela.pagamento.Comprovantes.map(x =>
-          ({ Base64: x.Base64, TipoArquivo: x.TipoArquivo }))
+          ({ Base64: x.Base64.substring(x.Base64.indexOf(",") + 1), TipoArquivo: x.TipoArquivo }))
 
       resultado.valido = true;
       resultado.inscricaoAtualizar = atualizacao;
