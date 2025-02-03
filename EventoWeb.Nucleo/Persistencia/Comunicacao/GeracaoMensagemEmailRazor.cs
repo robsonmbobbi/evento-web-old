@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace EventoWeb.Nucleo.Persistencia.Comunicacao
 {
-    public class GeracaoMensagemEmailRazor : AGeracaoMensagemEmail
+    public class GeracaoMensagemEmailRazor : AGeracaoMensagem
     {
         private RazorLightEngine m_MotorRazor;
 

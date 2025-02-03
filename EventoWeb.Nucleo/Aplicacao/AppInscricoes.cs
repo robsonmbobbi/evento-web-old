@@ -8,12 +8,12 @@ namespace EventoWeb.Nucleo.Aplicacao
 {
     public class AppInscricoes : AppBase
     {
-        private readonly AppEmailMsgPadrao m_AppEmail;
+        private readonly AppComunicacao m_AppComunicacao;
 
-        public AppInscricoes(IContexto contexto, AppEmailMsgPadrao appEmail) : 
+        public AppInscricoes(IContexto contexto, AppComunicacao appComunicacao) : 
             base(contexto)
         {
-            m_AppEmail = appEmail;
+            m_AppComunicacao = appComunicacao;
         }
 
         public IEnumerable<DTOBasicoInscricao> ListarTodas(int idEvento, EnumSituacaoInscricao situacao)
@@ -77,7 +77,7 @@ namespace EventoWeb.Nucleo.Aplicacao
                 {
                     inscricao.Rejeitar();
 
-                    m_AppEmail.EnviarInscricaoRejeitada(inscricao);
+                    m_AppComunicacao.EnviarInscricaoRejeitada(inscricao);
                 }
             });
         }
@@ -95,7 +95,7 @@ namespace EventoWeb.Nucleo.Aplicacao
                     AtualizarInscricao(participante, atualizacao);
                     participante.Aceitar();
 
-                    m_AppEmail.EnviarInscricaoAceita((InscricaoParticipante)inscricao);
+                    m_AppComunicacao.EnviarInscricaoAceita((InscricaoParticipante)inscricao);
                 }
             });
         }
@@ -134,7 +134,7 @@ namespace EventoWeb.Nucleo.Aplicacao
                 appApresentacaoSarau
                     .IncluirOuAtualizarPorParticipanteSemExecucaoSegura(inscInfantil, dtoInscricao.Sarais);
 
-                m_AppEmail.EnviarInscricaoRegistradaInfantil(inscInfantil);
+                m_AppComunicacao.EnviarInscricaoRegistradaInfantil(inscInfantil);
             });
         }
 
@@ -167,7 +167,7 @@ namespace EventoWeb.Nucleo.Aplicacao
                 appApresentacaoSarau
                     .IncluirOuAtualizarPorParticipanteSemExecucaoSegura(inscParticipante, dtoInscricao.Sarais);
 
-                m_AppEmail.EnviarInscricaoRegistradaAdulto(inscParticipante);
+                m_AppComunicacao.EnviarInscricaoRegistradaAdulto(inscParticipante);
             });
         }
 
@@ -184,7 +184,7 @@ namespace EventoWeb.Nucleo.Aplicacao
                     AtualizarInscricaoInfantil(crianca, atualizacao);
                     crianca.Aceitar();
 
-                    m_AppEmail.EnviarInscricaoAceita((InscricaoInfantil)inscricao);
+                    m_AppComunicacao.EnviarInscricaoAceita((InscricaoInfantil)inscricao);
                 }
             });
         }

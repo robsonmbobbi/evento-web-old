@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EventoWeb.Nucleo.Aplicacao;
+﻿using EventoWeb.Nucleo.Aplicacao;
 using EventoWeb.Nucleo.Negocio.Entidades;
 using EventoWeb.Nucleo.Persistencia.Comunicacao;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace EventoWeb.WS.Secretaria.Controllers
 {
@@ -17,10 +13,9 @@ namespace EventoWeb.WS.Secretaria.Controllers
     {
         private readonly AppInscricoes m_App;
 
-        public InscricoesController(IContexto contexto)
+        public InscricoesController(IContexto contexto, AppInscricoes app)
         {
-            m_App = new AppInscricoes(contexto,
-                new AppEmailMsgPadrao(contexto, new ServicoEmail(), new GeracaoMensagemEmailRazor()));
+            m_App = app;
         }
 
         [Authorize("Bearer")]
@@ -98,6 +93,14 @@ namespace EventoWeb.WS.Secretaria.Controllers
         public void IncluirInfantil(int idEvento, [FromBody] DTOInscricaoAtualizacaoInfantil inscricao)
         {
             m_App.IncluirInfantil(idEvento, inscricao);
+        }
+
+        [HttpGet("teste")]
+        public void EnviarTeste()
+        {
+            var srv = new ServicoWhatsapp();
+            srv.Configuracao = m_App.Contexto.RepositorioConfiguracoesWhatsapp.Obter(10);
+            srv.Enviar("037999674994", "Teste da secretaria");
         }
     }
 }

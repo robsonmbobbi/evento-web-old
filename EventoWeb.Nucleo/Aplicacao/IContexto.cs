@@ -20,7 +20,9 @@ namespace EventoWeb.Nucleo.Aplicacao
         AOficinas RepositorioOficinas { get; }
         AInscricoes RepositorioInscricoes { get; }
         AConfiguracoesEmail RepositorioConfiguracoesEmail { get; }
+        AConfiguracoesWhatsapp RepositorioConfiguracoesWhatsapp { get; }
         AMensagensEmailPadrao RepositorioMensagensEmailPadrao { get; }
+        AMensagensWhatsappPadrao RepositorioMensagensWhatsappPadrao { get; }
         ACodigosAcessoInscricao RepositorioCodigosAcessoInscricao { get; }
         AApresentacoesSarau RepositorioApresentacoesSarau { get; }
         AArquivosBinarios RepositorioArquivosBinarios { get; }

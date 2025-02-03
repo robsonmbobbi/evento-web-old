@@ -1,5 +1,4 @@
 ﻿using EventoWeb.Nucleo.Aplicacao;
-using EventoWeb.Nucleo.Persistencia;
 using EventoWeb.Nucleo.Persistencia.Comunicacao;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +11,9 @@ namespace EventoWeb.WS.Inscricao.Controllers
         private readonly AppInscOnlineEventoAcessoInscricoes mAppInscricao;
         private readonly ConfiguracaoJwtBearer mConfiguracaoJwt;
 
-        public InscricoesController(IContexto contexto, ConfiguracaoJwtBearer configuracaoJwt)
+        public InscricoesController(IContexto contexto, ConfiguracaoJwtBearer configuracaoJwt, AppInscOnlineEventoAcessoInscricoes app)
         {
-            mAppInscricao = new AppInscOnlineEventoAcessoInscricoes(contexto, 
-                new AppEmailMsgPadrao(contexto, new ServicoEmail(), new GeracaoMensagemEmailRazor()));
+            mAppInscricao = app;
             mConfiguracaoJwt = configuracaoJwt;
         }
 

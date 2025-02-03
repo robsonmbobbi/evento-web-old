@@ -1,17 +1,19 @@
 ﻿using EventoWeb.Nucleo.Aplicacao;
+using EventoWeb.Nucleo.Aplicacao.Comunicacao;
 using EventoWeb.Nucleo.Persistencia;
+using EventoWeb.Nucleo.Persistencia.Comunicacao;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NHibernate;
 using System;
+using System.Collections.Generic;
 using System.Net;
 
 namespace EventoWeb.WS.Inscricao
@@ -27,6 +29,27 @@ namespace EventoWeb.WS.Inscricao
                 var factory = provider.GetService<ISessionFactory>();
                 return new Contexto(factory.OpenSession());
             });
+            services.AddTransient<AServicoEmail>(provider => new ServicoEmail());
+            services.AddTransient<AServicoWhatsapp>(provider => new ServicoWhatsapp());
+            services.AddTransient<GeracaoMensagemEmailRazor>();
+            services.AddTransient<GeracaoMensagemSand>();
+            services.AddTransient<IList<IComunicacao>>(provider =>
+            {
+                return
+                [
+                    new AppEmailMsgPadrao(
+                        provider.GetService<IContexto>(),
+                        provider.GetService<AServicoEmail>(),
+                        provider.GetService<GeracaoMensagemEmailRazor>()
+                    ),
+                    new AppWhatsappMsgPadrao(
+                        provider.GetService<IContexto>(),
+                        provider.GetService<AServicoWhatsapp>(),
+                        provider.GetService<GeracaoMensagemSand>()
+                    )
+                ];
+            });
+            services.AddTransient<AppComunicacao>();
 
             var configuracao = new ConfiguracaoJwtBearer();
             services.AddSingleton(configuracao);

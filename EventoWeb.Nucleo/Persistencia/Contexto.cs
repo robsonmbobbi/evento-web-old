@@ -94,5 +94,9 @@ namespace EventoWeb.Nucleo.Persistencia
         public IRelatorioInscritosDepartamentos RelatorioInscritosDepartamentos => new RelatorioInscritosDepartamentos();
 
         public IRelatorioSarau RelatorioSarau => new RelatorioSarau();
+
+        public AConfiguracoesWhatsapp RepositorioConfiguracoesWhatsapp => new RepositorioConfiguracoesWhatsappNH(m_Sessao);
+
+        public AMensagensWhatsappPadrao RepositorioMensagensWhatsappPadrao => new RepositorioMensagensWhatsappPadrao(m_Sessao);
     }
 }

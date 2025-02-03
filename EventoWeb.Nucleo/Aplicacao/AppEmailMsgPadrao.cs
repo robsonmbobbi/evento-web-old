@@ -1,23 +1,22 @@
 ﻿using EventoWeb.Nucleo.Aplicacao.Comunicacao;
 using EventoWeb.Nucleo.Aplicacao.ConversoresDTO;
 using EventoWeb.Nucleo.Negocio.Entidades;
-using System;
 using System.Linq;
 
 namespace EventoWeb.Nucleo.Aplicacao
 {
-    public class AppEmailMsgPadrao : AppBase
+    public class AppEmailMsgPadrao : AppBase, IComunicacao
     {
         private readonly AServicoEmail m_ServicoEmail;
-        private readonly AGeracaoMensagemEmail m_GeradorMsgEmail;
+        private readonly AGeracaoMensagem m_GeradorMsgEmail;
 
-        public AppEmailMsgPadrao(IContexto contexto, AServicoEmail servicoEmail, AGeracaoMensagemEmail geradorMsgEmail) : base(contexto)
+        public AppEmailMsgPadrao(IContexto contexto, AServicoEmail servicoEmail, AGeracaoMensagem geradorMsgEmail) : base(contexto)
         {
             m_ServicoEmail = servicoEmail;
             m_GeradorMsgEmail = geradorMsgEmail;
         }
 
-        public void EnviarCodigoValidacaoEmail(int idEvento, string email, string codigo)
+        public void EnviarCodigoValidacao(int idEvento, string destinatario, string codigo)
         {
             var evento = Contexto.RepositorioEventos.ObterEventoPeloId(idEvento);
             var mensagem = ObterMensagem(idEvento);
@@ -25,14 +24,14 @@ namespace EventoWeb.Nucleo.Aplicacao
             m_ServicoEmail.Enviar(new Email
             {
                 Assunto = mensagem.MensagemInscricaoCodigoAcessoCriacao.Assunto,
-                Conteudo = m_GeradorMsgEmail.GerarMensagemModelo<EmailValidacaoEmail>(mensagem.MensagemInscricaoCodigoAcessoCriacao.Mensagem, 
-                    new EmailValidacaoEmail
+                Conteudo = m_GeradorMsgEmail.GerarMensagemModelo<DadosValidacaoEmail>(mensagem.MensagemInscricaoCodigoAcessoCriacao.Mensagem, 
+                    new DadosValidacaoEmail
                     {
                         Codigo = codigo,
                         Evento = evento.Nome
                     }
                 ),
-                Endereco = email
+                Endereco = destinatario
             });
         }
 
@@ -43,8 +42,8 @@ namespace EventoWeb.Nucleo.Aplicacao
             m_ServicoEmail.Enviar(new Email
             {
                 Assunto = mensagem.MensagemInscricaoCodigoAcessoAcompanhamento.Assunto,
-                Conteudo = m_GeradorMsgEmail.GerarMensagemModelo<EmailCodigoInscricao>(mensagem.MensagemInscricaoCodigoAcessoAcompanhamento.Mensagem,
-                    new EmailCodigoInscricao
+                Conteudo = m_GeradorMsgEmail.GerarMensagemModelo<DadosCodigoInscricao>(mensagem.MensagemInscricaoCodigoAcessoAcompanhamento.Mensagem,
+                    new DadosCodigoInscricao
                     {
                         Codigo = codigo,
                         Evento = inscricao.Evento.Nome,
@@ -117,8 +116,8 @@ namespace EventoWeb.Nucleo.Aplicacao
             m_ServicoEmail.Enviar(new Email
             {
                 Assunto = mensagem.MensagemInscricaoConfirmada.Assunto,
-                Conteudo = m_GeradorMsgEmail.GerarMensagemModelo<EmailConfirmacaoInscricao>(mensagem.MensagemInscricaoConfirmada.Mensagem,
-                    new EmailConfirmacaoInscricao
+                Conteudo = m_GeradorMsgEmail.GerarMensagemModelo<DadosConfirmacaoInscricao>(mensagem.MensagemInscricaoConfirmada.Mensagem,
+                    new DadosConfirmacaoInscricao
                     {
                         Evento = inscricao.Evento.Nome,
                         NomePessoa = inscricao.Pessoa.Nome,
@@ -146,13 +145,13 @@ namespace EventoWeb.Nucleo.Aplicacao
         }
     }
 
-    public class EmailValidacaoEmail
+    public class DadosValidacaoEmail
     {
         public string Evento { get; set; }
         public string Codigo { get; set; }
     }
 
-    public class EmailCodigoInscricao
+    public class DadosCodigoInscricao
     {
         public string Evento { get; set; }
         public string Identificacao { get; set; }
@@ -162,7 +161,7 @@ namespace EventoWeb.Nucleo.Aplicacao
         public string UF { get; set; }
     }
 
-    public class EmailConfirmacaoInscricao
+    public class DadosConfirmacaoInscricao
     {
         public string NomePessoa { get; set; }
         public string Evento { get; set; }

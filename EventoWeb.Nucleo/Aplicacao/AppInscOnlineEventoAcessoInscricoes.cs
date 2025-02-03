@@ -6,12 +6,12 @@ namespace EventoWeb.Nucleo.Aplicacao
 {
     public class AppInscOnlineEventoAcessoInscricoes : AppBase
     {
-        private AppEmailMsgPadrao m_AppEmail;
+        private AppComunicacao m_AppComunicacao;
 
-        public AppInscOnlineEventoAcessoInscricoes(IContexto contexto, AppEmailMsgPadrao appEmail)
+        public AppInscOnlineEventoAcessoInscricoes(IContexto contexto, AppComunicacao appComunicacao)
             : base(contexto) 
         {
-            m_AppEmail = appEmail;
+            m_AppComunicacao = appComunicacao;
         }
 
         public DTOBasicoInscricao ObterPorId(int id)
@@ -70,7 +70,7 @@ namespace EventoWeb.Nucleo.Aplicacao
                             var codigoAcesso = new CodigoAcessoInscricao(codigo, inscricao, DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59));
                             Contexto.RepositorioCodigosAcessoInscricao.Incluir(codigoAcesso);
 
-                            m_AppEmail.EnviarCodigoAcompanhamentoInscricao(inscricao, codigo);                            
+                            m_AppComunicacao.EnviarCodigoAcompanhamentoInscricao(inscricao, codigo);                            
                         }
                     }
                 }
@@ -109,7 +109,7 @@ namespace EventoWeb.Nucleo.Aplicacao
                 var codigoAcesso = new CodigoAcessoInscricao(codigo, identificacao, DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59));
                 Contexto.RepositorioCodigosAcessoInscricao.Incluir(codigoAcesso);
 
-                m_AppEmail.EnviarCodigoValidacaoEmail(idEvento, email, codigo);
+                m_AppComunicacao.EnviarCodigoValidacao(idEvento, email, codigo);
             });
         }
 
@@ -158,7 +158,7 @@ namespace EventoWeb.Nucleo.Aplicacao
                 appApresentacaoSarau
                     .IncluirOuAtualizarPorParticipanteSemExecucaoSegura(inscParticipante, dtoInscricao.Sarais);
 
-                m_AppEmail.EnviarInscricaoRegistradaAdulto(inscParticipante);
+                m_AppComunicacao.EnviarInscricaoRegistradaAdulto(inscParticipante);
 
                 dto = new DTODadosConfirmacao
                 {
@@ -204,7 +204,7 @@ namespace EventoWeb.Nucleo.Aplicacao
                 appApresentacaoSarau
                     .IncluirOuAtualizarPorParticipanteSemExecucaoSegura(inscInfantil, dtoInscricao.Sarais);
 
-                m_AppEmail.EnviarInscricaoRegistradaInfantil(inscInfantil);
+                m_AppComunicacao.EnviarInscricaoRegistradaInfantil(inscInfantil);
             });
         }
     }
