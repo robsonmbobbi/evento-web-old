@@ -6,18 +6,16 @@ namespace EventoWeb.Nucleo.Negocio.Entidades
     public class ConfiguracaoWhatsapp : Entidade
     {
         private string m_Instancia;
-        private string m_HostRabbitMQ;
+        private string m_HostApi;
         private Evento m_Evento;
+        private string m_ChaveApi;
 
-        public ConfiguracaoWhatsapp(Evento evento, string instancia, string hostRabbitMQ)
+        public ConfiguracaoWhatsapp(Evento evento, string instancia, string hostApi, string chaveApi)
         {
-            if (evento == null)
-                throw new ExcecaoNegocioAtributo("ConfiguracaoEmail", "evento", "Evento não informado.");
-
-            m_Evento = evento;
-
+            m_Evento = evento ?? throw new ExcecaoNegocioAtributo("ConfiguracaoEmail", "evento", "Evento não informado.");
             Instancia = instancia;
-            HostRabbitMQ = hostRabbitMQ;
+            HostApi = hostApi;
+            ChaveApi = chaveApi;
         }
 
         protected ConfiguracaoWhatsapp() { }
@@ -36,15 +34,27 @@ namespace EventoWeb.Nucleo.Negocio.Entidades
             }
         }
         
-        public virtual string HostRabbitMQ 
+        public virtual string HostApi 
         {
-            get => m_HostRabbitMQ;
+            get => m_HostApi;
             set
             {
                 if (!string.IsNullOrWhiteSpace(value))
-                    throw new Exception($"{nameof(HostRabbitMQ)} não poder nula ou vazia.");
+                    throw new Exception($"{nameof(HostApi)} não poder nula ou vazia.");
 
-                m_HostRabbitMQ = value;
+                m_HostApi = value;
+            }
+        }
+
+        public virtual string ChaveApi
+        {
+            get => m_ChaveApi;
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                    throw new Exception($"{nameof(ChaveApi)} não poder nula ou vazia.");
+
+                m_ChaveApi = value;
             }
         }
     }

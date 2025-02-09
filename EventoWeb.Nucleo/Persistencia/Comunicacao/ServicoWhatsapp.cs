@@ -1,7 +1,9 @@
 ﻿using EventoWeb.Nucleo.Aplicacao.Comunicacao;
 using EventoWeb.Nucleo.Negocio.Excecoes;
 using Newtonsoft.Json;
-using RabbitMQ.Client;
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace EventoWeb.Nucleo.Persistencia.Comunicacao
@@ -13,23 +15,22 @@ namespace EventoWeb.Nucleo.Persistencia.Comunicacao
             if (Configuracao == null)
                 throw new ExcecaoNegocio(nameof(ServicoWhatsapp), "Configuração de whatsapp precisa ser informada.");
 
-            var factory = new ConnectionFactory { HostName = Configuracao.HostRabbitMQ };
-            using var connection = await factory.CreateConnectionAsync();
-            using var channel = await connection.CreateChannelAsync();
+            using var clienteHttp = new HttpClient() { BaseAddress = new Uri(Configuracao.HostApi) };
+            clienteHttp.DefaultRequestHeaders.Accept.Clear();
+            clienteHttp.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            clienteHttp.DefaultRequestHeaders.Add("apikey", Configuracao.ChaveApi);
 
-            await channel.QueueDeclareAsync(queue: "evolution-send", durable: false, exclusive: false, autoDelete: false,
-                arguments: null);
-
-            var jsonMessage = new 
+            var dadosEnviar = new
             {
-                instance = Configuracao.Instancia,
                 number = destinatario,
                 text = mensagem
             };
 
-            var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(jsonMessage));
+            var dadosEnviarJson = JsonConvert.SerializeObject(dadosEnviar);
+            using var conteudoRequisicao = new StringContent(dadosEnviarJson, Encoding.UTF8, "application/json");
 
-            await channel.BasicPublishAsync(exchange: string.Empty, routingKey: string.Empty, body: body);
-        }        
+            using var response = await clienteHttp.PostAsync($"message/sendText/{Configuracao.Instancia}", conteudoRequisicao);
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

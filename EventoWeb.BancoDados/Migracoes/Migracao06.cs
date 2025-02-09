@@ -29,7 +29,8 @@ namespace EventoWeb.BancoDados.Migracoes
                     .WithColumn("ID_EVENTO").AsInt32().NotNullable()
                         .ForeignKey("FK_EVENTO_CNFWP", "EVENTOS", "ID_EVENTO").OnDelete(Rule.Cascade).OnUpdate(Rule.Cascade)
                     .WithColumn("INSTANCIA").AsString(400).NotNullable()
-                    .WithColumn("HOST_RABBITMQ").AsString(400).NotNullable();
+                    .WithColumn("HOST_API").AsString(400).NotNullable()
+                    .WithColumn("CHAVE_API").AsString(400).NotNullable();
 
             Create
                 .Table("MENSAGENS_WHATSAPP_PADRAO")

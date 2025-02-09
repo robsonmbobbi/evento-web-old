@@ -26,12 +26,19 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
                 m.Length(400);
             });
 
-            this.Property(x => x.HostRabbitMQ, m => {
+            this.Property(x => x.HostApi, m => {
                 m.Access(Accessor.NoSetter);
                 m.NotNullable(true);
-                m.Column("HOST_RABBITMQ");
+                m.Column("HOST_API");
                 m.Length(400);
-            });                   
+            });
+
+            this.Property(x => x.ChaveApi, m => {
+                m.Access(Accessor.NoSetter);
+                m.NotNullable(true);
+                m.Column("CHAVE_API");
+                m.Length(400);
+            });
 
             this.ManyToOne(x => x.Evento, m =>
               {

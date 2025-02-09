@@ -17,7 +17,7 @@ namespace EventoWeb.WS.Inscricao.Controllers
             mConfiguracaoJwt = configuracaoJwt;
         }
 
-        [HttpGet("teste")]
+        /*[HttpGet("teste")]
         public void EnviarTeste()
         {
             var mensagem = mAppInscricao.Contexto.RepositorioMensagensEmailPadrao.Obter(10);
@@ -40,7 +40,7 @@ namespace EventoWeb.WS.Inscricao.Controllers
                 Conteudo = "Teste de envio",
                 Endereco = "robsonmbobbi@gmail.com"
             });
-        }
+        }*/
 
         [HttpGet("basicoPorId/{id}")]
         public DTOBasicoInscricao ObterPorId(int id)

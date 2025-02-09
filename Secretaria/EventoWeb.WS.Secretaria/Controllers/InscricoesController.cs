@@ -95,12 +95,21 @@ namespace EventoWeb.WS.Secretaria.Controllers
             m_App.IncluirInfantil(idEvento, inscricao);
         }
 
-        [HttpGet("teste")]
+        /*[HttpGet("teste")]
         public void EnviarTeste()
         {
             var srv = new ServicoWhatsapp();
             srv.Configuracao = m_App.Contexto.RepositorioConfiguracoesWhatsapp.Obter(10);
-            srv.Enviar("037999674994", "Teste da secretaria");
-        }
+
+            var texto = new GeracaoMensagemSand().GerarMensagemModelo<DadosValidacaoEmail>("Teste WP\nCódigo: {{codigo}}\nEvento: {{evento}} ☺️",
+                    new DadosValidacaoEmail
+                    {
+                        Codigo = "XYZH6",
+                        Evento = "CEOMG 2025"
+                    }
+                );
+
+            srv.Enviar("+5537991925134", texto);
+        }*/
     }
 }
