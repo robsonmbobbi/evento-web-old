@@ -125,8 +125,15 @@
       </div>
       <div fxLayout="column" fxLayoutGap="5px" fxLayoutGap.xs="5px">
         <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-          <label class="label_campos" fxFlex="106px">Celular:</label>
-          <dx-text-box [(value)]="dadosTela.celular" fxFlex="60" [disabled]="naoEhIncompleta" [maxLength]="15">
+          <label class="label_campos" fxFlex="106px">Celular(Whatsapp):</label>
+          <dx-text-box [(value)]="dadosTela.celular"
+                       mask="(00) 0 0000-0000"
+                       fxFlex="60"
+                       [disabled]="naoEhIncompleta"
+                       [maxLength]="15">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Você não informou o celular(whatsapp)."></dxi-validation-rule>
+            </dx-validator>
           </dx-text-box>
         </div>
       </div>

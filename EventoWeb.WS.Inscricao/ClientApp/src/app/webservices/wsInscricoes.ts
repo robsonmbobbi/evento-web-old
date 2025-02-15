@@ -6,7 +6,7 @@ import { ConfiguracaoSistemaService } from '../configuracao-sistema-service';
 
 @Injectable()
 export class WsInscricoes {
-    
+
   constructor(private clienteWs: ClienteWs) { }
 
   public obterBasicoInscricao(idInscricao: number): Observable<DTOBasicoInscricao> {
@@ -29,9 +29,9 @@ export class WsInscricoes {
     return this.clienteWs.executarPut("", "'" + codigo + "'");
   }
 
-  enviarCodigoValidacaoEmail(idEvento: number, identificacao: string, Email: string): Observable<void> {
+  enviarCodigoValidacaoEmail(idEvento: number, identificacao: string, email: string, celular: string): Observable<void> {
     this.clienteWs.URLWs = ConfiguracaoSistemaService.configuracao.urlBaseWs + 'inscricoes/enviarCodigoEmail/' + idEvento;
-    return this.clienteWs.executarPut("", "{Identificacao:'" + identificacao + "', Email:'" + Email + "'}");
+    return this.clienteWs.executarPut("", "{Identificacao:'" + identificacao + "', Email:'" + email + "', Whatsapp: '" + celular + "'}");
   }
 
   validarCodigoEmail(identificacao: string, codigo: string): Observable<boolean> {

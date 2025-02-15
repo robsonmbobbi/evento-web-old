@@ -50,6 +50,7 @@ namespace EventoWeb.WS.Inscricao
                 ];
             });
             services.AddTransient<AppComunicacao>();
+            services.AddTransient<AppInscOnlineEventoAcessoInscricoes>();
 
             var configuracao = new ConfiguracaoJwtBearer();
             services.AddSingleton(configuracao);
@@ -86,6 +87,8 @@ namespace EventoWeb.WS.Inscricao
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser().Build());
             });
+
+            services.AddCors();
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -125,6 +128,13 @@ namespace EventoWeb.WS.Inscricao
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors(builder => builder
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .SetIsOriginAllowed(_ => true)
+                            .AllowCredentials()
+                        );
 
             app.UseAuthorization();
 

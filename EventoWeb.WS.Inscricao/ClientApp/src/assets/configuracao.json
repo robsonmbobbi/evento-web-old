@@ -1,3 +1,3 @@
 {
-  "urlBaseWs": "./api/"
+  "urlBaseWs": "http://localhost:5000/api/"
 }

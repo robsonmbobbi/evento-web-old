@@ -16,7 +16,7 @@ namespace EventoWeb.Nucleo.Aplicacao
             m_GeradorMsgEmail = geradorMsgEmail;
         }
 
-        public void EnviarCodigoValidacao(int idEvento, string destinatario, string codigo)
+        public void EnviarCodigoValidacao(int idEvento, DTOEnvioCodigoEmail dadosEnvio, string codigo)
         {
             var evento = Contexto.RepositorioEventos.ObterEventoPeloId(idEvento);
             var mensagem = ObterMensagem(idEvento);
@@ -31,7 +31,7 @@ namespace EventoWeb.Nucleo.Aplicacao
                         Evento = evento.Nome
                     }
                 ),
-                Endereco = destinatario
+                Endereco = dadosEnvio.Email
             });
         }
 

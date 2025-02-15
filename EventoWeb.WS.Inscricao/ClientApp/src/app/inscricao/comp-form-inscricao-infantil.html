@@ -81,15 +81,12 @@
         </div>
         <div fxLayout="column" fxLayoutGap="5px" fxLayoutGap.xs="5px">
           <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-            <label class="label_campos" fxFlex="106px">Celular:</label>
-            <dx-text-box [(value)]="dadosTela.celular" fxFlex="60" [disabled]="naoEhIncompleta" [maxLength]="15">
-            </dx-text-box>
-          </div>
-        </div>
-        <div fxLayout="column" fxLayoutGap="5px" fxLayoutGap.xs="5px">
-          <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-            <label class="label_campos" fxFlex="106px">Tel. Fixo:</label>
-            <dx-text-box [(value)]="dadosTela.telefoneFixo" fxFlex="60" [disabled]="naoEhIncompleta" [maxLength]="15">
+            <label class="label_campos" fxFlex="106px">Celular(Whatsapp):</label>
+            <dx-text-box [(value)]="dadosTela.celular"
+                         mask="(00) 0 0000-0000"
+                         fxFlex="60"
+                         [disabled]="naoEhIncompleta"
+                         [maxLength]="15">
             </dx-text-box>
           </div>
         </div>
@@ -109,27 +106,9 @@
         <dx-check-box [(value)]="dadosTela.ehDiabetico" text="É diabético?" [disabled]="naoEhIncompleta"></dx-check-box>
       </div>
       <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-        <label class="label_campos" fxFlex="106px">Carnes que você não come:</label>
-        <dx-text-box [(value)]="dadosTela.carnesNaoCome" fxFlex="100" [disabled]="naoEhIncompleta" [maxLength]="150">
-        </dx-text-box>
-      </div>
-      <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
         <label class="label_campos" fxFlex="106px">Alimentos que você tem alergia:</label>
         <dx-text-box [(value)]="dadosTela.alimentosAlergia" fxFlex="100" [disabled]="naoEhIncompleta" [maxLength]="100">
         </dx-text-box>
-      </div>
-      <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-        <label class="label_campos" fxFlex="106px">Medicamentos que você usa:</label>
-        <dx-text-box [(value)]="dadosTela.medicamentosUsa" fxFlex="100" [disabled]="naoEhIncompleta" [maxLength]="150">
-        </dx-text-box>
-      </div>
-      <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-        <label class="label_campos" fxFlex="106px"></label>
-        <dx-check-box [(value)]="dadosTela.primeiroEncontro"
-                      [width]="80"
-                      fxFlex="40"
-                      text="Primeiro Encontro?"
-                      [disabled]="naoEhIncompleta"></dx-check-box>
       </div>
     </div>
     <mat-divider></mat-divider>

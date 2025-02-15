@@ -10,7 +10,7 @@ import { CoordenacaoCentral } from '../componentes/central/coordenacao-central';
   styleUrls: ['./dlg-validacao-email.scss'],
   templateUrl: './dlg-validacao-email.html'
 })
-export class DlgValidacaoEmail {    
+export class DlgValidacaoEmail {
 
   email: string;
   nome: string;
@@ -63,7 +63,7 @@ export class DialogoValidacaoEmail {
   constructor(private srvDialog: MatDialog) { }
 
   apresentarDlg(email: string, nome: string, identificacao: string): Observable<boolean> {
-    const dlg = this.srvDialog.open(DlgValidacaoEmail, { data: { email: email, nome: nome, identificacao: identificacao }, width: "95vw" });
+    const dlg = this.srvDialog.open(DlgValidacaoEmail, { data: { email: email, nome: nome, identificacao: identificacao }, width: "95vw", disableClose: false });
     return dlg.afterClosed();
   }
 }

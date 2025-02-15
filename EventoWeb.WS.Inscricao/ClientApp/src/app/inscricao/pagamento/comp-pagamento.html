@@ -28,6 +28,14 @@
       <strong>Outros</strong> é para dizer a secretaria que você pagará mais tarde, fez ou precisa de isenção, ou qualquer outra situação que não se enquadre nas duas primeiras formas.
     </div>
   </div>
+  <div *ngIf="opcaoEscolhida == opcoes[0]" fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
+    <label class="label_campos" fxFlex="106px">Comprovante (.jpg, .jpeg, .png, .pdf):</label>
+    <input type="file"
+           (change)="onFileSelected($event)"
+           accept="image/jpg, image/jpeg, image/png, application/pdf"
+           [disabled]="desabilitar"
+           multiple />
+  </div>
   <div *ngIf="opcaoEscolhida == opcoes[0]" fxLayout="row wrap" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="center center">
     <div *ngFor="let comprovante of arquivosComprovantes; let i = index">
       <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start center" style="padding: 5px;">
@@ -50,6 +58,7 @@
       </div>
     </div>
   </div>
+
   <div *ngIf="opcaoEscolhida != null">
     <p *ngIf="opcaoEscolhida == opcoes[0]">
       Nos informe se os comprovantes se referem a outras incrições que foram ou serão feitas. Também nos justifique se o valor do comprovante for diferente do esperado.

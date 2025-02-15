@@ -58,7 +58,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
                 });
             });
 
-            this.Component(x => x.MensagemInscricaoRegistradaInfantil, c =>
+            /*this.Component(x => x.MensagemInscricaoRegistradaInfantil, c =>
             {
                 c.Access(Accessor.NoSetter);
                 c.Property(o => o.Assunto, m =>
@@ -75,7 +75,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
                     m.Column("MENSAGEM_INSC_REGISTRADA_INFANTIL");
                     m.Type(NHibernateUtil.StringClob);
                 });
-            });
+            });*/
 
             this.Component(x => x.MensagemInscricaoCodigoAcessoAcompanhamento, c =>
             {

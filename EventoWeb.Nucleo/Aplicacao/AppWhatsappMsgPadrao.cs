@@ -16,13 +16,13 @@ namespace EventoWeb.Nucleo.Aplicacao
             m_GeradorMsg = geradorMsg;
         }
 
-        public void EnviarCodigoValidacao(int idEvento, string destinatario, string codigo)
+        public void EnviarCodigoValidacao(int idEvento, DTOEnvioCodigoEmail dadosEnvio, string codigo)
         {
             var evento = Contexto.RepositorioEventos.ObterEventoPeloId(idEvento);
             var mensagem = ObterMensagem(idEvento);
             m_ServicoComunicacao.Configuracao = ObterConfiguracao(idEvento);
             m_ServicoComunicacao.Enviar(
-                destinatario,
+                dadosEnvio.Whatsapp.FormatarCelular(),
                 m_GeradorMsg.GerarMensagemModelo<DadosValidacaoEmail>(mensagem.MensagemInscricaoCodigoAcessoCriacao.Mensagem,
                     new DadosValidacaoEmail
                     {
@@ -38,7 +38,7 @@ namespace EventoWeb.Nucleo.Aplicacao
             var mensagem = ObterMensagem(inscricao.Evento.Id);
             m_ServicoComunicacao.Configuracao = ObterConfiguracao(inscricao.Evento.Id);
             m_ServicoComunicacao.Enviar(
-                inscricao.Pessoa.Celular,
+                inscricao.Pessoa.Celular.FormatarCelular(),
                 m_GeradorMsg.GerarMensagemModelo<DadosCodigoInscricao>(mensagem.MensagemInscricaoCodigoAcessoAcompanhamento.Mensagem,
                     new DadosCodigoInscricao
                     {
@@ -63,7 +63,7 @@ namespace EventoWeb.Nucleo.Aplicacao
 
             var idSarau = new AppInscOnLineIdentificacaoSarau();
             dto.Sarais = Contexto.RepositorioApresentacoesSarau.ListarPorInscricao(inscricao.Id)
-                        .Select(x => 
+                        .Select(x =>
                         {
                             var sarau = x.ConverterComCodigo();
                             sarau.Codigo = idSarau.GerarCodigo(x.Id);
@@ -72,7 +72,7 @@ namespace EventoWeb.Nucleo.Aplicacao
                         .ToList();
 
             m_ServicoComunicacao.Enviar(
-                inscricao.Pessoa.Celular,
+                inscricao.Pessoa.Celular.FormatarCelular(),
                 m_GeradorMsg.GerarMensagemModelo<DTOInscricaoCompletaAdultoCodigo>(mensagem.MensagemInscricaoRegistradaAdulto.Mensagem, dto)
             );
         }
@@ -96,7 +96,7 @@ namespace EventoWeb.Nucleo.Aplicacao
                         .ToList();
 
             m_ServicoComunicacao.Enviar(
-                inscricao.Pessoa.Celular,
+                inscricao.Pessoa.Celular.FormatarCelular(),
                 m_GeradorMsg.GerarMensagemModelo<DTOInscricaoCompletaInfantilCodigo>(mensagem.MensagemInscricaoRegistradaAdulto.Mensagem, dto)
             );
         }
@@ -106,7 +106,7 @@ namespace EventoWeb.Nucleo.Aplicacao
             var mensagem = ObterMensagem(inscricao.Evento.Id);
             m_ServicoComunicacao.Configuracao = ObterConfiguracao(inscricao.Evento.Id);
             m_ServicoComunicacao.Enviar(
-                inscricao.Pessoa.Celular,
+                inscricao.Pessoa.Celular.FormatarCelular(),
                 m_GeradorMsg.GerarMensagemModelo<DadosConfirmacaoInscricao>(mensagem.MensagemInscricaoConfirmada.Mensagem,
                     new DadosConfirmacaoInscricao
                     {
@@ -119,7 +119,7 @@ namespace EventoWeb.Nucleo.Aplicacao
 
         public void EnviarInscricaoRejeitada(Inscricao inscricao)
         {
-            
+
         }
 
         private MensagemWhatsappPadrao ObterMensagem(int idEvento)
@@ -132,6 +132,14 @@ namespace EventoWeb.Nucleo.Aplicacao
         {
             return Contexto.RepositorioConfiguracoesWhatsapp.Obter(idEvento) ??
                 throw new ExcecaoAplicacao(nameof(AppWhatsappMsgPadrao), "Configuração de Whatsapp não foi cadastrada");
+        }
+    }
+
+    internal static class MetodosExtensaoWhatsApp
+    {
+        public static string FormatarCelular(this string celular)
+        {
+            return $"+55 {celular}";
         }
     }
 }

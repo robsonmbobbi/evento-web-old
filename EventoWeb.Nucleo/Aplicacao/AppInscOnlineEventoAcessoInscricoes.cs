@@ -101,15 +101,15 @@ namespace EventoWeb.Nucleo.Aplicacao
             return valido;
         }
 
-        public void EnviarCodigoEmail(int idEvento, string identificacao, string email)
+        public void EnviarCodigoEmail(int idEvento, DTOEnvioCodigoEmail dadosEnvio, string codigo)
         {
             ExecutarSeguramente(() =>
             {
                 string codigo = GerarCodigoUnico();
-                var codigoAcesso = new CodigoAcessoInscricao(codigo, identificacao, DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59));
+                var codigoAcesso = new CodigoAcessoInscricao(codigo, dadosEnvio.Identificacao, DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59));
                 Contexto.RepositorioCodigosAcessoInscricao.Incluir(codigoAcesso);
 
-                m_AppComunicacao.EnviarCodigoValidacao(idEvento, email, codigo);
+                m_AppComunicacao.EnviarCodigoValidacao(idEvento, dadosEnvio, codigo);
             });
         }
 

@@ -26,7 +26,7 @@
   <mat-tab label="Inscrição">
     <div class="margem-5px" fxLayout="column" fxLayoutGap="5px">
       <ng-template [ngTemplateOutlet]="dadosPessoais"></ng-template>
-    </div>    
+    </div>
   </mat-tab>
   <mat-tab label="Atividades">
     <div class ="margem-5px" fxLayout="column" fxLayoutGap="5px">
@@ -149,15 +149,15 @@
       </div>
       <div fxLayout="column" fxLayoutGap="5px" fxLayoutGap.xs="5px">
         <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-          <label class="label_campos" fxFlex="106px">Celular:</label>
-          <dx-text-box [(value)]="dadosTela.celular" fxFlex="60" [disabled]="naoEhIncompleta" [maxLength]="15">
-          </dx-text-box>
-        </div>
-      </div>
-      <div fxLayout="column" fxLayoutGap="5px" fxLayoutGap.xs="5px">
-        <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-          <label class="label_campos" fxFlex="106px">Tel. Fixo:</label>
-          <dx-text-box [(value)]="dadosTela.telefoneFixo" fxFlex="60" [disabled]="naoEhIncompleta" [maxLength]="15">
+          <label class="label_campos" fxFlex="106px">Celular(Whatsapp):</label>
+          <dx-text-box [(value)]="dadosTela.celular"
+                       mask="(00) 0 0000-0000"
+                       fxFlex="60"
+                       [disabled]="naoEhIncompleta"
+                       [maxLength]="15">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="Você não informou o celular (Whatsapp)."></dxi-validation-rule>
+            </dx-validator>
           </dx-text-box>
         </div>
       </div>
@@ -177,18 +177,8 @@
       <dx-check-box [(value)]="dadosTela.ehDiabetico" text="É diabético?" [disabled]="naoEhIncompleta"></dx-check-box>
     </div>
     <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-      <label class="label_campos" fxFlex="106px">Carnes que você não come:</label>
-      <dx-text-box [(value)]="dadosTela.carnesNaoCome" fxFlex="100" [disabled]="naoEhIncompleta" [maxLength]="150">
-      </dx-text-box>
-    </div>
-    <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
       <label class="label_campos" fxFlex="106px">Alimentos que você tem alergia:</label>
       <dx-text-box [(value)]="dadosTela.alimentosAlergia" fxFlex="100" [disabled]="naoEhIncompleta" [maxLength]="100">
-      </dx-text-box>
-    </div>
-    <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-      <label class="label_campos" fxFlex="106px">Medicamentos que você usa:</label>
-      <dx-text-box [(value)]="dadosTela.medicamentosUsa" fxFlex="100" [disabled]="naoEhIncompleta" [maxLength]="150">
       </dx-text-box>
     </div>
   </div>
@@ -203,52 +193,7 @@
           </dx-validator>
         </dx-text-box>
       </div>
-      <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-        <label class="label_campos" fxFlex="106px">Tempo que é espírita:</label>
-        <dx-text-box [(value)]="dadosTela.tempoEspirita" fxFlex="40" [disabled]="naoEhIncompleta" [maxLength]="20">
-          <dx-validator>
-            <dxi-validation-rule type="required" message="Você não informou o tempo que é espírita."></dxi-validation-rule>
-          </dx-validator>
-        </dx-text-box>
-        <dx-check-box [(value)]="dadosTela.primeiroEncontro"
-                      [width]="80"
-                      fxFlex="40"
-                      text="Primeiro Encontro?"
-                      [disabled]="naoEhIncompleta"></dx-check-box>
-      </div>
-      <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-        <label class="label_campos" fxFlex="106px">Nome Responsável Casa Espírita:</label>
-        <dx-text-box [(value)]="dadosTela.nomeResponsavelCentro" fxFlex="100" [disabled]="naoEhIncompleta" [maxLength]="150">
-          <dx-validator>
-            <dxi-validation-rule type="required" message="Você não informou o responsável pela Casa Espírita ou pela reunião que você frequenta."></dxi-validation-rule>
-          </dx-validator>
-        </dx-text-box>
-      </div>
-      <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-        <label class="label_campos" fxFlex="106px">Telefone Responsável Casa Espírita:</label>
-        <dx-text-box [(value)]="dadosTela.telefoneResponsavelCentro" fxFlex="60" [disabled]="naoEhIncompleta" [maxLength]="15">
-          <dx-validator>
-            <dxi-validation-rule type="required" message="Você não informou o telefone do responsável pela Casa Espírita ou pela reunião que você frequenta."></dxi-validation-rule>
-          </dx-validator>
-        </dx-text-box>
-      </div>
       <mat-divider></mat-divider>
-      <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-        <label class="label_campos" fxFlex="106px">Nome Responsável Legal:</label>
-        <dx-text-box [(value)]="dadosTela.nomeResponsavelLegal" fxFlex="100" [disabled]="dadosTela.idade >= 18 || naoEhIncompleta" [maxLength]="150">
-          <dx-validator>
-            <dxi-validation-rule type="required" message="Você não informou o nome do responsável legal por você. Precisamos dessa informação já que você ainda não tem 18 anos."></dxi-validation-rule>
-          </dx-validator>
-        </dx-text-box>
-      </div>
-      <div fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">
-        <label class="label_campos" fxFlex="106px">Telefone Responsável Legal:</label>
-        <dx-text-box [(value)]="dadosTela.telefoneResponsavelLegal" fxFlex="60" [disabled]="dadosTela.idade >= 18 || naoEhIncompleta" [maxLength]="15">
-          <dx-validator>
-            <dxi-validation-rule type="required" message="Você não informou o telefone do responsável legal por você. Precisamos dessa informação já que você ainda não tem 18 anos."></dxi-validation-rule>
-          </dx-validator>
-        </dx-text-box>
-      </div>
     </div>
   </dx-validation-group>
 </ng-template>

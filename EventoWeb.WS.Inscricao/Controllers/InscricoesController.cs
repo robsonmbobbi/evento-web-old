@@ -82,7 +82,7 @@ namespace EventoWeb.WS.Inscricao.Controllers
         [HttpPut("enviarCodigoEmail/{idEvento}")]
         public void EnviarCodigoEmail(int idEvento, DTOEnvioCodigoEmail envio)
         {
-            mAppInscricao.EnviarCodigoEmail(idEvento, envio.Identificacao, envio.Email);
+            mAppInscricao.EnviarCodigoEmail(idEvento, envio, envio.Email);
         }
 
         [HttpPost("criar-infantil/{idEvento}")]
@@ -90,13 +90,7 @@ namespace EventoWeb.WS.Inscricao.Controllers
         {
             mAppInscricao.CriarInscricaoInfantil(idEvento, dadosInscricao);
         }
-    }
-
-    public class DTOEnvioCodigoEmail
-    {
-        public string Identificacao { get; set; }
-        public string Email { get; set; }
-    }
+    }   
 
     public class DTOValidacaoCodigoEmail
     {

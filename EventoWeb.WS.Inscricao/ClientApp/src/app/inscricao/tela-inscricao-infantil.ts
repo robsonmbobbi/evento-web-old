@@ -158,7 +158,7 @@ export class TelaInscricaoInclusaoInfantil extends ATelaInscricaoInfantil implem
 
     let identificacao = md5(new Date().toISOString() + inscricao.DadosPessoais.Email + inscricao.DadosPessoais.Nome);
 
-    this.wsInscricoes.enviarCodigoValidacaoEmail(this.evento.Id, identificacao, inscricao.DadosPessoais.Email)
+    this.wsInscricoes.enviarCodigoValidacaoEmail(this.evento.Id, identificacao, inscricao.DadosPessoais.Email, inscricao.DadosPessoais.Celular)
       .subscribe(
         () => {
           dlgEnvioCodigo.close();

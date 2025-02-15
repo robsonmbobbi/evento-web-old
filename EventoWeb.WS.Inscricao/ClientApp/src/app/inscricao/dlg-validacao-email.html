@@ -1,14 +1,14 @@
 <layout-geral>
   <mat-toolbar layout-geral-cabecalho color="primary">
     <div><h1>Validação de email</h1></div>
-    <span style="flex: 1 1 auto;"></span>   
+    <span style="flex: 1 1 auto;"></span>
     <button mat-icon-button (click)="clicarCancelar()" matTooltip="Permite fechar esta tela"><i class="fa fa-times"></i></button>
   </mat-toolbar>
   <div class="cartao margem-5px" fxLayout="column" fxLayoutGap="5px">
     <mat-card-subtitle>{{"Inscrição de " + nome}}</mat-card-subtitle>
     <mat-divider></mat-divider>
     <div class="margem-5px">
-      Foi enviado um email para <strong>{{email}}</strong> com o código para validação Por favor, verifique a sua caixa de email, <strong>pode estar na pasta de SPAM</strong>, e nos informe o código recebido.
+      Foi enviado um email para <strong>{{email}}</strong> com o código para validação Por favor, verifique o seu Whatsapp, e nos informe o código recebido.
     </div>
     <mat-divider></mat-divider>
     <dx-validation-group name="grupoValidacao" #grupoValidacao fxLayout="row" fxLayoutGap="5px" fxLayoutGap.xs="5px" fxLayoutAlign="start center">

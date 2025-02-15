@@ -18,10 +18,10 @@ namespace EventoWeb.Nucleo.Aplicacao
                 comunicador.EnviarCodigoAcompanhamentoInscricao(inscricao, codigo);
         }
 
-        public void EnviarCodigoValidacao(int idEvento, string destinatario, string codigo)
+        public void EnviarCodigoValidacao(int idEvento, DTOEnvioCodigoEmail dadosEnvio, string codigo)
         {
             foreach (var comunicador in m_Comunicadores)
-                comunicador.EnviarCodigoValidacao(idEvento, destinatario, codigo);
+                comunicador.EnviarCodigoValidacao(idEvento, dadosEnvio, codigo);
         }
 
         public void EnviarInscricaoAceita(Inscricao inscricao)
