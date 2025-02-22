@@ -47,11 +47,11 @@ namespace EventoWeb.WS.Secretaria
             {
                 return
                 [
-                    new AppEmailMsgPadrao(
+                    /*new AppEmailMsgPadrao(
                         provider.GetService<IContexto>(), 
                         provider.GetService<AServicoEmail>(), 
                         provider.GetService<GeracaoMensagemEmailRazor>()
-                    ),
+                    ),*/
                     new AppWhatsappMsgPadrao(
                         provider.GetService<IContexto>(),
                         provider.GetService<AServicoWhatsapp>(),

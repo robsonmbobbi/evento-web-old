@@ -95,21 +95,13 @@ namespace EventoWeb.WS.Secretaria.Controllers
             m_App.IncluirInfantil(idEvento, inscricao);
         }
 
-        /*[HttpGet("teste")]
-        public void EnviarTeste()
+        [HttpGet("teste")]
+        public void EnviarTeste([FromServices] AppComunicacao appComunicacao)
         {
-            var srv = new ServicoWhatsapp();
-            srv.Configuracao = m_App.Contexto.RepositorioConfiguracoesWhatsapp.Obter(10);
-
-            var texto = new GeracaoMensagemSand().GerarMensagemModelo<DadosValidacaoEmail>("Teste WP\nCódigo: {{codigo}}\nEvento: {{evento}} ☺️",
-                    new DadosValidacaoEmail
-                    {
-                        Codigo = "XYZH6",
-                        Evento = "CEOMG 2025"
-                    }
-                );
-
-            srv.Enviar("+5537991925134", texto);
-        }*/
+            var inscricao = m_App.Contexto.RepositorioInscricoes.ObterInscricaoPeloId(574);
+            //appComunicacao.EnviarInscricaoAceita(inscricao);
+            //appComunicacao.EnviarInscricaoRegistradaAdulto(inscricao as InscricaoParticipante);
+            appComunicacao.EnviarCodigoAcompanhamentoInscricao(inscricao, "codigo_enviar");
+        }
     }
 }
