@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using EventoWeb.Nucleo.Negocio.Entidades;
 using EventoWeb.Nucleo.Negocio.Excecoes;
 
@@ -49,6 +50,6 @@ namespace EventoWeb.Nucleo.Aplicacao.Comunicacao
             }
         }
 
-        public abstract void Enviar(Email email);
+        public abstract Task Enviar(Email email);
     }
 }

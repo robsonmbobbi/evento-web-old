@@ -12,7 +12,7 @@ import { CoordenacaoCentral } from '../componentes/central/coordenacao-central';
 })
 export class DlgValidacaoEmail {
 
-  email: string;
+  celular: string;
   nome: string;
   codigo: string;
   private identificacao: string;
@@ -26,7 +26,7 @@ export class DlgValidacaoEmail {
 
     if (data != null) {
       this.identificacao = data.identificacao;
-      this.email = data.email;
+      this.celular = data.celular;
       this.nome = data.nome;
     }
   }
@@ -62,8 +62,8 @@ export class DialogoValidacaoEmail {
 
   constructor(private srvDialog: MatDialog) { }
 
-  apresentarDlg(email: string, nome: string, identificacao: string): Observable<boolean> {
-    const dlg = this.srvDialog.open(DlgValidacaoEmail, { data: { email: email, nome: nome, identificacao: identificacao }, width: "95vw", disableClose: false });
+  apresentarDlg(celular: string, nome: string, identificacao: string): Observable<boolean> {
+    const dlg = this.srvDialog.open(DlgValidacaoEmail, { data: { celular: celular, nome: nome, identificacao: identificacao }, width: "95vw", disableClose: true });
     return dlg.afterClosed();
   }
 }

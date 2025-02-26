@@ -5,12 +5,13 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EventoWeb.Nucleo.Persistencia.Comunicacao
 {
     public class ServicoWhatsapp : AServicoWhatsapp
     {
-        public override async void Enviar(string destinatario, string mensagem)
+        public override async Task Enviar(string destinatario, string mensagem)
         {
             if (Configuracao == null)
                 throw new ExcecaoNegocio(nameof(ServicoWhatsapp), "Configuração de whatsapp precisa ser informada.");
@@ -22,14 +23,15 @@ namespace EventoWeb.Nucleo.Persistencia.Comunicacao
 
             var dadosEnviar = new
             {
-                number = destinatario,
+                phone = destinatario,
                 text = mensagem
             };
 
             var dadosEnviarJson = JsonConvert.SerializeObject(dadosEnviar);
             using var conteudoRequisicao = new StringContent(dadosEnviarJson, Encoding.UTF8, "application/json");
 
-            using var response = await clienteHttp.PostAsync($"message/sendText/{Configuracao.Instancia}", conteudoRequisicao);
+            using var response = await clienteHttp.PostAsync($"api/messages/send-" +
+                $"text", conteudoRequisicao).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
     }

@@ -7,12 +7,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EventoWeb.Nucleo.Persistencia.Comunicacao
 {
     public class ServicoEmail : AServicoEmail
     {
-        public override void Enviar(Email email)
+        public override async Task Enviar(Email email)
         {
             if (Configuracao == null)
                 throw new ExcecaoNegocio("ServicoEmail", "Configuração de email precisa ser informada.");
@@ -21,7 +22,7 @@ namespace EventoWeb.Nucleo.Persistencia.Comunicacao
             clientHttp.DefaultRequestHeaders.Accept.Clear();
             clientHttp.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             clientHttp.DefaultRequestHeaders.Add("api-key", Configuracao.SenhaEmail);
-            var resultado = clientHttp.PostAsync("v3/smtp/email",
+            await clientHttp.PostAsync("v3/smtp/email",
                 new StringContent(
                     JsonConvert.SerializeObject(new
                     {
@@ -42,7 +43,7 @@ namespace EventoWeb.Nucleo.Persistencia.Comunicacao
                         htmlContent = email.Conteudo,
                         attachment = GerarAnexos(email.Anexos)
                     }),
-                    Encoding.UTF8, "application/json")).Result;
+                    Encoding.UTF8, "application/json")).ConfigureAwait(false);
         }
 
         private object GerarAnexos(List<AnexoEmail> anexos)

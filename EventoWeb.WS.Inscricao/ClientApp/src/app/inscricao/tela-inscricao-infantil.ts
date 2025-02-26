@@ -162,7 +162,7 @@ export class TelaInscricaoInclusaoInfantil extends ATelaInscricaoInfantil implem
       .subscribe(
         () => {
           dlgEnvioCodigo.close();
-          this.dlgValidacaoEmail.apresentarDlg(inscricao.DadosPessoais.Email, inscricao.DadosPessoais.Nome, identificacao)
+          this.dlgValidacaoEmail.apresentarDlg(inscricao.DadosPessoais.Celular, inscricao.DadosPessoais.Nome, identificacao)
             .subscribe(
               (validou) => {
                 if (validou) {

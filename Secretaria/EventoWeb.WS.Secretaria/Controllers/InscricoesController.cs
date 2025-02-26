@@ -98,10 +98,10 @@ namespace EventoWeb.WS.Secretaria.Controllers
         [HttpGet("teste")]
         public void EnviarTeste([FromServices] AppComunicacao appComunicacao)
         {
-            var inscricao = m_App.Contexto.RepositorioInscricoes.ObterInscricaoPeloId(574);
+            var inscricao = m_App.Contexto.RepositorioInscricoes.ObterInscricaoPeloId(575);
             //appComunicacao.EnviarInscricaoAceita(inscricao);
-            //appComunicacao.EnviarInscricaoRegistradaAdulto(inscricao as InscricaoParticipante);
-            appComunicacao.EnviarCodigoAcompanhamentoInscricao(inscricao, "codigo_enviar");
+            appComunicacao.EnviarInscricaoRegistradaInfantil(inscricao as InscricaoInfantil);
+            //appComunicacao.EnviarCodigoAcompanhamentoInscricao(inscricao, "codigo_enviar");
         }
     }
 }

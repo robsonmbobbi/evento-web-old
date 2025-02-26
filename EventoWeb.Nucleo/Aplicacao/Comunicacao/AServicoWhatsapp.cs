@@ -1,5 +1,6 @@
 ﻿using EventoWeb.Nucleo.Negocio.Entidades;
 using EventoWeb.Nucleo.Negocio.Excecoes;
+using System.Threading.Tasks;
 
 namespace EventoWeb.Nucleo.Aplicacao.Comunicacao
 {
@@ -16,6 +17,6 @@ namespace EventoWeb.Nucleo.Aplicacao.Comunicacao
             }
         }
 
-        public abstract void Enviar(string destinatario, string mensagem);
+        public abstract Task Enviar(string destinatario, string mensagem);
     }
 }
