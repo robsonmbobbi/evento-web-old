@@ -8,7 +8,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public TransacaoMapping()
         {
-            this.Table("TRANSACOES_FINANCEIRAS");
+            this.Table("transacoes_financeiras");
             this.Id(x => x.Id, m =>
             {
                 m.Access(Accessor.NoSetter);

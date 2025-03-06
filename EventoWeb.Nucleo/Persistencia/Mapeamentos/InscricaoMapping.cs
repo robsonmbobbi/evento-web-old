@@ -9,7 +9,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public InscricaoMapping()
         {
-            Table("INSCRICOES");
+            Table("inscricoes");
             this.Lazy(false);
 
             Discriminator(d =>

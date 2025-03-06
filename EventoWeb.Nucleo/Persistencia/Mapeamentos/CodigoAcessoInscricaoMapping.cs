@@ -8,7 +8,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public CodigoAcessoInscricaoMapping()
         {
-            this.Table("CODIGOS_ACESSO_INSCRICAO");
+            this.Table("codigos_acesso_inscricao");
             this.Id(x => x.Id, m =>
             {
                 m.Access(NHibernate.Mapping.ByCode.Accessor.NoSetter);

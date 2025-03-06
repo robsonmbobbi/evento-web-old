@@ -8,7 +8,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public OficinasMapping()
         {
-            this.Table("OFICINAS");
+            this.Table("oficinas");
             this.Id(x => x.Id, m =>
             {
                 m.Access(NHibernate.Mapping.ByCode.Accessor.NoSetter);
@@ -55,7 +55,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
                 m.Lazy(CollectionLazy.Lazy);
                 m.Access(Accessor.NoSetter);
                 m.Key(k => k.Column("ID_OFICINA"));
-                m.Table("OFICINAS_PARTICIPANTES");
+                m.Table("oficinas_participantes");
             }, c => c.ManyToMany(o => o.Column("ID_INSCRICAO")));
         }
     }

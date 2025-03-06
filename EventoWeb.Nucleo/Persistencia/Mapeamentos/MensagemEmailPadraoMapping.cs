@@ -9,7 +9,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public MensagemEmailPadraoMapping()
         {
-            this.Table("MENSAGENS_EMAIL_PADRAO");
+            this.Table("mensagens_email_padrao");
             this.Id(x => x.Id, m =>
             {
                 m.Access(NHibernate.Mapping.ByCode.Accessor.NoSetter);

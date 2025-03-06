@@ -8,7 +8,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public ConfiguracaoWhatsappMapping()
         {
-            this.Table("CONFIGURACOES_WHATSAPP");
+            this.Table("configuracoes_whatsapp");
             this.Id(x => x.Id, m =>
             {
                 m.Access(Accessor.NoSetter);

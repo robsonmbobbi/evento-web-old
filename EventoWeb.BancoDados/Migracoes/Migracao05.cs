@@ -8,18 +8,18 @@ namespace EventoWeb.BancoDados.Migracoes
         public override void Down()
         {
             Delete
-                .Table("USUARIOS");
+                .Table("usuarios");
         }
 
         public override void Up()
         {
-            Create.Table("USUARIOS")
+            Create.Table("usuarios")
                 .WithColumn("LOGIN").AsString(150).PrimaryKey()
                 .WithColumn("NOME").AsString(100).NotNullable()
                 .WithColumn("SENHA").AsString(32).NotNullable()
                 .WithColumn("EH_ADMINISTRADOR").AsInt16().NotNullable();
             
-            Insert.IntoTable("USUARIOS").Row(
+            Insert.IntoTable("usuarios").Row(
                 new 
                 { 
                     LOGIN = "admin",

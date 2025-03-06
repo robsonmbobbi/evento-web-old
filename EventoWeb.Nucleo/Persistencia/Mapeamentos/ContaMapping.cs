@@ -8,7 +8,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public ContaMapping()
         {
-            this.Table("CONTAS");
+            this.Table("contas");
             this.Id(x => x.Id, m =>
             {
                 m.Access(Accessor.NoSetter);

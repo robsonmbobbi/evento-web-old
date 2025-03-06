@@ -41,17 +41,17 @@ namespace EventoWeb.WS.Secretaria
             });
             services.AddTransient<AServicoEmail>(provider => new ServicoEmail());
             services.AddTransient<AServicoWhatsapp>(provider => new ServicoWhatsapp());
-            services.AddTransient<GeracaoMensagemEmailRazor>();
+            //services.AddTransient<GeracaoMensagemEmailRazor>();
             services.AddTransient<GeracaoMensagemSand>();
             services.AddTransient<IList<IComunicacao>>(provider =>
             {
                 return
                 [
-                    /*new AppEmailMsgPadrao(
+                    new AppEmailMsgPadrao(
                         provider.GetService<IContexto>(), 
                         provider.GetService<AServicoEmail>(), 
-                        provider.GetService<GeracaoMensagemEmailRazor>()
-                    ),*/
+                        provider.GetService<GeracaoMensagemSand>()
+                    ),
                     new AppWhatsappMsgPadrao(
                         provider.GetService<IContexto>(),
                         provider.GetService<AServicoWhatsapp>(),

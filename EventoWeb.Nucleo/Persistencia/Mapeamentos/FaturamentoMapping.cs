@@ -8,7 +8,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public FaturamentoMapping()
         {
-            this.Table("FATURAMENTOS");
+            this.Table("faturamentos");
 
             Discriminator(d =>
             {
@@ -103,7 +103,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
                 m.Inverse(false);
                 m.Lazy(CollectionLazy.Lazy);
                 m.Key(k => k.Column("ID_FATURAMENTO"));
-                m.Table("FATURAMENTO_INSCRICOES");
+                m.Table("faturamento_inscricoes");
             }, c => c.ManyToMany(a => a.Column("ID_INSCRICAO")));
         }
     }

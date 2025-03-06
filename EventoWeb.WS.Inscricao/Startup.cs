@@ -31,22 +31,22 @@ namespace EventoWeb.WS.Inscricao
             });
             services.AddTransient<AServicoEmail>(provider => new ServicoEmail());
             services.AddTransient<AServicoWhatsapp>(provider => new ServicoWhatsapp());
-            services.AddTransient<GeracaoMensagemEmailRazor>();
+            //services.AddTransient<GeracaoMensagemEmailRazor>();
             services.AddTransient<GeracaoMensagemSand>();
             services.AddTransient<IList<IComunicacao>>(provider =>
             {
                 return
                 [
-                    new AppEmailMsgPadrao(
-                        provider.GetService<IContexto>(),
-                        provider.GetService<AServicoEmail>(),
-                        provider.GetService<GeracaoMensagemEmailRazor>()
-                    ),
                     new AppWhatsappMsgPadrao(
                         provider.GetService<IContexto>(),
                         provider.GetService<AServicoWhatsapp>(),
                         provider.GetService<GeracaoMensagemSand>()
-                    )
+                    ),
+                    new AppEmailMsgPadrao(
+                        provider.GetService<IContexto>(),
+                        provider.GetService<AServicoEmail>(),
+                        provider.GetService<GeracaoMensagemSand>()
+                    ),
                 ];
             });
             services.AddTransient<AppComunicacao>();

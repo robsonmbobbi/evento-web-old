@@ -12,7 +12,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public UsuarioMapping()
         {
-            this.Table("USUARIOS");
+            this.Table("usuarios");
             this.Id(x => x.Login, m =>
               {
                   m.Access(Accessor.Property);

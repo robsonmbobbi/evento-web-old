@@ -11,7 +11,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public PessoaComumMapping()
         {
-            this.Table("PESSOAS");
+            this.Table("pessoas");
 
             this.Discriminator(x =>
             {

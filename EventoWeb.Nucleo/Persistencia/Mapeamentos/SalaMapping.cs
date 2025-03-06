@@ -8,7 +8,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public SalaMapping()
         {
-            this.Table("SALAS_ESTUDO");
+            this.Table("salas_estudo");
             this.Id(x => x.Id, m =>
             {
                 m.Access(NHibernate.Mapping.ByCode.Accessor.NoSetter);
@@ -66,7 +66,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
                   m.Lazy(CollectionLazy.Lazy);
                   m.Access(Accessor.NoSetter);
                   m.Key(k => k.Column("ID_SALA_ESTUDO"));
-                  m.Table("SALAS_ESTUDO_PARTICIPANTES");
+                  m.Table("salas_estudo_participantes");
               }, c=> c.ManyToMany(o=> o.Column("ID_INSCRICAO")));
         }
 

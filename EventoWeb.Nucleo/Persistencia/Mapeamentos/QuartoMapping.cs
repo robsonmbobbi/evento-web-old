@@ -8,7 +8,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public QuartoMapping()
         {
-            this.Table("QUARTOS");
+            this.Table("quartos");
             this.Id(x => x.Id, m =>
             {
                 m.Access(Accessor.NoSetter);

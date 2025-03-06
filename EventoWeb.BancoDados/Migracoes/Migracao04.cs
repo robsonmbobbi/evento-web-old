@@ -8,11 +8,11 @@ namespace EventoWeb.BancoDados.Migracoes
         public override void Down()
         {
             Alter
-                .Table("EVENTOS")
+                .Table("eventos")
                 .AddColumn("TEM_OFICINAS").AsBoolean().NotNullable().WithDefaultValue(true);
 
             Update
-                .Table("EVENTOS")
+                .Table("eventos")
                 .Set(new
                 {
                     TEM_OFICINAS = 0
@@ -22,19 +22,19 @@ namespace EventoWeb.BancoDados.Migracoes
                     MODELO_DIV_OFICINAS = (int?)null
                 });
 
-            Delete.Column("MODELO_DIV_OFICINAS").FromTable("EVENTOS");
-            Delete.Column("PERMITE_ESCOLHA_DORMIR_EVENTO").FromTable("EVENTOS");
+            Delete.Column("MODELO_DIV_OFICINAS").FromTable("eventos");
+            Delete.Column("PERMITE_ESCOLHA_DORMIR_EVENTO").FromTable("eventos");
         }
 
         public override void Up()
         {
             Alter
-                .Table("EVENTOS")
+                .Table("eventos")
                 .AddColumn("MODELO_DIV_OFICINAS").AsInt16().Nullable()
                 .AddColumn("PERMITE_ESCOLHA_DORMIR_EVENTO").AsBoolean().Nullable();
 
             Update
-                .Table("EVENTOS")
+                .Table("eventos")
                 .Set(new
                 {
                     MODELO_DIV_OFICINAS = 0
@@ -45,7 +45,7 @@ namespace EventoWeb.BancoDados.Migracoes
                 });
 
             Update
-                .Table("EVENTOS")
+                .Table("eventos")
                 .Set(new
                 {
                     PERMITE_ESCOLHA_DORMIR_EVENTO = 0
@@ -55,7 +55,7 @@ namespace EventoWeb.BancoDados.Migracoes
                     TEM_DORMITORIOS = 1
                 });
 
-            Delete.Column("TEM_OFICINAS").FromTable("EVENTOS");
+            Delete.Column("TEM_OFICINAS").FromTable("eventos");
         }        
     }
 }

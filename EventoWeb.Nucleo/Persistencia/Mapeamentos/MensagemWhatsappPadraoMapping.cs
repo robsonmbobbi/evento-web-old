@@ -9,7 +9,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public MensagemWhatsappPadraoMapping()
         {
-            this.Table("MENSAGENS_WHATSAPP_PADRAO");
+            this.Table("mensagens_whatsapp_padrao");
             this.Id(x => x.Id, m =>
             {
                 m.Access(Accessor.NoSetter);

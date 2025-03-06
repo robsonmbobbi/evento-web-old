@@ -9,7 +9,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public ArquivoBinarioMapping()
         {
-            Table("ARQUIVOS_BINARIOS");
+            Table("arquivos_binarios");
             Id(x => x.Id, m =>
             {
                 m.Access(Accessor.NoSetter);

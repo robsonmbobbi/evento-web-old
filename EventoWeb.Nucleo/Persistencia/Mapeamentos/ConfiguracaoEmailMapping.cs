@@ -12,7 +12,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public ConfiguracaoEmailMapping()
         {
-            this.Table("CONFIGURACOES_EMAIL");
+            this.Table("configuracoes_email");
             this.Id(x => x.Id, m =>
             {
                 m.Access(NHibernate.Mapping.ByCode.Accessor.NoSetter);

@@ -29,37 +29,37 @@ namespace EventoWeb.BancoDados.Migracoes
         private void CriarSalasEstudoParticipantes()
         {
             Create
-                .Table("SALAS_ESTUDO_PARTICIPANTES")
+                .Table("salas_estudo_participantes")
                 .WithColumn("ID_SALA_ESTUDO").AsInt32().PrimaryKey().NotNullable()
-                    .ForeignKey("FK_SEP_SALA", "SALAS_ESTUDO", "ID_SALA_ESTUDO").OnDelete(Rule.Cascade).OnUpdate(Rule.Cascade)
+                    .ForeignKey("FK_SEP_SALA", "salas_estudo", "ID_SALA_ESTUDO").OnDelete(Rule.Cascade).OnUpdate(Rule.Cascade)
                 .WithColumn("ID_INSCRICAO").AsInt32().PrimaryKey().NotNullable()
-                    .ForeignKey("FK_SEP_INSC", "INSCRICOES", "ID_INSCRICAO").OnDelete(Rule.None).OnUpdate(Rule.Cascade);
+                    .ForeignKey("FK_SEP_INSC", "inscricoes", "ID_INSCRICAO").OnDelete(Rule.None).OnUpdate(Rule.Cascade);
         }
 
         private void CriarOficinasParticipantes()
         {
             Create
-                .Table("OFICINAS_PARTICIPANTES")
+                .Table("oficinas_participantes")
                 .WithColumn("ID_OFICINA").AsInt32().PrimaryKey().NotNullable()
-                    .ForeignKey("FK_OP_OFICINA", "OFICINAS", "ID_OFICINA").OnDelete(Rule.Cascade).OnUpdate(Rule.Cascade)
+                    .ForeignKey("FK_OP_OFICINA", "oficinas", "ID_OFICINA").OnDelete(Rule.Cascade).OnUpdate(Rule.Cascade)
                 .WithColumn("ID_INSCRICAO").AsInt32().PrimaryKey().NotNullable()
-                    .ForeignKey("FK_OP_INSC", "INSCRICOES", "ID_INSCRICAO").OnDelete(Rule.None).OnUpdate(Rule.Cascade);
+                    .ForeignKey("FK_OP_INSC", "inscricoes", "ID_INSCRICAO").OnDelete(Rule.None).OnUpdate(Rule.Cascade);
         }
 
         private void CriarQuartos()
         {
             Create
-                .Table("QUARTOS")
+                .Table("quartos")
                 .WithColumn("ID_QUARTO").AsInt32().PrimaryKey().NotNullable().Identity()
                 .WithColumn("CAPACIDADE").AsInt32().Nullable()
                 .WithColumn("EH_FAMILIA").AsBoolean().NotNullable()
                 .WithColumn("ID_EVENTO").AsInt32().NotNullable()
-                    .ForeignKey("FK_QUARTO_EVENTO", "EVENTOS", "ID_EVENTO").OnDelete(Rule.Cascade).OnUpdate(Rule.Cascade)
+                    .ForeignKey("FK_QUARTO_EVENTO", "eventos", "ID_EVENTO").OnDelete(Rule.Cascade).OnUpdate(Rule.Cascade)
                 .WithColumn("NOME").AsString(100).NotNullable()
                 .WithColumn("SEXO").AsInt16().NotNullable();
 
             Create
-                .Index("IDX_QUARTO_1").OnTable("QUARTOS")
+                .Index("IDX_QUARTO_1").OnTable("quartos")
                     .OnColumn("ID_EVENTO").Ascending()
                     .OnColumn("ID_QUARTO").Ascending();
         }
@@ -67,40 +67,40 @@ namespace EventoWeb.BancoDados.Migracoes
         private void CriarQuartosInscrito()
         {
             Create
-                .Table("QUARTOS_INSCRITOS")
+                .Table("quartos_inscritos")
                 .WithColumn("ID_QUARTO_INSCRITO").AsInt32().PrimaryKey().NotNullable().Identity()
                 .WithColumn("EH_COORDENADOR").AsBoolean().Nullable()
                 .WithColumn("ID_INSCRICAO").AsInt32().NotNullable()
-                    .ForeignKey("FK_QI_INSCRICAO", "INSCRICOES", "ID_INSCRICAO").OnDelete(Rule.None).OnUpdate(Rule.Cascade)
+                    .ForeignKey("FK_QI_INSCRICAO", "inscricoes", "ID_INSCRICAO").OnDelete(Rule.None).OnUpdate(Rule.Cascade)
                 .WithColumn("ID_QUARTO").AsInt32().NotNullable()
-                    .ForeignKey("FK_QI_QUARTO", "QUARTOS", "ID_QUARTO").OnDelete(Rule.Cascade).OnUpdate(Rule.Cascade);
+                    .ForeignKey("FK_QI_QUARTO", "quartos", "ID_QUARTO").OnDelete(Rule.Cascade).OnUpdate(Rule.Cascade);
         }
 
         private void CriarIndices()
         {
             Create
-                .Index("IDX_INSCRICAO_1").OnTable("INSCRICOES")
+                .Index("IDX_INSCRICAO_1").OnTable("inscricoes")
                     .OnColumn("ID_EVENTO").Ascending()
                     .OnColumn("ID_INSCRICAO").Ascending();
 
             Create
-                .Index("IDX_INSCRICAO_2").OnTable("INSCRICOES")
+                .Index("IDX_INSCRICAO_2").OnTable("inscricoes")
                     .OnColumn("ID_EVENTO").Ascending()
                     .OnColumn("ID_INSCRICAO").Ascending()
                     .OnColumn("SITUACAO").Ascending();
 
             Create
-                .Index("IDX_SL_ESTUDO_1").OnTable("SALAS_ESTUDO")
+                .Index("IDX_SL_ESTUDO_1").OnTable("salas_estudo")
                     .OnColumn("ID_EVENTO").Ascending()
                     .OnColumn("ID_SALA_ESTUDO").Ascending();
 
             Create
-                .Index("IDX_OFICINA_1").OnTable("OFICINAS")
+                .Index("IDX_OFICINA_1").OnTable("oficinas")
                     .OnColumn("ID_EVENTO").Ascending()
                     .OnColumn("ID_OFICINA").Ascending();
 
             Create
-                .Index("IDX_AP_SARAU_1").OnTable("APRESENTACOES_SARAU")
+                .Index("IDX_AP_SARAU_1").OnTable("apresentacoes_sarau")
                     .OnColumn("ID_EVENTO").Ascending()
                     .OnColumn("ID_APRESENTACAO_SARAU").Ascending();
         }

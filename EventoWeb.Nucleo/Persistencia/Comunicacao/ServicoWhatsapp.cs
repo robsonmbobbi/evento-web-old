@@ -30,8 +30,7 @@ namespace EventoWeb.Nucleo.Persistencia.Comunicacao
             var dadosEnviarJson = JsonConvert.SerializeObject(dadosEnviar);
             using var conteudoRequisicao = new StringContent(dadosEnviarJson, Encoding.UTF8, "application/json");
 
-            using var response = await clienteHttp.PostAsync($"api/messages/send-" +
-                $"text", conteudoRequisicao).ConfigureAwait(false);
+            using var response = await clienteHttp.PostAsync($"api/messages/send-text", conteudoRequisicao).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
     }

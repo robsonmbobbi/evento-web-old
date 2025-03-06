@@ -8,7 +8,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public AtividadeInscricaoMapping()
         {
-            this.Table("ATIVIDADES_INSCRICAO");
+            this.Table("atividades_inscricao");
 
             this.Discriminator(x =>
             {
@@ -77,7 +77,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
                 m.Lazy(CollectionLazy.NoLazy);
                 m.Index(x => x.Column("POSICAO"));
                 m.Key(k => k.Column("ID_ATIVIDADE_INSCRICAO"));
-                m.Table("OFICINAS_ESCOLHIDAS");
+                m.Table("oficinas_escolhidas");
             }, c => c.ManyToMany(a => a.Column("ID_OFICINA")));
         }
     }
@@ -146,7 +146,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
                 m.Lazy(CollectionLazy.NoLazy);
                 m.Index(x => x.Column("POSICAO"));
                 m.Key(k => k.Column("ID_ATIVIDADE_INSCRICAO"));
-                m.Table("SALAS_ESTUDO_ESCOLHIDAS");
+                m.Table("salas_estudo_escolhidas");
             }, c => c.ManyToMany(a => a.Column("ID_SALA_ESTUDO")));
         }
     }

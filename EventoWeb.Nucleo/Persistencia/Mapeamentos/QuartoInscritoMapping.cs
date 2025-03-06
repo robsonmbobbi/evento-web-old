@@ -11,7 +11,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public QuartoInscritoMapping()
         {
-            this.Table("QUARTOS_INSCRITOS");
+            this.Table("quartos_inscritos");
             this.Id(x => x.Id, m =>
             {
                 m.Access(Accessor.NoSetter);

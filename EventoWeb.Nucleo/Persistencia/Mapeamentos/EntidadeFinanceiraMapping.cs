@@ -11,7 +11,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public EntidadeFinanceiraMapping()
         {
-            this.Table("ENTIDADES_FINANCEIRAS");
+            this.Table("entidades_financeiras");
 
             Discriminator(d =>
             {

@@ -9,7 +9,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public ContratoInscricaoMapping()
         {
-            this.Table("CONTRATOS_INSCRICAO");
+            this.Table("contratos_inscricao");
             this.Id(x => x.Id, m =>
               {
                   m.Access(Accessor.NoSetter);

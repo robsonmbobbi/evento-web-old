@@ -11,7 +11,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public ApresentacaoSarauMapping()
         {
-            this.Table("APRESENTACOES_SARAU");
+            this.Table("apresentacoes_sarau");
             this.Id(x => x.Id, m =>
             {
                 m.Access(Accessor.NoSetter);
@@ -51,7 +51,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
                 m.Inverse(false);
                 m.Lazy(CollectionLazy.NoLazy);
                 m.Access(Accessor.NoSetter);
-                m.Table("APRESENTACOES_SARAU_INSCRITOS");
+                m.Table("apresentacoes_sarau_inscritos");
                 m.Key(k => k.Column("ID_APRESENTACAO_SARAU"));
             }, c => c.ManyToMany(a => a.Column("ID_INSCRICAO")));            
         }
