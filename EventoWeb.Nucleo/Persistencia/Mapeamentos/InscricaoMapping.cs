@@ -179,7 +179,7 @@ namespace EventoWeb.Nucleo.Persistencia.Mapeamentos
     {
         public ComprovantePagamentoMapping()
         {
-            Table("PAGAMENTO_INSCRICAO_COMPROVANTES");            
+            Table("pagamento_inscricao_comprovantes");            
 
             Id(x => x.Id, m =>
             {
