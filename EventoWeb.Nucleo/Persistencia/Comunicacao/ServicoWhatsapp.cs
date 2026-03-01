@@ -34,4 +34,55 @@ namespace EventoWeb.Nucleo.Persistencia.Comunicacao
             response.EnsureSuccessStatusCode();
         }
     }
+
+    public class ServicoWhatsappEvolution : AServicoWhatsapp
+    {
+        public override async Task Enviar(string destinatario, string mensagem)
+        {
+            if (Configuracao == null)
+                throw new ExcecaoNegocio(nameof(ServicoWhatsapp), "Configuração de whatsapp precisa ser informada.");
+
+            using var clienteHttp = new HttpClient() { BaseAddress = new Uri(Configuracao.HostApi) };
+            clienteHttp.DefaultRequestHeaders.Accept.Clear();
+            clienteHttp.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            clienteHttp.DefaultRequestHeaders.Add("apikey", Configuracao.ChaveApi);
+
+            var dadosEnviar = new
+            {
+                number = destinatario,
+                text = mensagem
+            };
+
+            var dadosEnviarJson = JsonConvert.SerializeObject(dadosEnviar);
+            using var conteudoRequisicao = new StringContent(dadosEnviarJson, Encoding.UTF8, "application/json");
+
+            using var response = await clienteHttp.PostAsync($"message/sendText/ceomg", conteudoRequisicao).ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task EnviarMidiaPDF(string destinatario, string arquivo, string base64)
+        {
+            if (Configuracao == null)
+                throw new ExcecaoNegocio(nameof(ServicoWhatsapp), "Configuração de whatsapp precisa ser informada.");
+
+            using var clienteHttp = new HttpClient() { BaseAddress = new Uri(Configuracao.HostApi) };
+            clienteHttp.DefaultRequestHeaders.Accept.Clear();
+            clienteHttp.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            clienteHttp.DefaultRequestHeaders.Add("apikey", Configuracao.ChaveApi);
+
+            var dadosEnviar = new
+            {
+                number = destinatario,
+                mediatype = "document",
+                fileName = arquivo,
+                media=base64
+            };
+
+            var dadosEnviarJson = JsonConvert.SerializeObject(dadosEnviar);
+            using var conteudoRequisicao = new StringContent(dadosEnviarJson, Encoding.UTF8, "application/json");
+
+            using var response = await clienteHttp.PostAsync($"message/sendMedia/ceomg", conteudoRequisicao).ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+        }
+    }
 }

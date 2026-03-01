@@ -10,3 +10,5 @@ export class CrachaInscrito {
   public Departamento: string = "";
 }
 
+export enum EnumFiltroCracha {ParticipantesEPartTrab, ParticipantesEPartTrabETrabalhadores}
+

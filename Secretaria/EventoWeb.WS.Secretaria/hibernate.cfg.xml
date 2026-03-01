@@ -9,8 +9,8 @@
       Server=localhost;database=w5cre11;user id=postgres;password=senha
     </property>-->
     <property name="connection.connection_string">
-      Server=localhost;Database=eventoweb;User ID=root;Password=root;SslMode=none;AllowPublicKeyRetrieval=true
-    </property>
+		Server=eventoweb.cpe0ig6kyn3v.sa-east-1.rds.amazonaws.com;Database=eventoweb;User ID=cre;Password=Cre-dados180!+;SslMode=none;AllowPublicKeyRetrieval=true
+	</property>
     <property name="connection.driver_class">NHibernate.Driver.MySqlDataDriver</property>
 
     <!--<property name="current_session_context_class">web</property>-->

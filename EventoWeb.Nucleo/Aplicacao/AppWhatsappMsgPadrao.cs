@@ -135,7 +135,7 @@ namespace EventoWeb.Nucleo.Aplicacao
         }
     }
 
-    internal static class MetodosExtensaoWhatsApp
+    public static class MetodosExtensaoWhatsApp
     {
         public static string FormatarCelular(this string celular)
         {

@@ -4,6 +4,12 @@
     <span class="{{iconeFontAwesome}}" style="margin-right:10px"></span>
     <span class="cursor-pointer sistema">{{tituloTela}}</span>
     <span style="flex: 1 1 auto;"></span>
+    <dx-radio-group [items]="filtros"
+                    [(value)]="filtroEscolhido"
+                    layout="horizontal"
+                    ngClass="rd-filtro"
+                    style="margin-right: 5px">
+    </dx-radio-group>
     <button mat-raised-button (click)="clicarAtualizar()">Atualizar</button>
     <button mat-raised-button  style="margin-left:10px" [disabled]="inscricoesSelecionadas.length == 0" (click)="clicarGerar()">Gerar</button>
   </mat-toolbar>

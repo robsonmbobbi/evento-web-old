@@ -24,6 +24,8 @@ namespace EventoWeb.WS.Inscricao
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLettuceEncrypt();
+            
             services.AddSingleton(new ConfiguracaoNHibernate().GerarFabricaSessao());
             services.AddScoped<IContexto>((provider) => {
                 var factory = provider.GetService<ISessionFactory>();

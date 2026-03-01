@@ -9,12 +9,12 @@ namespace EventoWeb.Nucleo.Aplicacao
         {
         }
 
-        public IList<CrachaInscrito> Listar(int idEvento)
+        public IList<CrachaInscrito> Listar(int idEvento, EnumFiltroCracha filtro)
         {
             IList<CrachaInscrito> lista = new List<CrachaInscrito>();
             ExecutarSeguramente(() =>
             {
-                lista = Contexto.RepositorioInscricoes.ListarCrachasInscritosPorEvento(idEvento);
+                lista = Contexto.RepositorioInscricoes.ListarCrachasInscritosPorEvento(idEvento, filtro);
             });
 
             return lista;

@@ -140,9 +140,9 @@ namespace EventoWeb.Nucleo.Persistencia.Repositorios
                 .List();
         }
 
-        public IList<CrachaInscrito> ListarCrachasInscritosPorEvento(int idEvento)
+        public IList<CrachaInscrito> ListarCrachasInscritosPorEvento(int idEvento, EnumFiltroCracha filtro)
         {
-            Inscricao aliasInscricao = null;
+            InscricaoParticipante aliasInscricao = null;
             CrachaInscrito aliasCracha = null;
             Pessoa aliasPessoa = null;
             Oficina aliasAfrac = null;
@@ -210,22 +210,28 @@ namespace EventoWeb.Nucleo.Persistencia.Repositorios
                         .Select(i=>i.DepartamentoEscolhido.Id))))
                 .Select(x => x.Nome);
 
-            return mSessao.QueryOver<Inscricao>(() => aliasInscricao)
-                .Where(x=>x.Evento.Id == idEvento)
-                .JoinQueryOver(x => x.Pessoa, () => aliasPessoa)
-                .Where(x=>x.DataNascimento <= new DateTime(2009, 04, 17))
-                .SelectList(lista => lista
-                    .Select(() => aliasInscricao.Id).WithAlias(() => aliasCracha.Id)
-                    .SelectSubQuery(subConsultaAfrac).WithAlias(() => aliasCracha.Afrac)
-                    .SelectSubQuery(subConsultaSalaEstudo).WithAlias(() => aliasCracha.SalaEstudo)
-                    .SelectSubQuery(subConsultaQuarto).WithAlias(() => aliasCracha.Quarto)
-                    .SelectSubQuery(subConsultaDepartamento).WithAlias(() => aliasCracha.Departamento)
-                    .Select(() => aliasPessoa.Nome).WithAlias(() => aliasCracha.Nome)
-                    .Select(() => aliasInscricao.NomeCracha).WithAlias(() => aliasCracha.NomeConhecido)
-                    .Select(() => aliasPessoa.Endereco.Cidade).WithAlias(() => aliasCracha.Cidade)
-                    .Select(() => aliasPessoa.Endereco.UF).WithAlias(() => aliasCracha.UF))
-                .TransformUsing(Transformers.AliasToBean<CrachaInscrito>())
-                .List<CrachaInscrito>();
+            var query = mSessao.QueryOver<InscricaoParticipante>(() => aliasInscricao)
+                .Where(x => x.Evento.Id == idEvento);
+            if (filtro == EnumFiltroCracha.ParticipantesEPartTrab)
+            {
+                query.Where(x=> x.Tipo == EnumTipoParticipante.Participante ||
+                     x.Tipo == EnumTipoParticipante.ParticipanteTrabalhador);
+            }
+
+            return query
+            .JoinQueryOver(x => x.Pessoa, () => aliasPessoa)
+            .SelectList(lista => lista
+                .Select(() => aliasInscricao.Id).WithAlias(() => aliasCracha.Id)
+                .SelectSubQuery(subConsultaAfrac).WithAlias(() => aliasCracha.Afrac)
+                .SelectSubQuery(subConsultaSalaEstudo).WithAlias(() => aliasCracha.SalaEstudo)
+                .SelectSubQuery(subConsultaQuarto).WithAlias(() => aliasCracha.Quarto)
+                .SelectSubQuery(subConsultaDepartamento).WithAlias(() => aliasCracha.Departamento)
+                .Select(() => aliasPessoa.Nome).WithAlias(() => aliasCracha.Nome)
+                .Select(() => aliasInscricao.NomeCracha).WithAlias(() => aliasCracha.NomeConhecido)
+                .Select(() => aliasPessoa.Endereco.Cidade).WithAlias(() => aliasCracha.Cidade)
+                .Select(() => aliasPessoa.Endereco.UF).WithAlias(() => aliasCracha.UF))
+            .TransformUsing(Transformers.AliasToBean<CrachaInscrito>())
+            .List<CrachaInscrito>();
         }
 
         public IList<Inscricao> ListarInscricoesPorEvento(int idEvento, EnumTipoBuscaInscricao tipoBusca)

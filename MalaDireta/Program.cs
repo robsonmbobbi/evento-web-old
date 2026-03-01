@@ -1,16 +1,31 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using EventoWeb.Nucleo.Aplicacao.Comunicacao;
 using EventoWeb.Nucleo.Persistencia;
-using EventoWeb.Nucleo.Persistencia.Comunicacao;
+using MalaDireta;
+
+var anexos = new List<AnexoEmail>()
+{
+    new("Mensagem Psicografada de Marco Prisco - CEOMG 2025.pdf", Convert.ToBase64String(File.ReadAllBytes("D:\\Mensagem Psicografada de Marco Prisco - CEOMG 2025.pdf"))),
+    new("Mensagem Evangelização CEOMG 2025.pdf", Convert.ToBase64String(File.ReadAllBytes("D:\\Mensagem Evangelização CEOMG 2025.pdf"))),
+    //new("Caderninho.pdf", Convert.ToBase64String(File.ReadAllBytes("D:\\Caderninho.pdf"))),
+};
 
 var sessionFactory = new ConfiguracaoNHibernate().GerarFabricaSessao();
-var contexto = new Contexto(sessionFactory.OpenSession());
+
+Task.WhenAll(
+    [
+        //new EnvioEmail(sessionFactory).Enviar(14, anexos),
+        new EnvioWhatsApp(sessionFactory).Enviar(14, anexos)
+    ]
+).Wait();
+
+/*var contexto = new Contexto(sessionFactory.OpenSession());
 
 contexto.IniciarTransacao();
 try
 {
     var confEmail = contexto.RepositorioConfiguracoesEmail.Obter(13);
-    var inscricoes = contexto.RepositorioInscricoes.ListarTodasPorEventoESituacao(13, EventoWeb.Nucleo.Negocio.Entidades.EnumSituacaoInscricao.Aceita);
+    var inscricoes = contexto.RepositorioInscricoes.ListarTodasPorEventoESituacao(14, EventoWeb.Nucleo.Negocio.Entidades.EnumSituacaoInscricao.Aceita);
 
     var base64Cardapio = Convert.ToBase64String(File.ReadAllBytes("D:\\Cardapio.pdf"));
     var base64Cronograma = Convert.ToBase64String(File.ReadAllBytes("D:\\Cronograma.pdf"));
@@ -46,7 +61,7 @@ catch(Exception ex)
 {
     contexto.CancelarTransacao();
     Console.WriteLine(ex.Message);
-}
+}*/
 
 Console.WriteLine("Terminado. Aperte qualquer tecla para fechar o programa");
 Console.ReadLine();

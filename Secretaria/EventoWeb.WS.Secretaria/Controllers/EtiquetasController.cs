@@ -24,10 +24,10 @@ namespace EventoWeb.WS.Secretaria.Controllers
         }
 
         [Authorize("Bearer")]
-        [HttpGet("evento/{idEvento}/listagem")]
-        public IList<CrachaInscrito> Listar(int idEvento)
+        [HttpGet("evento/{idEvento}/listagem/filtro/{filtro}")]
+        public IList<CrachaInscrito> Listar(int idEvento, EnumFiltroCracha filtro)
         {
-            return mAppListagem.Listar(idEvento);
+            return mAppListagem.Listar(idEvento, filtro);
         }
 
         [Authorize("Bearer")]

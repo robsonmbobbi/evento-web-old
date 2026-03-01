@@ -19,6 +19,7 @@ namespace EventoWeb.Nucleo.Negocio.Repositorios
         public String Departamento { get; set; }
     }
 
+    public enum EnumFiltroCracha { ParticipantesEPartTrab, ParticipantesEPartTrabETrabalhadores }
     public interface AInscricoes : IPersistencia<Inscricao>
     {
         IList<Inscricao> ListarInscricoesPorEvento(int idEvento, EnumTipoBuscaInscricao tipoBusca);
@@ -38,7 +39,7 @@ namespace EventoWeb.Nucleo.Negocio.Repositorios
         Inscricao ObterInscricaoVinculadaTitulo(int idTitulo);
         IList<Inscricao> ListarInscricoesDaPessoaComEvento(int idPessoa);
 
-        IList<CrachaInscrito> ListarCrachasInscritosPorEvento(int idEvento);
+        IList<CrachaInscrito> ListarCrachasInscritosPorEvento(int idEvento, EnumFiltroCracha filtro);
         Inscricao ObterInscricaoPeloId(int id);
         IList<Inscricao> ListarTodasPorEventoESituacao(int idEvento, EnumSituacaoInscricao situacao);
     }
